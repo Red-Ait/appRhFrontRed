@@ -1,0 +1,207 @@
+<app-navbar></app-navbar>
+<div class="wrapper" >
+  <div class="container" >
+    <div class="row">
+      <app-sidebar></app-sidebar>
+      <!--/.span3-->
+      <div class="span9" >
+        <div class="content">
+
+          <div class="module">
+            <div class="module-head">
+              <h3>DataTables</h3>
+              <div class="module-body" >
+                <a class="btn btn-inverse" style="margin-top: 5px" data-toggle="modal" data-target="#myModal">Ajouter nouveau</a>
+                <div class="dropdown" style="width: 20%;">
+                  <button class="btn btn-default " class="dropdown-toggle" data-toggle="dropdown">
+                    <img src="../../assets/settings.png" style="height: 20px;" alt="">
+                  </button>
+                  <ul class="dropdown-menu" style="overflow-y: scroll; height: 180px ;">
+                    <li style="padding: 5px;">
+                      <div class="checkbox">
+                        <label><input type="checkbox" (change)="choseColon('id')" [checked]="colon.id">Id</label>
+                      </div>
+                    </li>
+                    <li style="padding: 5px;">
+                      <div class="checkbox">
+                        <label><input type="checkbox" (change)="choseColon('categorie')" [checked]="colon.categorie">Categorie</label>
+                      </div>
+                    </li>
+                    <li style="padding: 5px;">
+                      <div class="checkbox">
+                        <label><input type="checkbox" (change)="choseColon('cin')" [checked]="colon.cin">CIN</label>
+                      </div>
+                    </li>
+                    <li style="padding: 5px;">
+                      <div class="checkbox">
+                        <label><input type="checkbox" (change)="choseColon('civilite')" [checked]="colon.civilite">Civilite</label>
+                      </div>
+                    </li>
+                    <li style="padding: 5px;">
+                      <div class="checkbox">
+                        <label><input type="checkbox" (change)="choseColon('compteActive')" [checked]="colon.compteActive">Compte active</label>
+                      </div>
+                    </li>
+                    <li style="padding: 5px;">
+                      <div class="checkbox">
+                        <label><input type="checkbox" (change)="choseColon('dateNaissance')" [checked]="colon.dateNaissance">Date de naissance</label>
+                      </div>
+                    </li>
+                    <li style="padding: 5px;">
+                      <div class="checkbox">
+                        <label><input type="checkbox" (change)="choseColon('matricule')" [checked]="colon.matricule">Matricule</label>
+                      </div>
+                    </li>
+                    <li style="padding: 5px;">
+                      <div class="checkbox">
+                        <label><input type="checkbox" (change)="choseColon('niveauScolaire1')" [checked]="colon.niveauScolaire1">Niveau scolaire</label>
+                      </div>
+                    </li>
+                    <li style="padding: 5px;">
+                      <div class="checkbox">
+                        <label><input type="checkbox" (change)="choseColon('nom')" [checked]="colon.nom">Nom</label>
+                      </div>
+                    </li>
+                    <li style="padding: 5px;">
+                      <div class="checkbox">
+                        <label><input type="checkbox" (change)="choseColon('numCIMR')" [checked]="colon.numCIMR">Numéro CIMR</label>
+                      </div>
+                    </li>
+                    <li style="padding: 5px;">
+                      <div class="checkbox">
+                        <label><input type="checkbox" (change)="choseColon('numCNSS')" [checked]="colon.numCNSS">Numéro CNSS</label>
+                      </div>
+                    </li>
+                    <li style="padding: 5px;">
+                      <div class="checkbox">
+                        <label><input type="checkbox" (change)="choseColon('numMutuelle')" [checked]="colon.numMutuelle">Numéro Mutuelle</label>
+                      </div>
+                    </li>
+                    <li style="padding: 5px;">
+                      <div class="checkbox">
+                        <label><input type="checkbox" (change)="choseColon('permisConduire')" [checked]="colon.permisConduire">Permis de conduire</label>
+                      </div>
+                    </li>
+                    <li style="padding: 5px;">
+                      <div class="checkbox">
+                        <label><input type="checkbox" (change)="choseColon('prenom')" [checked]="colon.prenom">Prénom</label>
+                      </div>
+                    </li>
+                    <li style="padding: 5px;">
+                      <div class="checkbox">
+                        <label><input type="checkbox" (change)="choseColon('sexe')" [checked]="colon.sexe">Sexe</label>
+                      </div>
+                    </li>
+                    <li style="padding: 5px;">
+                      <div class="checkbox">
+                        <label><input type="checkbox" (change)="choseColon('situationFamiliale')" [checked]="colon.situationFamiliale">Situation familiale</label>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="module-body table">
+              <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper" role="grid">
+                <div id="DataTables_Table_0_length" class="dataTables_length">
+                  <label>
+                    Show
+                    <select (change)="changeNbC()" [(ngModel)]="nbCollaborateur" size="1" name="DataTables_Table_0_length" aria-controls="DataTables_Table_0">
+                      <option [value]="10">10</option>
+                      <option [value]="25">25</option>
+                      <option [value]="50">50</option>
+                      <option [value]="100">100</option>
+                    </select>
+                    entries
+                  </label>
+                </div>
+
+
+                <div class="dataTables_filter" id="DataTables_Table_0_filter">
+                  <label>
+                    Search:
+                    <input type="text" [(ngModel)]="searchInput" (ngModelChange)="search()" aria-controls="DataTables_Table_0">
+                  </label>
+                </div>
+                <br>
+                <table cellpadding="0" cellspacing="0" border="0" class="table table-bordered table-striped  display dataTable" width="100%" id="DataTables_Table_0" aria-describedby="DataTables_Table_0_info" style="width: 100%;">
+                <thead>
+                <tr role="row">
+                  <th class="sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"  *ngIf="colon.id">#</th>
+                  <th class="sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"  *ngIf="colon.nom">Nom</th>
+                  <th class="sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"  *ngIf="colon.prenom">Prénom</th>
+                  <th class="sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"  *ngIf="colon.categorie">Categorie</th>
+                  <th class="sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"  *ngIf="colon.cin">CIN</th>
+                  <th class="sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"  *ngIf="colon.civilite">Civilite</th>
+                  <th class="sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"  *ngIf="colon.compteActive">Compte active</th>
+                  <th class="sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"  *ngIf="colon.dateNaissance">Date de naissance</th>
+                  <th class="sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"  *ngIf="colon.matricule">Matricule</th>
+                  <th class="sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"  *ngIf="colon.niveauScolaire1">Niveau scolaire</th>
+                  <th class="sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"  *ngIf="colon.numCIMR">Numéro CIMR</th>
+                  <th class="sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"  *ngIf="colon.numCNSS">Numéro CNSS</th>
+                  <th class="sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"  *ngIf="colon.numMutuelle">Numéro Mutuelle</th>
+                  <th class="sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"  *ngIf="colon.permisConduire">Permis de conduire</th>
+                  <th class="sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"  *ngIf="colon.sexe">Sexe</th>
+                  <th class="sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"  *ngIf="colon.situationFamiliale">Situation familiale</th>
+                  <th class="sorting" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"  ></th>
+                </tr>
+                </thead>
+
+                <tbody role="alert" aria-live="polite" aria-relevant="all">
+                <tr *ngFor="let t of collaborateur" >
+                  <td class="center " *ngIf="colon.id">{{t.id}}</td>
+                  <td style="text-align: left" *ngIf="colon.nom">{{t.nom}}</td>
+                  <td *ngIf="colon.prenom">{{t.prenom}}</td>
+                  <td *ngIf="colon.categorie">{{t.categorie}}</td>
+                  <td *ngIf="colon.cin">{{t.cin}}</td>
+                  <td *ngIf="colon.civilite">{{t.civilite}}</td>
+                  <td *ngIf="colon.compteActive">{{t.compteActive}}</td>
+                  <td *ngIf="colon.dateNaissance">{{t.dateNaissance |date:  'dd/MM/yyyy'}}</td>
+                  <td *ngIf="colon.matricule">{{t.matricule}}</td>
+                  <td *ngIf="colon.niveauScolaire1">{{t.niveauScolaire1}}</td>
+                  <td *ngIf="colon.numCIMR">{{t.numCIMR}}</td>
+                  <td *ngIf="colon.numCNSS">{{t.numCNSS}}</td>
+                  <td *ngIf="colon.numMutuelle">{{t.numMutuelle}}</td>
+                  <td *ngIf="colon.permisConduire">{{t.permisConduire}}</td>
+                  <td *ngIf="colon.sexe">{{t.sexe}}</td>
+                  <td *ngIf="colon.situationFamiliale">{{t.situationFamiliale}}</td>
+                  <td>
+                    <button class="btn" routerLink="/profil-collaborateur/{{t.id}}">
+                      <img src="../../assets/eye.png" style="width: 20px;" alt="">
+                    </button>
+                    <button class="btn">
+                      <img src="../../assets/trash.png" style="width: 20px;" alt="">
+                    </button>
+                  </td>
+                </tr>
+                </tbody>
+                </table>
+                <div class="dataTables_info" id="DataTables_Table_0_info">
+                </div>
+                <div class="dataTables_paginate paging_two_button btn-group datatable-pagination" id="DataTables_Table_0_paginate">
+                  <a *ngIf="page > 0" (click)="move(1)" class="paginate_enabled_next" tabindex="0" role="button" id="DataTables_Table_0_previous" aria-controls="DataTables_Table_0">
+                    <span>Previous</span>
+                    <i class="icon-chevron-left shaded"></i>
+                  </a>
+                  <a *ngIf="page === 0" class="paginate_disabled_previous" tabindex="0" role="button" id="DataTables_Table_0_previous" aria-controls="DataTables_Table_0">
+                    <span>Previous</span>
+                    <i class="icon-chevron-left shaded"></i>
+                  </a>
+                  <a *ngIf="page === nbPageTotal - 1" class="paginate_disabled_previous" tabindex="0" role="button" id="DataTables_Table_0_next" aria-controls="DataTables_Table_0">
+                    <span>Next</span>
+                    <i class="icon-chevron-right shaded"></i>
+                  </a>
+                  <a *ngIf="page < nbPageTotal - 1 && nbPageTotal !== 0" (click)="move(2)" class="paginate_enabled_next" tabindex="0" role="button" id="DataTables_Table_0_next" aria-controls="DataTables_Table_0">
+                    <span>Next</span>
+                    <i class="icon-chevron-right shaded"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

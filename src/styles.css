@@ -1,0 +1,10 @@
+.arab{
+  direction: rtl;
+  text-align: right;
+}
+table td,th {
+    text-align: right !important;
+}
+ button{
+  float: right;
+}

@@ -1,0 +1,43 @@
+import { HomeComponent } from './home/home.component';
+
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
+import {TypeActiviteComponent} from "./type-activite/type-activite.component";
+import {TypeAdresseComponent} from "./type-adresse/type-adresse.component";
+import {TypeAttestationComponent} from "./type-attestation/type-attestation.component";
+import {TypeContratComponent} from "./type-contrat/type-contrat.component";
+import {TypeDepartementComponent} from "./type-departement/type-departement.component";
+import {TypeDocumentComponent} from "./type-document/type-document.component";
+import {TypeEmailComponent} from "./type-email/type-email.component";
+import {TypePeriodeDepartementComponent} from "./type-periode-departement/type-periode-departement.component";
+import { TypeProcheComponent } from './type-proche/type-proche.component';
+import {TypeReseauSocialComponent} from "./type-reseau-social/type-reseau-social.component";
+import {TypeSalaireComponent} from "./type-salaire/type-salaire.component";
+import {TypeTelephoneComponent} from "./type-telephone/type-telephone.component";
+import {CollaborateurComponent} from "./collaborateur/collaborateur.component";
+import {ProfilCollaborateurComponent} from "./profil-collaborateur/profil-collaborateur.component";
+
+const routes: Routes = [
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  {path: 'home', component: HomeComponent},
+  {path: 'type-activite', component: TypeActiviteComponent},
+  {path: 'type-adresse', component: TypeAdresseComponent},
+  {path: 'type-attestation', component: TypeAttestationComponent},
+  {path: 'type-contrat', component: TypeContratComponent},
+  {path: 'type-departement', component: TypeDepartementComponent},
+  {path: 'type-document', component: TypeDocumentComponent},
+  {path: 'type-email', component: TypeEmailComponent},
+  {path: 'type-periode-departement', component: TypePeriodeDepartementComponent},
+  {path: 'type-proche', component: TypeProcheComponent},
+  {path: 'type-reseau-social', component: TypeReseauSocialComponent},
+  {path: 'type-salaire', component: TypeSalaireComponent},
+  {path: 'type-telephone', component: TypeTelephoneComponent},
+  {path: 'collaborateur', component: CollaborateurComponent},
+  {path: 'profil-collaborateur/:id', component: ProfilCollaborateurComponent}
+];
+
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }

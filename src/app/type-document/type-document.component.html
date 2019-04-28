@@ -1,0 +1,72 @@
+<app-navbar></app-navbar>
+<div class="modal fade" id="myModal" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Ajouter un nouveau type document</h4>
+      </div>
+      <div class="modal-body" *ngIf="addOk">
+        <h3>Type bien ajouté !</h3>
+      </div>
+      <div class="modal-body" *ngIf="!addOk">
+        <div class="form-group">
+          <label for="nom">Nom:</label>
+          <input type="text" class="form-control" placeholder="Nom" [(ngModel)]="newTypeDocument.nom" style="width: 90%;" id="nom">
+        </div>
+        <div class="form-group">
+          <label for="desc">Description:</label>
+          <textarea class="form-control" style="width: 90%; resize: none" placeholder="Description"  [(ngModel)]="newTypeDocument.description" id="desc"></textarea>
+        </div>      </div>
+      <div class="modal-footer">
+        <button type="button" *ngIf="!addOk" class="btn btn-success"  (click)="addTypeDocument()" style="margin-right: 15px">Valider</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="addOk = false">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+<div class="wrapper" >
+  <div class="container" >
+    <div class="row">
+      <app-sidebar></app-sidebar>
+      <!--/.span3-->
+      <div class="span9" >
+        <div class="content">
+
+          <div class="module">
+            <div class="module-head">
+              <h3>Gestion des Types document</h3>
+              <a class="btn btn-inverse" style="margin-top: 5px" data-toggle="modal" data-target="#myModal">Ajouter nouveau</a>
+            </div>
+            <div class="module-body">
+              <table class="table">
+
+                <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Nom</th>
+                  <th>Description</th>
+                  <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let t of typesDocument">
+                  <td>{{t.id}}</td>
+                  <td>{{t.nom}}</td>
+                  <td>{{t.description}}</td>
+                  <td>
+                    <button class="btn btn-danger">X</button>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
