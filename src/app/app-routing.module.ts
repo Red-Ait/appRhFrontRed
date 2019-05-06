@@ -16,6 +16,19 @@ import {TypeSalaireComponent} from "./type-salaire/type-salaire.component";
 import {TypeTelephoneComponent} from "./type-telephone/type-telephone.component";
 import {CollaborateurComponent} from "./collaborateur/collaborateur.component";
 import {ProfilCollaborateurComponent} from "./profil-collaborateur/profil-collaborateur.component";
+import {AddCollaborateurComponent} from "./add-collaborateur/add-collaborateur.component";
+import {CategorieComponent} from "./categorie/categorie.component";
+import {NiveauScolaireContactComponent} from "./niveau-scolaire-contact/niveau-scolaire-contact.component";
+import {GroupeComponent} from "./groupe/groupe.component";
+import {LangueComponent} from "./langue/langue.component";
+import {NiveauLangueComponent} from "./niveau-langue/niveau-langue.component";
+import {DelivreParComponent} from "./delivre-par/delivre-par.component";
+import {VilleComponent} from "./ville/ville.component";
+import {FonctionComponent} from "./fonction/fonction.component";
+import {MotifDepartComponent} from "./motif-depart/motif-depart.component";
+import {MotifEntreeComponent} from "./motif-entree/motif-entree.component";
+import {StatusProfessionnelComponent} from "./status-professionnel/status-professionnel.component";
+import {BanqueComponent} from "./banque/banque.component";
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -33,7 +46,21 @@ const routes: Routes = [
   {path: 'type-salaire', component: TypeSalaireComponent},
   {path: 'type-telephone', component: TypeTelephoneComponent},
   {path: 'collaborateur', component: CollaborateurComponent},
-  {path: 'profil-collaborateur/:id', component: ProfilCollaborateurComponent}
+  {path: 'add-collaborateur', component: AddCollaborateurComponent},
+  {path: 'profil-collaborateur/:id', component: ProfilCollaborateurComponent},
+  {path: 'categorie', component: CategorieComponent},
+  {path: 'niveauScolaireContact', component: NiveauScolaireContactComponent},
+  {path: 'langue', component: LangueComponent},
+  {path: 'niveauLangue', component: NiveauLangueComponent},
+  {path: 'delivrePar', component: DelivreParComponent},
+  {path: 'ville', component: VilleComponent},
+  {path: 'fonction', component: FonctionComponent},
+  {path: 'motifDepart', component: MotifDepartComponent},
+  {path: 'motifEntree', component: MotifEntreeComponent},
+  {path: 'statusProfessionnel', component: StatusProfessionnelComponent},
+  {path: 'banque', component: BanqueComponent},
+  {path: 'groupe', component: GroupeComponent}
+
 ];
 
 @NgModule({

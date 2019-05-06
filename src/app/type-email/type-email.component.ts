@@ -11,7 +11,8 @@ export class TypeEmailComponent implements OnInit {
 
   newTypeEmail = {
     nom: '',
-    description: ''
+    description: '',
+    id: null
   };
   addOk = false;
   typesEmail: any = null;
@@ -22,15 +23,31 @@ export class TypeEmailComponent implements OnInit {
       this.typesEmail = resp;
     })
   }
+  initEdit(t) {
+    this.newTypeEmail = t;
+  }
+  initAdd() {
+    this.newTypeEmail = {
+      nom: '',
+      description: '',
+      id: null
+    };
+  }
   addTypeEmail() {
     console.log(this.newTypeEmail);
     if (this.newTypeEmail.nom !== '' && this.newTypeEmail.description !== '') {
       this.typeEmailService.addTypeEmail(this.newTypeEmail).subscribe(resp => {
-        this.typesEmail.push(resp);
-        this.addOk = true;
+        if (this.newTypeEmail.id === null) {
+          this.typesEmail.push(resp);
+          this.addOk = true;
+        } else {
+          this.addOk = true;
+          this.ngOnInit();
+        }
         console.log(resp);
         this.newTypeEmail.description = '';
         this.newTypeEmail.nom = '';
+        this.newTypeEmail.id = null;
       })
     }
   }

@@ -28,4 +28,8 @@ export class CollaborateurService {
     return this.http.get(this.apiUrl + '/collaborateur/search?q=' + q + '&page=' + page + '&size=' + size)
       .pipe(map(resp => resp));
   }
+  updateCollaborateur(collaborateur: any) {
+    return this.http.post(this.apiUrl + '/collaborateur/updateCollaborateur', collaborateur)
+      .pipe(map(resp => resp));
+  }
 }

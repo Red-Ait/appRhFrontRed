@@ -11,7 +11,8 @@ export class TypeDocumentComponent implements OnInit {
 
   newTypeDocument = {
     nom: '',
-    description: ''
+    description: '',
+    id: null
   };
   addOk = false;
   typesDocument: any = null;
@@ -22,15 +23,31 @@ export class TypeDocumentComponent implements OnInit {
       this.typesDocument = resp;
     })
   }
+  initEdit(t) {
+    this.newTypeDocument = t;
+  }
+  initAdd() {
+    this.newTypeDocument = {
+      nom: '',
+      description: '',
+      id: null
+    };
+  }
   addTypeDocument() {
     console.log(this.newTypeDocument);
     if (this.newTypeDocument.nom !== '' && this.newTypeDocument.description !== '') {
       this.typeDocumentService.addTypeDocument(this.newTypeDocument).subscribe(resp => {
-        this.typesDocument.push(resp);
-        this.addOk = true;
+        if (this.newTypeDocument.id === null) {
+          this.typesDocument.push(resp);
+          this.addOk = true;
+        } else {
+          this.addOk = true;
+          this.ngOnInit();
+        }
         console.log(resp);
         this.newTypeDocument.description = '';
         this.newTypeDocument.nom = '';
+        this.newTypeDocument.id = null;
       })
     }
   }

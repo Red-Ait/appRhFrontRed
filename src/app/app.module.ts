@@ -50,6 +50,33 @@ import {MotifDepartService} from "../service/MotifDepartService";
 import {MotifEntreeService} from "../service/MotifEntreeService";
 import {RumenirationService} from "../service/RumenirationService";
 import {StatusProfessionnelService} from "../service/StatusProfessionnelService";
+import {BanqueService} from "../service/BanqueService";
+import {CoordonnesBancairesService} from "../service/CoordonnesBancairesService";
+import {DocumentService} from "../service/DocumentService";
+import {EmailService} from "../service/EmailService";
+import {LangueService} from "../service/LangueService";
+import {NiveauLangueService} from "../service/NiveauLangueService";
+import {LanguesService} from "../service/LanguesService";
+import {GroupeService} from "../service/GroupeService";
+import {LigneGroupeService} from "../service/LigneGroupeService";
+import {DepartementService} from "../service/DepartementService";
+import {PeriodeDepartementService} from "../service/PeriodeDepartementService";
+import {ReseauSocialService} from "../service/ReseauSocialService";
+import {TelephoneService} from "../service/TelephoneService";
+import {CategorieService} from "../service/CategorieService";
+import { AddCollaborateurComponent } from './add-collaborateur/add-collaborateur.component';
+import { CategorieComponent } from './categorie/categorie.component';
+import { NiveauScolaireContactComponent } from './niveau-scolaire-contact/niveau-scolaire-contact.component';
+import { GroupeComponent } from './groupe/groupe.component';
+import { LangueComponent } from './langue/langue.component';
+import { NiveauLangueComponent } from './niveau-langue/niveau-langue.component';
+import { DelivreParComponent } from './delivre-par/delivre-par.component';
+import { VilleComponent } from './ville/ville.component';
+import { FonctionComponent } from './fonction/fonction.component';
+import { MotifDepartComponent } from './motif-depart/motif-depart.component';
+import { MotifEntreeComponent } from './motif-entree/motif-entree.component';
+import { StatusProfessionnelComponent } from './status-professionnel/status-professionnel.component';
+import { BanqueComponent } from './banque/banque.component';
 
 
 
@@ -73,6 +100,19 @@ import {StatusProfessionnelService} from "../service/StatusProfessionnelService"
     TypeTelephoneComponent,
     CollaborateurComponent,
     ProfilCollaborateurComponent,
+    AddCollaborateurComponent,
+    CategorieComponent,
+    NiveauScolaireContactComponent,
+    GroupeComponent,
+    LangueComponent,
+    NiveauLangueComponent,
+    DelivreParComponent,
+    VilleComponent,
+    FonctionComponent,
+    MotifDepartComponent,
+    MotifEntreeComponent,
+    StatusProfessionnelComponent,
+    BanqueComponent,
   ],
   imports: [
 
@@ -112,7 +152,22 @@ import {StatusProfessionnelService} from "../service/StatusProfessionnelService"
     MotifDepartService,
     MotifEntreeService,
     RumenirationService,
-    StatusProfessionnelService
+    StatusProfessionnelService,
+    BanqueService,
+    CoordonnesBancairesService,
+    DocumentService,
+    EmailService,
+    LangueService,
+    NiveauLangueService,
+    LanguesService,
+    GroupeService,
+    LigneGroupeService,
+    DepartementService,
+    PeriodeDepartementService,
+    ReseauSocialService,
+    TelephoneService,
+    CategorieService,
+    NiveauScolaireContactService
  ],
   bootstrap: [AppComponent]
 })

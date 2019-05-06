@@ -11,7 +11,8 @@ export class TypePeriodeDepartementComponent implements OnInit {
 
   newTypePerDep = {
     nom: '',
-    description: ''
+    description: '',
+    id: null
   };
   addOk = false;
   typesPerDep: any = null;
@@ -22,16 +23,32 @@ export class TypePeriodeDepartementComponent implements OnInit {
       this.typesPerDep = resp;
     })
   }
+  initEdit(t) {
+    this.newTypePerDep = t;
+  }
+  initAdd() {
+    this.newTypePerDep = {
+      nom: '',
+      description: '',
+      id: null
+    };
+  }
   addTypePerDep() {
     console.log(this.newTypePerDep);
     if (this.newTypePerDep.nom !== '' && this.newTypePerDep.description !== '') {
       this.typePerDepService.addTypePeriodeDepartement(this.newTypePerDep).subscribe(resp => {
-        this.typesPerDep.push(resp);
-        this.addOk = true;
+        if (this.newTypePerDep.id === null) {
+          this.typesPerDep.push(resp);
+          this.addOk = true;
+        } else {
+          this.addOk = true;
+          this.ngOnInit();
+        }
         console.log(resp);
         this.newTypePerDep.description = '';
         this.newTypePerDep.nom = '';
-      })
+        this.newTypePerDep.id = null;
+      });
     }
   }
 }

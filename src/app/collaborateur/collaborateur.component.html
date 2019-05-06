@@ -11,101 +11,108 @@
             <div class="module-head">
               <h3>DataTables</h3>
               <div class="module-body" >
-                <a class="btn btn-inverse" style="margin-top: 5px" data-toggle="modal" data-target="#myModal">Ajouter nouveau</a>
-                <div class="dropdown" style="width: 20%;">
-                  <button class="btn btn-default " class="dropdown-toggle" data-toggle="dropdown">
-                    <img src="../../assets/settings.png" style="height: 20px;" alt="">
-                  </button>
-                  <ul class="dropdown-menu" style="overflow-y: scroll; height: 180px ;">
-                    <li style="padding: 5px;">
-                      <div class="checkbox">
-                        <label><input type="checkbox" (change)="choseColon('id')" [checked]="colon.id">Id</label>
-                      </div>
-                    </li>
-                    <li style="padding: 5px;">
-                      <div class="checkbox">
-                        <label><input type="checkbox" (change)="choseColon('categorie')" [checked]="colon.categorie">Categorie</label>
-                      </div>
-                    </li>
-                    <li style="padding: 5px;">
-                      <div class="checkbox">
-                        <label><input type="checkbox" (change)="choseColon('cin')" [checked]="colon.cin">CIN</label>
-                      </div>
-                    </li>
-                    <li style="padding: 5px;">
-                      <div class="checkbox">
-                        <label><input type="checkbox" (change)="choseColon('civilite')" [checked]="colon.civilite">Civilite</label>
-                      </div>
-                    </li>
-                    <li style="padding: 5px;">
-                      <div class="checkbox">
-                        <label><input type="checkbox" (change)="choseColon('compteActive')" [checked]="colon.compteActive">Compte active</label>
-                      </div>
-                    </li>
-                    <li style="padding: 5px;">
-                      <div class="checkbox">
-                        <label><input type="checkbox" (change)="choseColon('dateNaissance')" [checked]="colon.dateNaissance">Date de naissance</label>
-                      </div>
-                    </li>
-                    <li style="padding: 5px;">
-                      <div class="checkbox">
-                        <label><input type="checkbox" (change)="choseColon('matricule')" [checked]="colon.matricule">Matricule</label>
-                      </div>
-                    </li>
-                    <li style="padding: 5px;">
-                      <div class="checkbox">
-                        <label><input type="checkbox" (change)="choseColon('niveauScolaire1')" [checked]="colon.niveauScolaire1">Niveau scolaire</label>
-                      </div>
-                    </li>
-                    <li style="padding: 5px;">
-                      <div class="checkbox">
-                        <label><input type="checkbox" (change)="choseColon('nom')" [checked]="colon.nom">Nom</label>
-                      </div>
-                    </li>
-                    <li style="padding: 5px;">
-                      <div class="checkbox">
-                        <label><input type="checkbox" (change)="choseColon('numCIMR')" [checked]="colon.numCIMR">Numéro CIMR</label>
-                      </div>
-                    </li>
-                    <li style="padding: 5px;">
-                      <div class="checkbox">
-                        <label><input type="checkbox" (change)="choseColon('numCNSS')" [checked]="colon.numCNSS">Numéro CNSS</label>
-                      </div>
-                    </li>
-                    <li style="padding: 5px;">
-                      <div class="checkbox">
-                        <label><input type="checkbox" (change)="choseColon('numMutuelle')" [checked]="colon.numMutuelle">Numéro Mutuelle</label>
-                      </div>
-                    </li>
-                    <li style="padding: 5px;">
-                      <div class="checkbox">
-                        <label><input type="checkbox" (change)="choseColon('permisConduire')" [checked]="colon.permisConduire">Permis de conduire</label>
-                      </div>
-                    </li>
-                    <li style="padding: 5px;">
-                      <div class="checkbox">
-                        <label><input type="checkbox" (change)="choseColon('prenom')" [checked]="colon.prenom">Prénom</label>
-                      </div>
-                    </li>
-                    <li style="padding: 5px;">
-                      <div class="checkbox">
-                        <label><input type="checkbox" (change)="choseColon('sexe')" [checked]="colon.sexe">Sexe</label>
-                      </div>
-                    </li>
-                    <li style="padding: 5px;">
-                      <div class="checkbox">
-                        <label><input type="checkbox" (change)="choseColon('situationFamiliale')" [checked]="colon.situationFamiliale">Situation familiale</label>
-                      </div>
-                    </li>
-                  </ul>
+                <div style="display: flex;">
+                  <div style="width: 30%;">
+                    <a class="btn btn-inverse" style="margin-top: 5px" routerLink="/add-collaborateur">Ajouter nouveau</a>
+                  </div>
+                  <div style="width: 50%;">
+                    <div class="dropdown" style="width: 20%;">
+                      <button class="btn btn-default " class="dropdown-toggle" data-toggle="dropdown">
+                        <img src="../../assets/settings.png" style="height: 20px;" alt="">
+                      </button>
+                      <ul class="dropdown-menu" style="overflow-y: scroll; height: 180px ;">
+                        <li style="padding: 5px;">
+                          <div class="checkbox">
+                            <label><input type="checkbox" (change)="choseColon('id')" [checked]="colon.id">Id</label>
+                          </div>
+                        </li>
+                        <li style="padding: 5px;">
+                          <div class="checkbox">
+                            <label><input type="checkbox" (change)="choseColon('categorie')" [checked]="colon.categorie">Categorie</label>
+                          </div>
+                        </li>
+                        <li style="padding: 5px;">
+                          <div class="checkbox">
+                            <label><input type="checkbox" (change)="choseColon('cin')" [checked]="colon.cin">CIN</label>
+                          </div>
+                        </li>
+                        <li style="padding: 5px;">
+                          <div class="checkbox">
+                            <label><input type="checkbox" (change)="choseColon('civilite')" [checked]="colon.civilite">Civilite</label>
+                          </div>
+                        </li>
+                        <li style="padding: 5px;">
+                          <div class="checkbox">
+                            <label><input type="checkbox" (change)="choseColon('compteActive')" [checked]="colon.compteActive">Compte active</label>
+                          </div>
+                        </li>
+                        <li style="padding: 5px;">
+                          <div class="checkbox">
+                            <label><input type="checkbox" (change)="choseColon('dateNaissance')" [checked]="colon.dateNaissance">Date de naissance</label>
+                          </div>
+                        </li>
+                        <li style="padding: 5px;">
+                          <div class="checkbox">
+                            <label><input type="checkbox" (change)="choseColon('matricule')" [checked]="colon.matricule">Matricule</label>
+                          </div>
+                        </li>
+                        <li style="padding: 5px;">
+                          <div class="checkbox">
+                            <label><input type="checkbox" (change)="choseColon('niveauScolaire1')" [checked]="colon.niveauScolaire1">Niveau scolaire</label>
+                          </div>
+                        </li>
+                        <li style="padding: 5px;">
+                          <div class="checkbox">
+                            <label><input type="checkbox" (change)="choseColon('nom')" [checked]="colon.nom">Nom</label>
+                          </div>
+                        </li>
+                        <li style="padding: 5px;">
+                          <div class="checkbox">
+                            <label><input type="checkbox" (change)="choseColon('numCIMR')" [checked]="colon.numCIMR">Numéro CIMR</label>
+                          </div>
+                        </li>
+                        <li style="padding: 5px;">
+                          <div class="checkbox">
+                            <label><input type="checkbox" (change)="choseColon('numCNSS')" [checked]="colon.numCNSS">Numéro CNSS</label>
+                          </div>
+                        </li>
+                        <li style="padding: 5px;">
+                          <div class="checkbox">
+                            <label><input type="checkbox" (change)="choseColon('numMutuelle')" [checked]="colon.numMutuelle">Numéro Mutuelle</label>
+                          </div>
+                        </li>
+                        <li style="padding: 5px;">
+                          <div class="checkbox">
+                            <label><input type="checkbox" (change)="choseColon('permisConduire')" [checked]="colon.permisConduire">Permis de conduire</label>
+                          </div>
+                        </li>
+                        <li style="padding: 5px;">
+                          <div class="checkbox">
+                            <label><input type="checkbox" (change)="choseColon('prenom')" [checked]="colon.prenom">Prénom</label>
+                          </div>
+                        </li>
+                        <li style="padding: 5px;">
+                          <div class="checkbox">
+                            <label><input type="checkbox" (change)="choseColon('sexe')" [checked]="colon.sexe">Sexe</label>
+                          </div>
+                        </li>
+                        <li style="padding: 5px;">
+                          <div class="checkbox">
+                            <label><input type="checkbox" (change)="choseColon('situationFamiliale')" [checked]="colon.situationFamiliale">Situation familiale</label>
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
                 </div>
+
               </div>
             </div>
             <div class="module-body table">
               <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper" role="grid">
                 <div id="DataTables_Table_0_length" class="dataTables_length">
                   <label>
-                    Show
+²                    Show
                     <select (change)="changeNbC()" [(ngModel)]="nbCollaborateur" size="1" name="DataTables_Table_0_length" aria-controls="DataTables_Table_0">
                       <option [value]="10">10</option>
                       <option [value]="25">25</option>
@@ -158,7 +165,7 @@
                   <td *ngIf="colon.compteActive">{{t.compteActive}}</td>
                   <td *ngIf="colon.dateNaissance">{{t.dateNaissance |date:  'dd/MM/yyyy'}}</td>
                   <td *ngIf="colon.matricule">{{t.matricule}}</td>
-                  <td *ngIf="colon.niveauScolaire1">{{t.niveauScolaire1}}</td>
+                  <td *ngIf="colon.niveauScolaire1"><span *ngIf="t.niveauScolaire1 !== null">{{t.niveauScolaire1.nom}}</span></td>
                   <td *ngIf="colon.numCIMR">{{t.numCIMR}}</td>
                   <td *ngIf="colon.numCNSS">{{t.numCNSS}}</td>
                   <td *ngIf="colon.numMutuelle">{{t.numMutuelle}}</td>

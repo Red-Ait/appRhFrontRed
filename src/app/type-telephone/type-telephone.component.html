@@ -9,7 +9,7 @@
         <h4 class="modal-title">Ajouter un nouveau type telephone</h4>
       </div>
       <div class="modal-body" *ngIf="addOk">
-        <h3>Type bien ajouté !</h3>
+        <h3>Opération bien effectué !</h3>
       </div>
       <div class="modal-body" *ngIf="!addOk">
         <div class="form-group">
@@ -39,7 +39,7 @@
           <div class="module">
             <div class="module-head">
               <h3>Gestion des Types telephone</h3>
-              <a class="btn btn-inverse" style="margin-top: 5px" data-toggle="modal" data-target="#myModal">Ajouter nouveau</a>
+              <a class="btn btn-inverse" style="margin-top: 5px" data-toggle="modal" data-target="#myModal" (click)="initAdd()">Ajouter nouveau</a>
             </div>
             <div class="module-body">
               <table class="table">
@@ -58,7 +58,7 @@
                   <td>{{t.nom}}</td>
                   <td>{{t.description}}</td>
                   <td>
-                    <button class="btn btn-danger">X</button>
+                    <button (click)="initEdit(t)" data-target="#myModal" class="btn btn-danger" data-toggle="modal" > <i class="icon-edit"></i></button>
                   </td>
                 </tr>
                 </tbody>

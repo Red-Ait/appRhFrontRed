@@ -12,7 +12,8 @@ export class TypeReseauSocialComponent implements OnInit {
   newTypeReseauSocial = {
     nom: '',
     description: '',
-    icon: ''
+    icon: '',
+    id: null
   };
   addOk = false;
   typesReseauSocial: any = null;
@@ -23,15 +24,33 @@ export class TypeReseauSocialComponent implements OnInit {
       this.typesReseauSocial = resp;
     })
   }
+  initEdit(t) {
+    this.newTypeReseauSocial = t;
+  }
+  initAdd() {
+    this.newTypeReseauSocial = {
+      nom: '',
+      description: '',
+      icon: '',
+      id: null
+    };
+  }
   addTypeReseauSocial() {
     console.log(this.newTypeReseauSocial);
     if (this.newTypeReseauSocial.nom !== '' && this.newTypeReseauSocial.description !== '') {
       this.typeReseauSocialService.addTypeReseauSocial(this.newTypeReseauSocial).subscribe(resp => {
-        this.typesReseauSocial.push(resp);
-        this.addOk = true;
+        if (this.newTypeReseauSocial.id === null) {
+          this.typesReseauSocial.push(resp);
+          this.addOk = true;
+        } else {
+          this.addOk = true;
+          this.ngOnInit();
+        }
         console.log(resp);
         this.newTypeReseauSocial.description = '';
         this.newTypeReseauSocial.nom = '';
+        this.newTypeReseauSocial.icon = '';
+        this.newTypeReseauSocial.id = null;
       })
     }
   }

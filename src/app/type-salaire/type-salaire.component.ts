@@ -11,7 +11,8 @@ export class TypeSalaireComponent implements OnInit {
 
   newTypeSalaire = {
     nom: '',
-    description: ''
+    description: '',
+    id: null
   };
   addOk = false;
   typesSalaire: any = null;
@@ -22,15 +23,31 @@ export class TypeSalaireComponent implements OnInit {
       this.typesSalaire = resp;
     })
   }
+  initEdit(t) {
+    this.newTypeSalaire = t;
+  }
+  initAdd() {
+    this.newTypeSalaire = {
+      nom: '',
+      description: '',
+      id: null
+    };
+  }
   addTypeSalaire() {
     console.log(this.newTypeSalaire);
     if (this.newTypeSalaire.nom !== '' && this.newTypeSalaire.description !== '') {
       this.typeSalaireService.addTypeSalaire(this.newTypeSalaire).subscribe(resp => {
-        this.typesSalaire.push(resp);
-        this.addOk = true;
+        if (this.newTypeSalaire.id === null) {
+          this.typesSalaire.push(resp);
+          this.addOk = true;
+        } else {
+          this.addOk = true;
+          this.ngOnInit();
+        }
         console.log(resp);
         this.newTypeSalaire.description = '';
         this.newTypeSalaire.nom = '';
+        this.newTypeSalaire.id = null;
       })
     }
   }

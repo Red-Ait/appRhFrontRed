@@ -10,9 +10,9 @@ import {HttpClient} from "@angular/common/http";
 export class TypeProcheComponent implements OnInit {
 
   newTypeProche = {
-    url: '',
+    nom: '',
     description: '',
-    username: ''
+    id: null
   };
   addOk = false;
   typesProche: any = null;
@@ -23,16 +23,31 @@ export class TypeProcheComponent implements OnInit {
       this.typesProche = resp;
     })
   }
+  initEdit(t) {
+    this.newTypeProche = t;
+  }
+  initAdd() {
+    this.newTypeProche = {
+      nom: '',
+      description: '',
+      id: null
+    };
+  }
   addTypeProche() {
     console.log(this.newTypeProche);
-    if (this.newTypeProche.url !== '' && this.newTypeProche.username !== '' && this.newTypeProche.description !== '') {
+    if (this.newTypeProche.nom !== '' && this.newTypeProche.description !== '') {
       this.typeProcheService.addTypeProche(this.newTypeProche).subscribe(resp => {
-        this.typesProche.push(resp);
-        this.addOk = true;
+        if (this.newTypeProche.id === null) {
+          this.typesProche.push(resp);
+          this.addOk = true;
+        } else {
+          this.addOk = true;
+          this.ngOnInit();
+        }
         console.log(resp);
         this.newTypeProche.description = '';
-        this.newTypeProche.url = '';
-        this.newTypeProche.username = '';
+        this.newTypeProche.nom = '';
+        this.newTypeProche.id = null;
       })
     }
   }

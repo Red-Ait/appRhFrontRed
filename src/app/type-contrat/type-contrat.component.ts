@@ -11,7 +11,8 @@ export class TypeContratComponent implements OnInit {
 
   newTypeContrat = {
     nom: '',
-    description: ''
+    description: '',
+    id: null
   };
   addOk = false;
   typesContrat: any = null;
@@ -22,13 +23,29 @@ export class TypeContratComponent implements OnInit {
       this.typesContrat = resp;
     })
   }
+  initEdit(t) {
+    this.newTypeContrat = t;
+  }
+  initAdd() {
+    this.newTypeContrat = {
+      nom: '',
+      description: '',
+      id: null
+    };
+  }
   addTypeContrat() {
     console.log(this.newTypeContrat);
     if (this.newTypeContrat.nom !== '' && this.newTypeContrat.description !== '') {
       this.typeContratService.addTypeContrat(this.newTypeContrat).subscribe(resp => {
-        this.typesContrat.push(resp);
-        this.addOk = true;
+        if (this.newTypeContrat.id === null) {
+          this.typesContrat.push(resp);
+          this.addOk = true;
+        } else {
+          this.addOk = true;
+          this.ngOnInit();
+        }
         console.log(resp);
+        this.newTypeContrat.id = null;
         this.newTypeContrat.description = '';
         this.newTypeContrat.nom = '';
       })

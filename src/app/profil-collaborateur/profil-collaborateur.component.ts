@@ -16,6 +16,27 @@ import {TypeContratService} from "../../service/TypeContratService";
 import {MotifEntreeService} from "../../service/MotifEntreeService";
 import {MotifDepartService} from "../../service/MotifDepartService";
 import {StatusProfessionnelService} from "../../service/StatusProfessionnelService";
+import {BanqueService} from "../../service/BanqueService";
+import {CoordonnesBancairesService} from "../../service/CoordonnesBancairesService";
+import {TypeDocumentService} from "../../service/TypeDocumentService";
+import {DocumentService} from "../../service/DocumentService";
+import {TypeEmailService} from "../../service/TypeEmailService";
+import {EmailService} from "../../service/EmailService";
+import {LangueService} from "../../service/LangueService";
+import {NiveauLangueService} from "../../service/NiveauLangueService";
+import {LanguesService} from "../../service/LanguesService";
+import {GroupeService} from "../../service/GroupeService";
+import {LigneGroupeService} from "../../service/LigneGroupeService";
+import {TypePeriodeDepartementService} from "../../service/TypePeriodeDepartementService";
+import {DepartementService} from "../../service/DepartementService";
+import {PeriodeDepartementService} from "../../service/PeriodeDepartementService";
+import {TypeReseauSocialService} from "../../service/TypeReseauSocialService";
+import {ReseauSocialService} from "../../service/ReseauSocialService";
+import {TypeTelephoneService} from "../../service/TypeTelephoneService";
+import {TelephoneService} from "../../service/TelephoneService";
+import {CategorieService} from "../../service/CategorieService";
+import {NiveauScolaireContactService} from "../../service/NiveauScolaireContactService";
+import {LocalStorage} from "@ngx-pwa/local-storage";
 
 @Component({
   selector: 'app-profil-collaborateur',
@@ -35,6 +56,22 @@ export class ProfilCollaborateurComponent implements OnInit {
     ville: '',
     contact: null
   };
+  colonAdresse = {
+    adresseType: true,
+    codePostal: true,
+    ligne1: true,
+    ligne2: true,
+    pays: true,
+    type: true,
+    ville: true,
+    contact: true
+  };
+  newResSoc = {
+    description: '',
+    typeReseauSocial: null,
+  url: '',
+  username: ''
+  };
   delivrePar = null;
   domaines = null;
   newAttestation = {
@@ -48,6 +85,17 @@ export class ProfilCollaborateurComponent implements OnInit {
     typeAttestation: null,
     ville: null
   };
+  colonAttestation = {
+    dateObtention: true,
+    delivrePar: true,
+    domaine: true,
+    mention: true,
+    niveauScolaire: true,
+    nomEtablissement: true,
+    specialite: true,
+    typeAttestation: true,
+    ville: true
+  };
   newCoordonnesBancaires = {
     agence: '',
     banque: null,
@@ -57,6 +105,15 @@ export class ProfilCollaborateurComponent implements OnInit {
     description: '',
     documentType: null,
     fichier: ''
+  };
+  newEmail = {
+    adresseMail: '',
+    emailType: null,
+    observation: '',
+  };
+  newLangue = {
+    langue: null,
+    niveauLangue: null
   };
   newContrat = {
     ancieneteAjoute: '',
@@ -74,6 +131,39 @@ export class ProfilCollaborateurComponent implements OnInit {
     typeActivite: null,
     typeContrat: null
   };
+  colonContrat = {
+    ancieneteAjoute: true,
+    dateDebut: true,
+    dateDepart: true,
+    dateFin: true,
+    fonction: true,
+    motifDepart: true,
+    motifEntree: true,
+    periodeEssai1: true,
+    periodeEssai2: true,
+    qualification: true,
+    rumeniration: true,
+    statusProfessionnel: true,
+    typeActivite: true,
+    typeContrat: true
+  };
+  newligneGroupes = {
+    groupe: null
+  };
+  newPeriodeDep = {
+    dateDebut: null,
+    dateFin: null,
+    departement: null,
+    motif: '',
+    typePeriodeDepartement: null
+  };
+  newTele = {
+    numero: '',
+    observation: '',
+    type: '',
+  typeTelephone: null
+  };
+  banques = null;
   typeContrats = null;
   typeActivites = null;
   fonctions = null;
@@ -82,22 +172,57 @@ export class ProfilCollaborateurComponent implements OnInit {
   motifEntrees = null;
   niveauScolaireAttestations = null;
   typesAttestation = null;
+  typeEmails = null;
+  typesDocument = null;
   collabId = 0;
   collabInfo = null;
+  addLangueOk = false;
+  addResSocOk = false;
   addContratOk = false;
   addAdressOk = false;
   addAttesOk = false;
+  addCordonOk = false;
+  addDocOk = false;
+  addEmailOk = false;
+  addGroupeOk = false;
+  addTeleOk = false;
+  addperiodeDepOk = false;
   typesAdresse = null;
+  niveauLangues = null;
+  langues = null;
+  groupes = null;
+  departements = null;
+  typePeriodeDepartements = null;
   statusProfessionnels = null;
+  typeReseauSocials = null;
+  typeTeles = null;
+  popup = '';
+  newCollabInfo = null;
+  isUpdateCollabInfo = false;
+  categories = null;
+  niveauScolaireContacts = null;
   constructor(private collaborateurService: CollaborateurService,
+              private typeTeleService: TypeTelephoneService,
+              private niveauScolaireContactService: NiveauScolaireContactService,
+              private typeDocumentService: TypeDocumentService,
+              private reseauSocialService: ReseauSocialService,
+              private langueService: LangueService,
+              private niveauLangueService: NiveauLangueService,
+              private coordonnesBancairesService: CoordonnesBancairesService,
+              private categorieService: CategorieService,
               private motifEntreeService: MotifEntreeService,
+              private departementService: DepartementService,
+              private typeReseauSocialService: TypeReseauSocialService,
+              private documentService: DocumentService,
               private motifDepartService: MotifDepartService,
               private typeContratService: TypeContratService,
               private typeActiviteService: TypeActiviteService,
               private niveauScolaireAttestationService: NiveauScolaireAttestationService,
               private fonctionService: FonctionService,
               private typeAdrsseService: TypeAdresseService,
+              private emailService: EmailService,
               private delivreParService: DelivreParService,
+              private teleService: TelephoneService,
               private statusProfessionnelService: StatusProfessionnelService,
               private contratService: ContratService,
               private attestationFormationService: AttestationFormationService,
@@ -105,6 +230,14 @@ export class ProfilCollaborateurComponent implements OnInit {
               private typesAttestaionService: TypeAttestationService,
               private adresseService: AdresseService,
               private villeService: VilleService,
+              private banqueService: BanqueService,
+              private typeEmailService: TypeEmailService,
+              private languesService: LanguesService,
+              private groupeService: GroupeService,
+              private ligneGroupeService: LigneGroupeService,
+              private  typePeriodDepService: TypePeriodeDepartementService,
+              private periodeDepartementService: PeriodeDepartementService,
+              public localStorage: LocalStorage,
               private route: ActivatedRoute) { }
 
   ngOnInit() {
@@ -116,42 +249,59 @@ export class ProfilCollaborateurComponent implements OnInit {
         console.log(this.collabInfo);
       });
     });
-    this.typeAdrsseService.allTypeAdresses().subscribe(data => {
-      this.typesAdresse = data;
+    this.localStorage.getItem('colonAdresse').subscribe(r => {
+      if (r !== null) {
+        this.colonAdresse = JSON.parse(r);
+      }
+    })
+    this.localStorage.getItem('colonAttest').subscribe(r => {
+      if (r !== null) {
+        this.colonAttestation = JSON.parse(r);
+      }
+    })
+    this.localStorage.getItem('colonContrat').subscribe(r => {
+      if (r !== null) {
+        this.colonContrat = JSON.parse(r);
+      }
+    })
+
+  }
+  formatDate(date) {
+    var d = new Date(date),
+      month = '' + (d.getMonth() + 1),
+      day = '' + d.getDate(),
+      year = d.getFullYear();
+
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
+
+    return [year, month, day].join('-');
+  }
+  choseColonContrat() {
+    this.localStorage.setItem('colonContrat', JSON.stringify(this.colonContrat)).subscribe();
+  }
+  choseColonAttest() {
+    this.localStorage.setItem('colonAttest', JSON.stringify(this.colonAttestation)).subscribe();
+  }
+  choseColonAdresse() {
+    this.localStorage.setItem('colonAdresse', JSON.stringify(this.colonAdresse)).subscribe();
+  }
+  initEditCollabInfo() {
+    this.categorieService.allCategories().subscribe(d => {
+      this.categories = d;
     });
-    this.domaineService.allDomaines().subscribe(data => {
-      this.domaines = data;
-      console.log(this.domaines);
+    this.niveauScolaireContactService.allNiveauScolaireContacts().subscribe(d => {
+      this.niveauScolaireContacts = d;
     });
-    this.niveauScolaireAttestationService.allNiveauScolaireAttestations().subscribe(data => {
-      this.niveauScolaireAttestations = data;
-    });
-    this.delivreParService.allDelivrePars().subscribe(data => {
-      this.delivrePar = data;
-    });
-    this.typesAttestaionService.allTypeAttestations().subscribe(data => {
-      this.typesAttestation = data;
-    });
-    this.villeService.allVilles().subscribe(data => {
-      this.villes = data;
-    });
-    this.fonctionService.allFonctions().subscribe(data => {
-      this.fonctions = data;
-    });
-    this.typeActiviteService.allTypeActivites().subscribe(data => {
-      this.typeActivites = data;
-    });
-    this.typeContratService.allTypeContrats().subscribe(data => {
-      this.typeContrats = data;
-    });
-    this.motifDepartService.allMotifDeparts().subscribe(data => {
-      this.motifDeparts = data;
-    });
-    this.motifEntreeService.allMotifEntrees().subscribe(data => {
-      this.motifEntrees = data;
-    });
-    this.statusProfessionnelService.allStatusProfessionnels().subscribe(data => {
-      this.statusProfessionnels = data;
+    this.newCollabInfo = this.collabInfo;
+    this.newCollabInfo.dateNaissance = this.formatDate(this.newCollabInfo.dateNaissance);
+    this.isUpdateCollabInfo = true;
+  }
+  editCollabInfo() {
+    console.log(this.newCollabInfo);
+    this.collaborateurService.updateCollaborateur(this.newCollabInfo).subscribe(d => {
+      this.isUpdateCollabInfo = false;
+      this.collabInfo = this.newCollabInfo;
     });
   }
   addAdresse() {
@@ -209,7 +359,202 @@ export class ProfilCollaborateurComponent implements OnInit {
         typeActivite: null,
         typeContrat: null
       };
-      this.collabInfo.conrats.push(data);
+      this.collabInfo.contrats.push(data);
+      this.addContratOk = true;
     })
+  }
+  addCordon () {
+    this.coordonnesBancairesService.addCoordonnesBancaires(this.newCoordonnesBancaires, this.collabInfo.id).subscribe(data => {
+      console.log(data);
+      this.newCoordonnesBancaires = {
+        agence: '',
+        banque: null,
+        numRIB: ''
+      };
+      this.collabInfo.coordonnesBancaires.push(data);
+      this.addCordonOk = true;
+    })
+  }
+  addDoc() {
+    this.documentService.addDocument(this.newDocument, this.collabInfo.id).subscribe(data => {
+      this.newDocument = {
+        description: '',
+        documentType: null,
+        fichier: ''
+      };
+      this.addDocOk = true;
+      this.collabInfo.documents.push(data);
+    })
+  }
+  addEmail() {
+    this.emailService.addEmail(this.newEmail, this.collabInfo.id).subscribe(data => {
+      console.log(data);
+      this.addEmailOk = true;
+      this.collabInfo.emails.push(data);
+      this.newEmail = {
+        adresseMail: '',
+        emailType: null,
+        observation: '',
+      };
+
+    })
+  }
+  addLangue() {
+    this.languesService.addLangues(this.newLangue, this.collabInfo.id).subscribe(data => {
+      this.newLangue = {
+        langue: null,
+        niveauLangue: null
+      };
+      this.addLangueOk = true;
+      this.collabInfo.langues.push(data);
+    })
+  }
+  addGroupe() {
+    this.ligneGroupeService.addLigneGroupe(this.newligneGroupes, this.collabInfo.id).subscribe(data => {
+      this.newligneGroupes = {
+        groupe: null
+      };
+      this.addGroupeOk = true;
+      this.collabInfo.ligneGroupes.push(data);
+    });
+  }
+  addperiodeDep() {
+    this.periodeDepartementService.addPeriodeDepartement(this.newPeriodeDep, this.collabInfo.id).subscribe(d => {
+      this.newPeriodeDep = {
+        dateDebut: null,
+        dateFin: null,
+        departement: null,
+        motif: '',
+        typePeriodeDepartement: null
+      };
+      this.addperiodeDepOk = true;
+      this.collabInfo.periodeDepartements.push(d);
+    });
+  }
+  addResSoc() {
+    this.reseauSocialService.addReseauSocial(this.newResSoc, this.collabInfo.id).subscribe(d => {
+      this.addResSocOk = true;
+      this.newResSoc = {
+        description: '',
+        typeReseauSocial: null,
+        url: '',
+        username: ''
+      };
+      this.collabInfo.reseauSocials.push(d);
+    })
+  }
+  addTele() {
+    this.teleService.addTelephone(this.newTele, this.collabInfo.id).subscribe(d => {
+      this.addTeleOk = true;
+      this.newTele = {
+        numero: '',
+        observation: '',
+        type: '',
+        typeTelephone: null
+      };
+      this.collabInfo.telephones.push(d);
+    })
+  }
+  initAddTele() {
+    this.popup = 'tele';
+    this.typeTeleService.allTypeTelephones().subscribe(s => {
+      this.typeTeles = s;
+    });
+  }
+  initAddResSoc() {
+    this.popup = 'ResSoc';
+    this.typeReseauSocialService.allTypeReseauSocials().subscribe(d => {
+      this.typeReseauSocials = d;
+    });
+  }
+  initAddPeriodeDep() {
+    this.popup = 'periodeDep';
+    this.typePeriodDepService.allTypePeriodeDepartements().subscribe(data => {
+      this.typePeriodeDepartements = data;
+    });
+    this.departementService.allDepartements().subscribe(d => {
+      this.departements = d;
+      console.log(d);
+    });
+
+  }
+  initAddGroupe() {
+    this.popup = 'groupe';
+    this.groupeService.allGroupes().subscribe(data => {
+      this.groupes = data;
+    })
+  }
+  initAddAdress() {
+    this.popup = 'Adresse';
+    this.typeAdrsseService.allTypeAdresses().subscribe(data => {
+      this.typesAdresse = data;
+    });
+  }
+  initAddLangue() {
+    this.popup = 'langue';
+    this.langueService.allLangues().subscribe(data => {
+      this.langues = data;
+    });
+    this.niveauLangueService.allNiveauLangues().subscribe(data => {
+      this.niveauLangues = data;
+    });
+  }
+  initAddAttest() {
+    this.popup = 'Attestation';
+    this.domaineService.allDomaines().subscribe(data => {
+      this.domaines = data;
+      console.log(this.domaines);
+    });
+    this.niveauScolaireAttestationService.allNiveauScolaireAttestations().subscribe(data => {
+      this.niveauScolaireAttestations = data;
+    });
+    this.delivreParService.allDelivrePars().subscribe(data => {
+      this.delivrePar = data;
+    });
+    this.typesAttestaionService.allTypeAttestations().subscribe(data => {
+      this.typesAttestation = data;
+    });
+    this.villeService.allVilles().subscribe(data => {
+      this.villes = data;
+    });
+  }
+  initAddContrat() {
+    this.popup = 'contrat';
+    this.fonctionService.allFonctions().subscribe(data => {
+      this.fonctions = data;
+    });
+    this.motifDepartService.allMotifDeparts().subscribe(data => {
+      this.motifDeparts = data;
+    });
+    this.motifEntreeService.allMotifEntrees().subscribe(data => {
+      this.motifEntrees = data;
+    });
+    this.typeActiviteService.allTypeActivites().subscribe(data => {
+      this.typeActivites = data;
+    });
+    this.typeContratService.allTypeContrats().subscribe(data => {
+      this.typeContrats = data;
+    });
+    this.statusProfessionnelService.allStatusProfessionnels().subscribe(data => {
+      this.statusProfessionnels = data;
+    });
+  }
+  initAddCoord() {
+    this.popup = 'CoordoneeBancaire';
+    this.banqueService.allBanques().subscribe(data => {
+      this.banques = data;
+    });
+  }
+  initAddDoc() {
+      this.popup = 'document';
+      this.typeDocumentService.allTypeDocuments().subscribe(data => {
+        this.typesDocument = data;
+      });
+  }
+  initAddEmail() {
+    this.popup = 'email';
+    this.typeEmailService.allTypeEmails().subscribe(data => {
+      this.typeEmails = data;
+    });
   }
 }

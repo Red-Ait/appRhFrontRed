@@ -11,7 +11,8 @@ export class TypeAttestationComponent implements OnInit {
 
   newTypeAttestation = {
     nom: '',
-    description: ''
+    description: '',
+    id: null
   };
   addOk = false;
   typesAttestation: any = null;
@@ -22,15 +23,31 @@ export class TypeAttestationComponent implements OnInit {
       this.typesAttestation = resp;
     })
   }
+  initEdit(t) {
+    this.newTypeAttestation = t;
+  }
+  initAdd() {
+    this.newTypeAttestation = {
+      nom: '',
+      description: '',
+      id: null
+    };
+  }
   addTypeAttestation() {
     console.log(this.newTypeAttestation);
     if (this.newTypeAttestation.nom !== '' && this.newTypeAttestation.description !== '') {
       this.typeAttestationService.addTypeAttestation(this.newTypeAttestation).subscribe(resp => {
-        this.typesAttestation.push(resp);
-        this.addOk = true;
+        if (this.newTypeAttestation.id === null) {
+          this.typesAttestation.push(resp);
+          this.addOk = true;
+        } else {
+          this.addOk = true;
+          this.ngOnInit();
+        }
         console.log(resp);
         this.newTypeAttestation.description = '';
         this.newTypeAttestation.nom = '';
+        this.newTypeAttestation.id = null;
       })
     }
   }

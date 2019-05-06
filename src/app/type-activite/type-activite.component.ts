@@ -11,7 +11,8 @@ export class TypeActiviteComponent implements OnInit {
 
   newTypeAcitivite = {
     nom: '',
-    description: ''
+    description: '',
+    id: null
   };
   addOk = false;
   typesActivite: any = null;
@@ -22,13 +23,29 @@ export class TypeActiviteComponent implements OnInit {
       this.typesActivite = resp;
     })
   }
+  initEdit(t) {
+    this.newTypeAcitivite = t;
+  }
+  initAdd() {
+    this.newTypeAcitivite = {
+      nom: '',
+      description: '',
+      id: null
+    };
+  }
   addTypeActivite() {
     console.log(this.newTypeAcitivite);
     if (this.newTypeAcitivite.nom !== '' && this.newTypeAcitivite.description !== '') {
       this.typeActiviteService.addTypeActivite(this.newTypeAcitivite).subscribe(resp => {
-        this.typesActivite.push(resp);
-        this.addOk = true;
+        if (this.newTypeAcitivite.id === null) {
+          this.typesActivite.push(resp);
+          this.addOk = true;
+        } else {
+          this.addOk = true;
+          this.ngOnInit();
+        }
         console.log(resp);
+        this.newTypeAcitivite.id = null;
         this.newTypeAcitivite.description = '';
         this.newTypeAcitivite.nom = '';
       })

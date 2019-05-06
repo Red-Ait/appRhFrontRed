@@ -11,6 +11,7 @@ export class TypeAdresseComponent implements OnInit {
 
   newTypeAdresse = {
     nom: '',
+    id : null,
     description: ''
   };
   addOk = false;
@@ -22,13 +23,29 @@ export class TypeAdresseComponent implements OnInit {
       this.typesAdresse = resp;
     })
   }
+  initEdit(t) {
+    this.newTypeAdresse = t;
+  }
+  initAdd() {
+    this.newTypeAdresse = {
+      nom: '',
+      description: '',
+      id: null
+    };
+  }
   addTypeAdresse() {
     console.log(this.newTypeAdresse);
     if (this.newTypeAdresse.nom !== '' && this.newTypeAdresse.description !== '') {
       this.typeAdresseService.addTypeAdresse(this.newTypeAdresse).subscribe(resp => {
-        this.typesAdresse.push(resp);
-        this.addOk = true;
+        if (this.newTypeAdresse.id === null) {
+          this.typesAdresse.push(resp);
+          this.addOk = true;
+        } else {
+          this.addOk = true;
+          this.ngOnInit();
+        }
         console.log(resp);
+        this.newTypeAdresse.id = null;
         this.newTypeAdresse.description = '';
         this.newTypeAdresse.nom = '';
       })
