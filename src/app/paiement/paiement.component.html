@@ -1,0 +1,110 @@
+<app-navbar></app-navbar>
+<div class="wrapper" >
+  <div class="container" >
+      <div class="row">
+        <div class="span9" >
+
+          <div class="module" >
+
+           <div class="module-body">
+
+               <table cellpadding="0" cellspacing="0" border="0" class=" table table-bordered table-striped display"
+                   width="100%">
+                   <thead >
+                       <tr >
+                          <th>
+
+                         </th>
+                          <th>
+                               مجـموع
+                          </th>
+                          <th>
+                               طريطة
+                          </th>
+                          <th>
+                              تعريفة تابتة
+                          </th>
+                          <th>
+                              عدد صيـام
+                            </th>
+                          <th>
+                              الشرط
+                            </th>
+                            <th>
+                                ثمن الشطر
+
+                               </th>
+                            <th>
+                               الشطر
+
+                              </th>
+                                 <th>
+                                     الاستهلاك
+                          </th>
+                           <th>
+                                صـاحب العداد
+
+                          </th>
+                           <th>
+                                  رقم العداد
+                           </th>
+                       </tr>
+                   </thead>
+                   <tbody *ngFor="let f of comp ">
+                       <tr *ngIf="f.newConsommation.facture.dateImpression!=null && f.newConsommation.facture.datePaiement==null"  class="odd gradeX" >
+
+                          <td>
+                            <span >
+                            <button (click)="pay(f)" class="btn btn-danger btn-xs" ><i class="icon-money"></i></button>
+                          </span>
+
+                                 </td>
+                          <td>
+                            {{f.prixTotal}}
+                               </td>
+                               <td>
+                                  {{f.trita}}
+                                   </td>
+                          <td>
+                           {{this.parametrage.taxeFixe}}
+                            </td>
+                          <td>
+                            {{f.nbrAdults}}
+                            </td>
+                        <td>
+                          <span *ngIf="f.typePaiement=='mois'">
+                           {{f.region.tarif}}
+                          </span>
+                          <span *ngIf="f.typePaiement=='annee'">
+                             -
+                            </span>
+                            </td>
+                        <td>
+                          {{f.prixTranch}}
+                         </td>
+                           <td>
+                           {{f.tranch}}
+                          </td>
+                           <td class="center">
+                             <span *ngIf="f.lastTounage!=null">
+                              {{f.newConsommation.consommation - f.lastTounage.consommation}}
+                            </span>
+                            </td>
+                             <td class="center">
+                               {{f.client.nom}}
+                               {{f.client.prenom}}
+                           </td>
+                           <td class="center">
+                            {{f.numero}}
+                          </td>
+                 </tr>
+                   </tbody>
+               </table>
+           </div>
+
+                 </div>
+       </div>
+
+          <app-sidebar [nb]="nb"></app-sidebar>
+      </div>
+  </div>

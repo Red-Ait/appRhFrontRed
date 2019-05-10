@@ -1,0 +1,89 @@
+<app-navbar></app-navbar>
+<div class="wrapper" >
+  <div class="container">
+      <div class="row">
+         <app-sidebar></app-sidebar>
+         <div class="span9" class="arab">
+            <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+                <div class="btn-box-row row-fluid">
+                    <div class=" big span4">
+                          <div class="form-group">
+                              <label for="taxeFixe">تعريفة تابتة:</label>
+                              <input type="number" class="form-control" step="0.01" min="1" max="10" name="taxeFixe" [(ngModel)]="parametre.taxeFixe" #taxeFixe="ngModel" [ngClass]="{ 'is-invalid': f.submitted && taxeFixe.invalid }" required />
+                              <div *ngIf="f.submitted && taxeFixe.invalid" class="invalid-feedback">
+                                  <div *ngIf="taxeFixe?.errors.required">المرجو ادخال </div>
+                              </div>
+                          </div>
+                          <div class="form-group">
+                            <label for="pinalite">الدعيرة:</label>
+                            <input type="number" class="form-control" step="0.01" min="1" max="10" name="pinalite" [(ngModel)]="parametre.pinalite" #pinalite="ngModel" [ngClass]="{ 'is-invalid': f.submitted && pinalite.invalid }" required />
+                            <div *ngIf="f.submitted && pinalite.invalid" class="invalid-feedback">
+                            <div *ngIf="pinalite?.errors.required">المرجو ادخال </div>
+                          </div>
+                       </div>
+                      <div class="form-group">
+                            <label for="duree">مدة الدفع:</label>
+                            <input type="number" class="form-control" step="0.01" min="1" max="10" name="duree" [(ngModel)]="parametre.duree" #duree="ngModel" [ngClass]="{ 'is-invalid': f.submitted && duree.invalid }" required />
+                            <div *ngIf="f.submitted && duree.invalid" class="invalid-feedback">
+                               <div *ngIf="duree?.errors.required">المرجو ادخال </div>
+                            </div>
+                       </div>
+                      <div class="form-group">
+                              <label for="prixUnitaireT1">ثمن الشطر الاول:</label>
+                               <input type="number" class="form-control" step="0.01" min="1" max="10" name="prixUnitaireT1" [(ngModel)]="parametre.prixUnitaireT1" #prixUnitaireT1="ngModel" [ngClass]="{ 'is-invalid': f.submitted && prixUnitaireT1.invalid }" required />
+                             <div *ngIf="f.submitted && prixUnitaireT1.invalid" class="invalid-feedback">
+                                  <div *ngIf="prixUnitaireT1?.errors.required">المرجو ادخال </div>
+                            </div>
+                      </div>
+                    </div>
+                    <div class=" big span4">
+                      <div class="form-group">
+                        <label for="prixUnitaireT2">ثمن الشطر الثاني:</label>
+                        <input type="number" class="form-control" step="0.01" min="1" max="10" name="prixUnitaireT2" [(ngModel)]="parametre.prixUnitaireT2" #prixUnitaireT2="ngModel" [ngClass]="{ 'is-invalid': f.submitted && prixUnitaireT2.invalid }" required />
+                              <div *ngIf="f.submitted && prixUnitaireT2.invalid" class="invalid-feedback">
+                                  <div *ngIf="prixUnitaireT2?.errors.required">المرجو ادخال </div>
+                              </div>
+                            </div>
+                      <div class="form-group">
+                        <label for="prixUnitaireT3">ثمن الشطر الثالث:</label>
+                        <input type="number" class="form-control" step="0.01" min="1" max="10" name="prixUnitaireT3" [(ngModel)]="parametre.prixUnitaireT3" #prixUnitaireT3="ngModel" [ngClass]="{ 'is-invalid': f.submitted && prixUnitaireT3.invalid }" required />
+                              <div *ngIf="f.submitted && prixUnitaireT3.invalid" class="invalid-feedback">
+                                  <div *ngIf="prixUnitaireT3?.errors.required">المرجو ادخال </div>
+                              </div>
+                            </div>
+                      <div class="form-group">
+                          <label for="pointT2">  نقطة الانطلاق للشطر الثاني:</label>
+                          <input type="number" class="form-control" step="0.01" min="1" max="10" name="pointT2" [(ngModel)]="parametre.pointT2" #pointT2="ngModel" [ngClass]="{ 'is-invalid': f.submitted && pointT2.invalid }" required />
+                          <div *ngIf="f.submitted && pointT2.invalid" class="invalid-feedback">
+                              <div *ngIf="pointT2?.errors.required">المرجو ادخال </div>
+                          </div>
+                        </div>
+                      <div class="form-group">
+                          <label for="pointT3">  نقطة الانطلاق للشطر الثالث:</label>
+                          <input type="number" class="form-control" step="0.01" min="1" max="10" name="pointT3" [(ngModel)]="parametre.pointT3" #pointT3="ngModel" [ngClass]="{ 'is-invalid': f.submitted && pointT3.invalid  }" required />
+                          <div *ngIf="f.submitted && pointT3.invalid " class="invalid-feedback">
+                              <div *ngIf="pointT3?.errors.required ">المرجو ادخال </div>
+                          </div>
+                        </div>
+                   </div>
+                   <div class="form-group">
+                    <button type="button" (click)="onSubmit()"  class="btn btn-primary" data-toggle="modal" data-target="#myModal">حفظ التعديلات </button>
+                    <div id="myModal" class="modal fade" role="dialog">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h3 class="modal-title"  style="text-align: center ; color: blue">{{msg}}</h3>
+                          </div>
+                        </div>
+                      </div>
+                     </div>
+                    </div>
+                    </div>
+              </form>
+
+  </div>
+  </div>
+</div>
+</div>
+

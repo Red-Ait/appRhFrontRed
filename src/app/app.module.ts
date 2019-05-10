@@ -77,6 +77,7 @@ import { MotifDepartComponent } from './motif-depart/motif-depart.component';
 import { MotifEntreeComponent } from './motif-entree/motif-entree.component';
 import { StatusProfessionnelComponent } from './status-professionnel/status-professionnel.component';
 import { BanqueComponent } from './banque/banque.component';
+import { Profil2Component } from './profil2/profil2.component';
 
 
 
@@ -113,6 +114,7 @@ import { BanqueComponent } from './banque/banque.component';
     MotifEntreeComponent,
     StatusProfessionnelComponent,
     BanqueComponent,
+    Profil2Component,
   ],
   imports: [
 

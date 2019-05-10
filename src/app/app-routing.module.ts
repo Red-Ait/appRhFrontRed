@@ -29,6 +29,7 @@ import {MotifDepartComponent} from "./motif-depart/motif-depart.component";
 import {MotifEntreeComponent} from "./motif-entree/motif-entree.component";
 import {StatusProfessionnelComponent} from "./status-professionnel/status-professionnel.component";
 import {BanqueComponent} from "./banque/banque.component";
+import {Profil2Component} from "./profil2/profil2.component";
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -59,6 +60,7 @@ const routes: Routes = [
   {path: 'motifEntree', component: MotifEntreeComponent},
   {path: 'statusProfessionnel', component: StatusProfessionnelComponent},
   {path: 'banque', component: BanqueComponent},
+  {path: 'profil2', component: Profil2Component},
   {path: 'groupe', component: GroupeComponent}
 
 ];

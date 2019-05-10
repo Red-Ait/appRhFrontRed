@@ -1,0 +1,320 @@
+<app-navbar></app-navbar>
+<div class="wrapper" >
+  <div class="container" >
+    <div class="row">
+      <app-sidebar></app-sidebar>
+      <!--/.span3-->
+      <div class="span9" >
+        <div class="content">
+
+          <div class="module">
+            <div class="module-head">
+              <div style="display: flex;">
+                <div style="width: 25%; text-align: center ; border-bottom: 6px solid #25a4be ; " *ngIf="step === 1">
+                  <b style="color: #25a4be ; ">1 - Informations personnels</b>
+                </div>
+                <div style="width: 25%; text-align: center ; border-bottom: 6px solid #5eb95e ; " *ngIf="step > 1">
+                  <b style="color: #5eb95e ; ">1 - Informations personnels</b>
+                </div>
+                <div style="width: 25%; border-bottom: 6px solid #25a4be; text-align: center" *ngIf="step === 2">
+                  <b style="color: #25a4be">2 - Plus d'informations</b>
+                </div>
+                <div style="width: 25%; border-bottom: 6px solid grey; text-align: center" *ngIf="step < 2">
+                  <b style="color: grey">2 - Plus d'informations</b>
+                </div>
+                <div style="width: 25%; border-bottom: 6px solid #5eb95e; text-align: center" *ngIf="step > 2">
+                  <b style="color: #5eb95e">2 - Plus d'informations</b>
+                </div>
+                <div style="width: 25%; border-bottom: 6px solid #25a4be; text-align: center" *ngIf="step === 3">
+                  <b style="color: #25a4be">3 - Validation</b>
+                </div>
+                <div style="width: 25%; border-bottom: 6px solid grey; text-align: center" *ngIf="step < 3">
+                  <b style="color: grey">3 - Validation</b>
+                </div>
+                <div style="width: 25%; border-bottom: 6px solid #5eb95e; text-align: center" *ngIf="step > 3">
+                  <b style="color: #5eb95e">3 - Validation</b>
+                </div>
+                <div style="width: 25%; border-bottom: 6px solid #25a4be; text-align: center" *ngIf="step === 4">
+                  <b style="color: #25a4be">4 - Collaborateur ajouté</b>
+                </div>
+                <div style="width: 25%; border-bottom: 6px solid grey; text-align: center" *ngIf="step < 4">
+                  <b style="color: grey">4 - Collaborateur ajouté</b>
+                </div>
+              </div>
+            </div>
+            <div class="module-body" >
+              <div class="content" *ngIf ="step === 4">
+                <div class="row">
+                  <div class="span8" style = "text-align: center">
+                    <h2 class="text-success">Collaborateur ajouté.</h2>
+                    <a routerLink="/collaborateur" class="btn-box span2">
+                      <i class="icon-arrow-left"></i>
+                      <b>Retour aux collaborateurs</b>
+                    </a>
+                    <div class="span1"></div>
+                    <button (click)="step = 1" class="btn-box span2">
+                      <i class="icon-plus"></i>
+                      <b>Ajouter nouveau</b>
+                    </button>
+                    <div class="span1"></div>
+                    <button routerLink="/profil-collaborateur/{{newId.id}}" class="btn-box span2">
+                      <i class="icon-dashboard"></i>
+                      <b>Voir le profil</b>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="content" *ngIf ="step === 3">
+                <div class="row">
+                  <div class="span4">
+                    <dl class="dl-horizontal">
+                      <dt>Nom</dt>
+                      <dd>{{newCollab.nom}}</dd>
+                      <dt>Prénm</dt>
+                      <dd>{{newCollab.prenom}}</dd>
+                      <dt>CIN</dt>
+                      <dd>{{newCollab.cin}}</dd>
+                      <dt>Date de naissance</dt>
+                      <dd>{{newCollab.dateNaissance}}</dd>
+                      <dt>Civilité</dt>
+                      <dd>{{newCollab.civilite}}</dd>
+                      <dt>Situation familliale</dt>
+                      <dd>{{newCollab.situationFamiliale}}</dd>
+                      <dt>Sexe</dt>
+                      <dd>{{newCollab.sexe}}</dd>
+                    </dl>
+                  </div>
+                  <div class="span4">
+                    <dl class="dl-horizontal">
+                      <dt>Matricule</dt>
+                      <dd>{{newCollab.matricule}}</dd>
+                      <dt>Numéro CNSS</dt>
+                      <dd>{{newCollab.numCNSS}}</dd>
+                      <dt>Numéro CIMR</dt>
+                      <dd>{{newCollab.numCIMR}}</dd>
+                      <dt>Numéro mutuelle</dt>
+                      <dd>{{newCollab.numMutuelle}}</dd>
+                      <dt>Permis de conduire</dt>
+                      <dd>{{(newCollab.permisConduire ) ? 'Oui' : 'Non'}}</dd>
+                    </dl>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="span1"></div>
+                  <div class="span1">
+                    <button (click)="step = 2"  class="btn btn-success" >
+                      <i class="icon-arrow-left"></i>
+                      <b>Précedent</b>
+                    </button>
+                  </div>
+                  <div class="span5"></div>
+                  <div class="span1">
+                    <div class="controls">
+                      <button (click)="addCollab1()" class="btn btn-success" >
+                        <b>Suivant</b>
+                        <i class="icon-arrow-right"></i>
+                      </button>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+              <div class="content" *ngIf ="step === 2">
+
+                <div class="row">
+                  <div class="control-group span4">
+                    <label class="control-label" >Matricule</label>
+                    <div class="controls">
+                      <input type="text" placeholder="Matricule" class="span4" [(ngModel)]="newCollab.matricule">
+                      <span class="help-inline" style="color:red;" *ngIf="!addCollabOk.matricule">Min 2 charachters</span>
+                    </div>
+                  </div>
+                  <div class="control-group span4">
+                    <label class="control-label" >Numéro CNSS</label>
+                    <div class="controls">
+                      <input type="text" placeholder="Numéro CNSS" class="span4" [(ngModel)]="newCollab.numCNSS">
+                      <span class="help-inline" style="color:red;" *ngIf="!addCollabOk.numCNSS">Min 2 chiffres</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="control-group span4">
+                    <label class="control-label" >Numéro CIMR</label>
+                    <div class="controls">
+                      <input type="text" placeholder="Numéro CIMR" class="span4" [(ngModel)]="newCollab.numCIMR">
+                      <span class="help-inline" style="color:red;" *ngIf="!addCollabOk.numCIMR">Min 2 chiffres</span>
+                    </div>
+                  </div>
+                  <div class="control-group span4">
+                    <label class="control-label" >Numéro mutuelle</label>
+                    <div class="controls">
+                      <input type="text" placeholder="Numéro mutuelle" class="span4" [(ngModel)]="newCollab.numMutuelle">
+                      <span class="help-inline" style="color:red;" *ngIf="!addCollabOk.numMutuelle">Min 2 chiffres</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="control-group span4">
+                    <label class="control-label" >Categorie</label>
+                    <div class="controls">
+                      <select tabindex="1" [(ngModel)]="newCollab.categorie" data-placeholder="Séléctionner la catégorie" class="span4">
+                        <option *ngFor="let c of categories" [ngValue]="c">{{c.nom}}</option>
+                      </select>
+                      <span class="help-inline" style="color:red;" *ngIf="!addCollabOk.categorie">Veuiller choisir</span>
+                    </div>
+                  </div>
+                  <div class="control-group span4">
+                    <label class="control-label" >Niveau scolaire</label>
+                    <div class="controls">
+                      <select tabindex="1" data-placeholder="Séléctionner ..." [(ngModel)]="newCollab.niveauScolaire1" class="span4">
+                        <option *ngFor="let c of niveauScolaires"  [ngValue]="c">{{c.nom}}</option>
+                      </select>
+                      <span class="help-inline" style="color:red;" *ngIf="!addCollabOk.niveauScolaire1">Veuiller choisir</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="control-group span4">
+                    <label class="control-label">Permis de conduire</label>
+                    <div class="controls">
+                      <label class="radio">
+                        <input type="radio" name="optionsRadios" [(ngModel)]="newCollab.permisConduire" id="optionsRadios1" [value]="true" checked="checked">
+                        Oui
+                      </label>
+                      <label class="radio">
+                        <input type="radio" name="optionsRadios" id="optionsRadios2" [(ngModel)]="newCollab.permisConduire" [value]="false" >
+                        Non
+                      </label>
+                    </div>
+                    <span class="help-inline" style="color:red;" *ngIf="!addCollabOk.permisConduire">Veuiller choisir</span>
+                  </div>
+                  <div class="control-group span4">
+                    <label class="control-label">Mot de passe</label>
+                    <div class="controls ">
+                      <div class="input-append">
+                        <input type="password" placeholder="Mot de passe" [(ngModel)]="newCollab.motDePass" *ngIf="!showMdp" class="span4"><span (click)="showMdp = true" *ngIf="!showMdp" style="cursor: pointer;" class="add-on"><i class="icon-eye-open"></i></span>
+                        <input type="text" placeholder="Mot de passe" [(ngModel)]="newCollab.motDePass" *ngIf="showMdp" class="span4"><span (click)="showMdp = false" *ngIf="showMdp" style="cursor: pointer;" class="add-on"><i class="icon-eye-close"></i></span>
+                      </div>
+                      <span class="help-inline" style="color:red;" *ngIf="!addCollabOk.motDePass">Min 8 characters</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="span1"></div>
+                  <div class="span1">
+                    <button (click)="step = 1"  class="btn btn-success" >
+                      <i class="icon-arrow-left"></i>
+                      <b>Précedent</b>
+                    </button>
+                  </div>
+                  <div class="span5"></div>
+                  <div class="span1">
+                    <div class="controls">
+                      <button (click)="addCollab1()" class="btn btn-success" >
+                        <b>Suivant</b>
+                        <i class="icon-arrow-right"></i>
+                      </button>
+                    </div>
+                  </div>
+
+                </div>
+
+              </div>
+
+              <div class="content" *ngIf ="step === 1">
+                <div class="row">
+                  <div class="control-group span4">
+                    <label class="control-label" >Nom</label>
+                    <div class="controls">
+                      <input type="text" placeholder="Nom" class="span4" [(ngModel)]="newCollab.nom">
+                      <span class="help-inline" style="color:red;" *ngIf="!addCollabOk.nom">Min 2 characters</span>
+                    </div>
+                  </div>
+                  <div class="control-group span4">
+                    <label class="control-label" >Prénom</label>
+                    <div class="controls">
+                      <input type="text" placeholder="Prénom" class="span4" [(ngModel)]="newCollab.prenom">
+                      <span class="help-inline" style="color:red;" *ngIf="!addCollabOk.prenom">Min 2 characters</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="control-group span4">
+                    <label class="control-label" >Cin</label>
+                    <div class="controls">
+                      <input type="text" placeholder="Cin" class="span4" [(ngModel)]="newCollab.cin">
+                      <span class="help-inline" style="color:red;" *ngIf="!addCollabOk.cin">CIN invalide</span>
+                    </div>
+                  </div>
+                  <div class="control-group span4">
+                    <label class="control-label" >Date de naissance</label>
+                    <div class="controls">
+                      <input type="date" class="span4" [(ngModel)]="newCollab.dateNaissance">
+                      <span class="help-inline" style="color:red;" *ngIf="!addCollabOk.dateNaissance">Date invalide</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="control-group span4">
+                    <label class="control-label" >Civilité</label>
+                    <div class="controls">
+                      <select tabindex="1" data-placeholder="Civilité" class="span4" [(ngModel)]="newCollab.civilite">
+                        <option value="">Civilité</option>
+                        <option value="MM">MM.</option>
+                        <option value="Mlles">Mlles</option>
+                        <option value="Mmes">Mmes</option>
+                      </select>
+                      <span class="help-inline" style="color:red;" *ngIf="!addCollabOk.civilite">Min 2 Characters</span>
+                    </div>
+                  </div>
+                  <div class="control-group span4">
+                    <label class="control-label" >Situation familiale</label>
+                    <div class="controls">
+                      <select tabindex="1" data-placeholder="Situation familiale" class="span4" [(ngModel)]="newCollab.situationFamiliale">
+                        <option value="">Situation familiale</option>
+                        <option value="Marié">Marié (M)</option>
+                        <option value="Pacsé">Pacsé (O)</option>
+                        <option value="Divorcé">Divorcé (D)</option>
+                        <option value="Séparé">Séparé (D)</option>
+                        <option value="Célibataire">Célibataire (C)</option>
+                        <option value="Veuf">Veuf (V)</option>
+                      </select>
+                      <span class="help-inline" style="color:red;" *ngIf="!addCollabOk.situationFamiliale">Veuiller choisir</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="control-group span4">
+                    <label class="control-label" >Sexe</label>
+                    <div class="controls">
+                      <select tabindex="1" data-placeholder="Sexe" class="span4" [(ngModel)]="newCollab.sexe">
+                        <option value="">Sexe</option>
+                        <option value="F">F</option>
+                        <option value="M">M</option>
+                      </select>
+                      <span class="help-inline" style="color:red;" *ngIf="!addCollabOk.sexe">Veuiller choisir</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="span6">
+                  </div>
+                  <div class="control-group span2">
+                    <div class="controls">
+                      <button (click)="addCollab1()" class="btn btn-success" >
+                        <b>Suivant</b> &nbsp;
+                        <i class="icon-arrow-right"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
