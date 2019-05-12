@@ -30,6 +30,11 @@ import {MotifEntreeComponent} from "./motif-entree/motif-entree.component";
 import {StatusProfessionnelComponent} from "./status-professionnel/status-professionnel.component";
 import {BanqueComponent} from "./banque/banque.component";
 import {Profil2Component} from "./profil2/profil2.component";
+import {MotifAbsenceComponent} from "./motif-absence/motif-absence.component";
+import {MotifSortieComponent} from "./motif-sortie/motif-sortie.component";
+import {MotifTravailComponent} from "./motif-travail/motif-travail.component";
+import {TypeAttestationEntrepriseComponent} from "./type-attestation-entreprise/type-attestation-entreprise.component";
+import {DemandeComponent} from "./demande/demande.component";
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -58,7 +63,12 @@ const routes: Routes = [
   {path: 'fonction', component: FonctionComponent},
   {path: 'motifDepart', component: MotifDepartComponent},
   {path: 'motifEntree', component: MotifEntreeComponent},
+  {path: 'motifSortie', component: MotifSortieComponent},
+  {path: 'motifTravail', component: MotifTravailComponent},
+  {path: 'TypeAttestationEntreprise', component: TypeAttestationEntrepriseComponent},
+  {path: 'motifAbsence', component: MotifAbsenceComponent},
   {path: 'statusProfessionnel', component: StatusProfessionnelComponent},
+  {path: 'demande', component: DemandeComponent},
   {path: 'banque', component: BanqueComponent},
   {path: 'profil2', component: Profil2Component},
   {path: 'groupe', component: GroupeComponent}

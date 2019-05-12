@@ -1,0 +1,98 @@
+<app-navbar></app-navbar>
+<div class="modal fade" id="myModal" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Ajouter une nouvelle delivrePar</h4>
+      </div>
+      <div class="modal-body" *ngIf="addOk">
+        <h3>Opération bien effectué !</h3>
+      </div>
+      <div class="modal-body" *ngIf="!addOk">
+        private Date dateDemande;
+        private String observation;
+        private int status;
+        private String motifRefus;
+        @ManyToOne
+        private Collaborateur collaborateur;
+
+        <div class="form-group">
+          <label >Collaborateur</label>
+          <select class="form-control" style="width: 90%;" >
+            <option *ngFor="let t of collabs"  [ngValue]="t">{{t.nom + ' ' + t.prenom}}</option>
+          </select>
+        </div>
+        <div style="display: flex;">
+          <div style="width: 25%; text-align: center ; border-bottom: 6px solid #25a4be ;">
+            <b>Demande d'absence</b>
+          </div>
+          <div style="width: 25%; text-align: center ; border-bottom: 6px solid #25a4be ;">
+            <b>Demande d'absence</b>
+          </div>
+          <div style="width: 25%; text-align: center ; border-bottom: 6px solid #25a4be ;">
+            <b>Demande d'absence</b>
+          </div>
+          <div style="width: 25%; text-align: center ; border-bottom: 6px solid #25a4be ;">
+            <b>Demande d'absence</b>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" *ngIf="!addOk" class="btn btn-success"  style="margin-right: 15px">Valider</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="addOk = false">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+<div class="wrapper" >
+  <div class="container" >
+    <div class="row">
+      <app-sidebar></app-sidebar>
+      <!--/.span3-->
+      <div class="span9" >
+        <div class="content">
+
+          <div class="module">
+            <div class="module-head">
+              <h3>Gestion des Demandes</h3>
+              <a class="btn btn-inverse" style="margin-top: 5px" data-toggle="modal" (click)="initAdd()" data-target="#myModal">Ajouter nouveau</a>
+            </div>
+            <div class="module-body">
+              <table class="table">
+                <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Collaborateur</th>
+                  <th>Type de demande</th>
+                  <th>Date de demande</th>
+                  <th>Observation</th>
+                  <th>Status</th>
+                  <th>Motif de refus</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let d of demandes">
+                  <td>{{d.id}}</td>
+                  <td>{{d.collaborateur.id}}</td>
+                  <td *ngIf="d.hasOwnProperty('typeAttestationEntreprise')">Demande d'attestaion</td>
+                  <td *ngIf="d.hasOwnProperty('motifAbsence')">Demande d'absence</td>
+                  <td *ngIf="d.hasOwnProperty('motifSortie')">Demande de sortie</td>
+                  <td *ngIf="d.hasOwnProperty('motifTravail')">Demande de travail</td>
+                  <td>{{d.dateDemande | date : 'dd-MM-yyyy'}}</td>
+                  <td>{{d.observation}}</td>
+                  <td>{{d.status}}</td>
+                  <td>{{d.motifRefus}}</td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

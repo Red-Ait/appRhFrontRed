@@ -78,6 +78,16 @@ import { MotifEntreeComponent } from './motif-entree/motif-entree.component';
 import { StatusProfessionnelComponent } from './status-professionnel/status-professionnel.component';
 import { BanqueComponent } from './banque/banque.component';
 import { Profil2Component } from './profil2/profil2.component';
+import { MotifAbsenceComponent } from './motif-absence/motif-absence.component';
+import {MotifAbsenceService} from "../service/MotifAbsenceService";
+import { MotifSortieComponent } from './motif-sortie/motif-sortie.component';
+import {MotifSortieService} from "../service/MotifSortieService";
+import { MotifTravailComponent } from './motif-travail/motif-travail.component';
+import {MotifTravailService} from "../service/MotifTravailService";
+import { TypeAttestationEntrepriseComponent } from './type-attestation-entreprise/type-attestation-entreprise.component';
+import {TypeAttestationEntrepriseService} from "../service/TypeAttestationEntrepriseService";
+import { DemandeComponent } from './demande/demande.component';
+import {DemandeService} from "../service/DemandeService";
 
 
 
@@ -115,6 +125,11 @@ import { Profil2Component } from './profil2/profil2.component';
     StatusProfessionnelComponent,
     BanqueComponent,
     Profil2Component,
+    MotifAbsenceComponent,
+    MotifSortieComponent,
+    MotifTravailComponent,
+    TypeAttestationEntrepriseComponent,
+    DemandeComponent,
   ],
   imports: [
 
@@ -156,6 +171,11 @@ import { Profil2Component } from './profil2/profil2.component';
     RumenirationService,
     StatusProfessionnelService,
     BanqueService,
+    MotifAbsenceService,
+    MotifSortieService,
+    MotifTravailService,
+    TypeAttestationEntrepriseService,
+    DemandeService,
     CoordonnesBancairesService,
     DocumentService,
     EmailService,
