@@ -88,6 +88,10 @@ import { TypeAttestationEntrepriseComponent } from './type-attestation-entrepris
 import {TypeAttestationEntrepriseService} from "../service/TypeAttestationEntrepriseService";
 import { DemandeComponent } from './demande/demande.component';
 import {DemandeService} from "../service/DemandeService";
+import {DemandeAbsenceService} from "../service/DemandeAbsenceService";
+import {DemandeAttestationService} from "../service/DemandeAttestationService";
+import {DemandeAuthSortieService} from "../service/DemandeAuthSortieService";
+import {DemandeAuTravService} from "../service/DemandeAuTravService";
 
 
 
@@ -176,6 +180,10 @@ import {DemandeService} from "../service/DemandeService";
     MotifTravailService,
     TypeAttestationEntrepriseService,
     DemandeService,
+    DemandeAbsenceService,
+    DemandeAttestationService,
+    DemandeAuthSortieService,
+    DemandeAuTravService,
     CoordonnesBancairesService,
     DocumentService,
     EmailService,

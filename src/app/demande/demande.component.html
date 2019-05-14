@@ -1,8 +1,7 @@
 <app-navbar></app-navbar>
-<div class="modal fade" id="myModal" role="dialog">
+<!--<div class="modal fade" id="myModal" role="dialog">
   <div class="modal-dialog">
 
-    <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -12,13 +11,6 @@
         <h3>Opération bien effectué !</h3>
       </div>
       <div class="modal-body" *ngIf="!addOk">
-<!--        private Date dateDemande;
-        private String observation;
-        private int status;
-        private String motifRefus;
-        @ManyToOne
-        private Collaborateur collaborateur;
--->
         <div class="form-group">
           <label >Collaborateur</label>
           <select class="form-control" style="width: 90%;" >
@@ -105,7 +97,7 @@
 
   </div>
 </div>
-<div class="wrapper" >
+-*--><div class="wrapper" >
   <div class="container" >
     <div class="row">
       <app-sidebar></app-sidebar>
@@ -115,34 +107,277 @@
 
           <div class="module">
             <div class="module-head">
-              <h3>Gestion des Demandes</h3>
-              <a class="btn btn-inverse" style="margin-top: 5px" data-toggle="modal" (click)="initAdd()" data-target="#myModal">Ajouter nouveau</a>
+              <div class="control-group">
+                <label class="control-label">Gestion des Demandes</label>
+                <div class="controls">
+                  <label class="radio inline">
+                    <input type="radio" name="optionsRadios" [(ngModel)]="typeDemande" value="absence" checked="">
+                    Absence
+                  </label>
+                  <label class="radio inline">
+                    <input type="radio" name="optionsRadios" [(ngModel)]="typeDemande"  value="attestation">
+                    Attestation
+                  </label>
+                  <label class="radio inline">
+                    <input type="radio" name="optionsRadios" value="sortie" [(ngModel)]="typeDemande">
+                    Sortie
+                  </label>
+                  <label class="radio inline">
+                    <input type="radio" name="optionsRadios" value="travail" [(ngModel)]="typeDemande">
+                    Travail
+                  </label>
+                </div>
+              </div>
+              <div class="row">
+
+                <div class="span2" style="display: flex;">
+                  <button style="margin-right: 5px"  class="btn btn-success"(click)="initAdd()">Ajouter </button>
+                  <div class="dropdown" style="width: 30%;" *ngIf="typeDemande === 'absence'">
+                    <button class="btn btn-default " data-toggle="dropdown">
+                      <img src="../../assets/settings.png" style="height: 20px;" alt="">
+                    </button>
+                    <ul class="dropdown-menu" style="overflow-y: scroll; height: 180px ;">
+                      <li style="padding: 5px;">
+                        <div class="checkbox">
+                          <label><input type="checkbox" [(ngModel)]="colonAbs.id" (change)="choseColonAbsence()">Id</label>
+                        </div>
+                      </li>
+                      <li style="padding: 5px;">
+                        <div class="checkbox">
+                          <label><input type="checkbox" [(ngModel)]="colonAbs.collaborateur" (change)="choseColonAbsence()">Collaborateur</label>
+                        </div>
+                      </li>
+                      <li style="padding: 5px;">
+                        <div class="checkbox">
+                          <label><input type="checkbox" [(ngModel)]="colonAbs.dateDemande" (change)="choseColonAbsence()">Date de demande</label>
+                        </div>
+                      </li>
+                      <li style="padding: 5px;">
+                        <div class="checkbox">
+                          <label><input type="checkbox" [(ngModel)]="colonAbs.dateDebut" (change)="choseColonAbsence()">Date de débute</label>
+                        </div>
+                      </li>
+                      <li style="padding: 5px;">
+                        <div class="checkbox">
+                          <label><input type="checkbox" [(ngModel)]="colonAbs.dateFin" (change)="choseColonAbsence()">Date de fin</label>
+                        </div>
+                      </li>
+                      <li style="padding: 5px;">
+                        <div class="checkbox">
+                          <label><input type="checkbox" [(ngModel)]="colonAbs.observation" (change)="choseColonAbsence()">Observation</label>
+                        </div>
+                      </li>
+                      <li style="padding: 5px;">
+                        <div class="checkbox">
+                          <label><input type="checkbox" [(ngModel)]="colonAbs.status" (change)="choseColonAbsence()">Status</label>
+                        </div>
+                      </li>
+                      <li style="padding: 5px;">
+                        <div class="checkbox">
+                          <label><input type="checkbox" [(ngModel)]="colonAbs.exercice" (change)="choseColonAbsence()">Exercice</label>
+                        </div>
+                      </li>
+                      <li style="padding: 5px;">
+                        <div class="checkbox">
+                          <label><input type="checkbox" [(ngModel)]="colonAbs.jourOuvrable" (change)="choseColonAbsence()">Jour ouvrable</label>
+                        </div>
+                      </li>
+                      <li style="padding: 5px;">
+                        <div class="checkbox">
+                          <label><input type="checkbox" [(ngModel)]="colonAbs.repos" (change)="choseColonAbsence()">Repos</label>
+                        </div>
+                      </li>
+                      <li style="padding: 5px;">
+                        <div class="checkbox">
+                          <label><input type="checkbox" [(ngModel)]="colonAbs.feries" (change)="choseColonAbsence()">Férier</label>
+                        </div>
+                      </li>
+
+                      <li style="padding: 5px;">
+                        <div class="checkbox">
+                          <label><input type="checkbox" [(ngModel)]="colonAbs.motifRefus" (change)="choseColonAbsence()">Motif de refus</label>
+                        </div>
+                      </li>
+
+                    </ul>
+                  </div>
+                  <div class="dropdown" style="width: 30%;" *ngIf="typeDemande === 'sortie'">
+                    <button class="btn btn-default " data-toggle="dropdown">
+                      <img src="../../assets/settings.png" style="height: 20px;" alt="">
+                    </button>
+                    <ul class="dropdown-menu" style="overflow-y: scroll; height: 180px ;">
+                      <li style="padding: 5px;">
+                        <div class="checkbox">
+                          <label><input type="checkbox" [(ngModel)]="colonSortie.id" (change)="choseColonSortie()">Id</label>
+                        </div>
+                      </li>
+                      <li style="padding: 5px;">
+                        <div class="checkbox">
+                          <label><input type="checkbox" [(ngModel)]="colonSortie.collaborateur" (change)="choseColonSortie()">Collaborateur</label>
+                        </div>
+                      </li>
+                      <li style="padding: 5px;">
+                        <div class="checkbox">
+                          <label><input type="checkbox" [(ngModel)]="colonSortie.dateDemande" (change)="choseColonSortie()">Date de demande</label>
+                        </div>
+                      </li>
+                      <li style="padding: 5px;">
+                        <div class="checkbox">
+                          <label><input type="checkbox" [(ngModel)]="colonSortie.dateSortie" (change)="choseColonSortie()">Date de sortie</label>
+                        </div>
+                      </li>
+                      <li style="padding: 5px;">
+                        <div class="checkbox">
+                          <label><input type="checkbox" [(ngModel)]="colonSortie.heureSortie" (change)="choseColonSortie()">Heure de sortie</label>
+                        </div>
+                      </li>
+                      <li style="padding: 5px;">
+                        <div class="checkbox">
+                          <label><input type="checkbox" [(ngModel)]="colonSortie.heureReteur" (change)="choseColonSortie()">Heure de Reteur</label>
+                        </div>
+                      </li>
+                      <li style="padding: 5px;">
+                        <div class="checkbox">
+                          <label><input type="checkbox" [(ngModel)]="colonSortie.observation" (change)="choseColonSortie()">Observation</label>
+                        </div>
+                      </li>
+                      <li style="padding: 5px;">
+                        <div class="checkbox">
+                          <label><input type="checkbox" [(ngModel)]="colonSortie.status" (change)="choseColonSortie()">Status</label>
+                        </div>
+                      </li>
+                      <li style="padding: 5px;">
+                        <div class="checkbox">
+                          <label><input type="checkbox" [(ngModel)]="colonSortie.motifRefus" (change)="choseColonSortie()">Motif de refus</label>
+                        </div>
+                      </li>
+                      <li style="padding: 5px;">
+                        <div class="checkbox">
+                          <label><input type="checkbox" [(ngModel)]="colonSortie.motifSortie" (change)="choseColonSortie()">Motif de sortie</label>
+                        </div>
+                      </li>
+
+                    </ul>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="module-body">
+            <div class="module-body" *ngIf="typeDemande === 'absence'">
+              <h5>Demandes des absences</h5>
+              <table class="table">
+                <thead>
+                <tr>
+                  <th *ngIf="colonAbs.id">#</th>
+                  <th *ngIf="colonAbs.collaborateur">Collaborateur</th>
+                  <th *ngIf="colonAbs.dateDemande">Date de demande</th>
+                  <th *ngIf="colonAbs.observation">Observation</th>
+                  <th *ngIf="colonAbs.status">Status</th>
+                  <th *ngIf="colonAbs.dateDebut">Date de début</th>
+                  <th *ngIf="colonAbs.dateFin">Date de fin</th>
+                  <th *ngIf="colonAbs.exercice">Exercice</th>
+                  <th *ngIf="colonAbs.jourOuvrable">Jour ouvrable</th>
+                  <th *ngIf="colonAbs.repos">Repos</th>
+                  <th *ngIf="colonAbs.feries">Férier</th>
+                  <th *ngIf="colonAbs.motifRefus">Motif de refus</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let d of demandeAbsence">
+                  <td *ngIf="colonAbs.id">{{d.id}}</td>
+                  <td *ngIf="colonAbs.collaborateur">{{d.collaborateur.nom + ' ' + d.collaborateur.prenom }}</td>
+                  <td *ngIf="colonAbs.dateDemande">{{d.dateDemande | date : 'dd-MM-yyyy'}}</td>
+                  <td *ngIf="colonAbs.observation">{{d.observation}}</td>
+                  <td *ngIf="colonAbs.status">{{d.status}}</td>
+                  <td *ngIf="colonAbs.dateDebut">{{d.dateDebut | date : 'dd-MM-yyyy'}}</td>
+                  <td *ngIf="colonAbs.dateFin">{{d.dateFin | date : 'dd-MM-yyyy'}}</td>
+                  <td *ngIf="colonAbs.exercice">{{d.exercice}}</td>
+                  <td *ngIf="colonAbs.jourOuvrable">{{d.jourOuvrable}}</td>
+                  <td *ngIf="colonAbs.repos">{{d.repos}}</td>
+                  <td *ngIf="colonAbs.feries">{{d.feries}}</td>
+                  <td *ngIf="colonAbs.motifRefus">{{d.motifRefus}}</td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="module-body" *ngIf="typeDemande === 'attestation'">
+              <h5>Demandes des attestation</h5>
               <table class="table">
                 <thead>
                 <tr>
                   <th>#</th>
                   <th>Collaborateur</th>
-                  <th>Type de demande</th>
                   <th>Date de demande</th>
                   <th>Observation</th>
                   <th>Status</th>
+                  <th>Type d'attestation</th>
                   <th>Motif de refus</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr *ngFor="let d of demandes">
+                <tr *ngFor="let d of demandeAttestation">
                   <td>{{d.id}}</td>
                   <td>{{d.collaborateur.id}}</td>
-                  <td *ngIf="d.hasOwnProperty('typeAttestationEntreprise')">Demande d'attestaion</td>
-                  <td *ngIf="d.hasOwnProperty('motifAbsence')">Demande d'absence</td>
-                  <td *ngIf="d.hasOwnProperty('motifSortie')">Demande de sortie</td>
-                  <td *ngIf="d.hasOwnProperty('motifTravail')">Demande de travail</td>
                   <td>{{d.dateDemande | date : 'dd-MM-yyyy'}}</td>
                   <td>{{d.observation}}</td>
                   <td>{{d.status}}</td>
+                  <td>{{d.typeAttestationEntreprise.nom}}</td>
                   <td>{{d.motifRefus}}</td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="module-body" *ngIf="typeDemande === 'sortie'">
+              <h5>Demandes des sorties</h5>
+              <table class="table">
+                <thead>
+                <tr>
+                  <th *ngIf="colonSortie.id">#</th>
+                  <th *ngIf="colonSortie.collaborateur">Collaborateur</th>
+                  <th *ngIf="colonSortie.dateDemande">Date de demande</th>
+                  <th *ngIf="colonSortie.observation">Observation</th>
+                  <th *ngIf="colonSortie.status">Status</th>
+                  <th *ngIf="colonSortie.dateSortie">Date de sortie</th>
+                  <th *ngIf="colonSortie.heureSortie">Heure de sortie</th>
+                  <th *ngIf="colonSortie.heureReteur">Heure de reteur</th>
+                  <th *ngIf="colonSortie.motifSortie">Motif de sortie</th>
+                  <th *ngIf="colonSortie.motifRefus">Motif de refus</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let d of demandeSortie">
+                  <td *ngIf="colonSortie.id">{{d.id}}</td>
+                  <td *ngIf="colonSortie.collaborateur">{{d.collaborateur.id}}</td>
+                  <td *ngIf="colonSortie.dateDemande">{{d.dateDemande | date : 'dd-MM-yyyy'}}</td>
+                  <td *ngIf="colonSortie.observation">{{d.observation}}</td>
+                  <td *ngIf="colonSortie.status">{{d.status}}</td>
+                  <td *ngIf="colonSortie.dateSortie">{{d.dateSortie | date : 'dd-MM-yyyy' }}</td>
+                  <td *ngIf="colonSortie.heureSortie">{{d.heureSortie }}</td>
+                  <td *ngIf="colonSortie.heureReteur">{{d.heureReteur }}</td>
+                  <td *ngIf="colonSortie.motifSortie">{{d.motifSortie.nom}}</td>
+                  <td *ngIf="colonSortie.motifRefus">{{d.motifRefus}}</td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="module-body" *ngIf="typeDemande === 'travail'">
+              <h5>Demandes de travail</h5>
+              <table class="table">
+                <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Collaborateur</th>
+                  <th>Date de demande</th>
+                  <th>Observation</th>
+                  <th>Status</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let d of demandeTravail">
+                  <td>{{d.id}}</td>
+                  <td>{{d.collaborateur.id}}</td>
+                  <td>{{d.dateDemande | date : 'dd-MM-yyyy'}}</td>
+                  <td>{{d.observation}}</td>
+                  <td>{{d.status}}</td>
                 </tr>
                 </tbody>
               </table>
