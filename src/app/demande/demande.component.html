@@ -1,103 +1,5 @@
 <app-navbar></app-navbar>
-<!--<div class="modal fade" id="myModal" role="dialog">
-  <div class="modal-dialog">
-
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Ajouter une nouvelle delivrePar</h4>
-      </div>
-      <div class="modal-body" *ngIf="addOk">
-        <h3>Opération bien effectué !</h3>
-      </div>
-      <div class="modal-body" *ngIf="!addOk">
-        <div class="form-group">
-          <label >Collaborateur</label>
-          <select class="form-control" style="width: 90%;" >
-            <option *ngFor="let t of collabs"  [ngValue]="t">{{t.nom + ' ' + t.prenom}}</option>
-          </select>
-        </div>
-        <div class="control-group">
-          <label class="control-label">Type de demande</label>
-          <div class="controls">
-            <label class="radio inline">
-              <input type="radio" value="absence" name="type" [(ngModel)]="typeDemande" checked="">
-              Absence
-            </label>
-            <label class="radio inline">
-              <input type="radio" value="attestation" name="type" [(ngModel)]="typeDemande">
-              Attestation
-            </label>
-            <label class="radio inline">
-              <input type="radio" value="sortie" name="type" [(ngModel)]="typeDemande">
-              Sortie
-            </label>
-            <label class="radio inline">
-              <input type="radio" value="travail" name="type" [(ngModel)]="typeDemande">
-              Travail
-            </label>
-          </div>
-        </div>
-        <div *ngIf="typeDemande === 'absence'">
-          <div class="row">
-            <div class="control-group span3">
-              <label class="control-label" >Date de début</label>
-              <div class="controls">
-                <input type="date" class="span3" >
-                <span class="help-inline" style="color:red;" >Min 2 chiffres</span>
-              </div>
-            </div>
-            <div class="control-group span3">
-              <label class="control-label" >Date de fin</label>
-              <div class="controls">
-                <input type="date" class="span3" >
-                <span class="help-inline" style="color:red;" >Min 2 chiffres</span>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="control-group span3">
-              <label class="control-label" >Exercice</label>
-              <div class="controls">
-                <input type="number" step="1" placeholder="0" class="span3" >
-                <span class="help-inline" style="color:red;" >Min 2 chiffres</span>
-              </div>
-            </div>
-            <div class="control-group span3">
-              <label class="control-label" >Jour ouvrable</label>
-              <div class="controls">
-                <input type="number" step="0.01" placeholder="0.00" class="span3" >
-                <span class="help-inline" style="color:red;" >Min 2 chiffres</span>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="control-group span3">
-              <label class="control-label" >Repos</label>
-              <div class="controls">
-                <input type="number" step="0.01" placeholder="0.00" class="span3" >
-                <span class="help-inline" style="color:red;" >Min 2 chiffres</span>
-              </div>
-            </div>
-            <div class="control-group span3">
-              <label class="control-label" >Ferier</label>
-              <div class="controls">
-                <input type="number" step="0.01" placeholder="0.00" class="span3" >
-                <span class="help-inline" style="color:red;" >Min 2 chiffres</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" *ngIf="!addOk" class="btn btn-success"  style="margin-right: 15px">Valider</button>
-        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="addOk = false">Close</button>
-      </div>
-    </div>
-
-  </div>
-</div>
--*--><div class="wrapper" >
+<div class="wrapper" >
   <div class="container" >
     <div class="row">
       <app-sidebar></app-sidebar>
@@ -131,7 +33,7 @@
               <div class="row">
 
                 <div class="span2" style="display: flex;">
-                  <button style="margin-right: 5px"  class="btn btn-success"(click)="initAdd()">Ajouter </button>
+                  <button style="margin-right: 5px"  class="btn btn-success" routerLink="/add-demande">Ajouter </button>
                   <div class="dropdown" style="width: 30%;" *ngIf="typeDemande === 'absence'">
                     <button class="btn btn-default " data-toggle="dropdown">
                       <img src="../../assets/settings.png" style="height: 20px;" alt="">

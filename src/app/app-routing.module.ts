@@ -35,6 +35,7 @@ import {MotifSortieComponent} from "./motif-sortie/motif-sortie.component";
 import {MotifTravailComponent} from "./motif-travail/motif-travail.component";
 import {TypeAttestationEntrepriseComponent} from "./type-attestation-entreprise/type-attestation-entreprise.component";
 import {DemandeComponent} from "./demande/demande.component";
+import {AddDemandeComponent} from "./add-demande/add-demande.component";
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -71,6 +72,7 @@ const routes: Routes = [
   {path: 'demande', component: DemandeComponent},
   {path: 'banque', component: BanqueComponent},
   {path: 'profil2', component: Profil2Component},
+  {path: 'add-demande', component: AddDemandeComponent},
   {path: 'groupe', component: GroupeComponent}
 
 ];

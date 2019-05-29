@@ -92,6 +92,7 @@ import {DemandeAbsenceService} from "../service/DemandeAbsenceService";
 import {DemandeAttestationService} from "../service/DemandeAttestationService";
 import {DemandeAuthSortieService} from "../service/DemandeAuthSortieService";
 import {DemandeAuTravService} from "../service/DemandeAuTravService";
+import { AddDemandeComponent } from './add-demande/add-demande.component';
 
 
 
@@ -134,6 +135,7 @@ import {DemandeAuTravService} from "../service/DemandeAuTravService";
     MotifTravailComponent,
     TypeAttestationEntrepriseComponent,
     DemandeComponent,
+    AddDemandeComponent,
   ],
   imports: [
 

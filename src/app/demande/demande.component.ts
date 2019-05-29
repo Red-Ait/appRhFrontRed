@@ -25,7 +25,7 @@ export class DemandeComponent implements OnInit {
     jourOuvrable : false,
     repos : false,
     feries : false,
-    motifRefus : false
+    motifRefus : false,
   };
   colonSortie = {
     id : true,
@@ -56,6 +56,7 @@ export class DemandeComponent implements OnInit {
   ngOnInit() {
     this.demandeAbsenceService.allDemandeAbsences().subscribe(data => {
       this.demandeAbsence = data;
+      console.log(data);
     });
     this.demandeAttestService.allDemandeAttestations().subscribe(data => {
       this.demandeAttestation = data;
@@ -69,10 +70,5 @@ export class DemandeComponent implements OnInit {
     }
   choseColonAbsence() {}
   choseColonSortie() {}
-  initAdd() {
-    this.collabService.allCollaborateurs(null , null).subscribe(d => {
-      this.collabs = d;
-    });
-  }
 
 }
