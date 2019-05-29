@@ -5,6 +5,8 @@ import {DemandeService} from "../../service/DemandeService";
 import {DemandeAbsenceService} from "../../service/DemandeAbsenceService";
 import {TypeAttestationEntrepriseService} from "../../service/TypeAttestationEntrepriseService";
 import {DemandeAttestationService} from "../../service/DemandeAttestationService";
+import {MotifSortieService} from "../../service/MotifSortieService";
+import {DemandeAuthSortieService} from "../../service/DemandeAuthSortieService";
 
 @Component({
   selector: 'app-add-demande',
@@ -51,24 +53,109 @@ export class AddDemandeComponent implements OnInit {
     observation : '',
     typeAttestationEntreprise : null
   };
+  newDemandeSortie = {
+    collaborateur : null,
+    dateDemande : new Date(),
+    observation : '',
+    dateSortie : '',
+    heureSortie : null,
+    heureReteur : null,
+    motifSortie : null
+  };
+  newDemandeSortieErr = {
+    collaborateur : false,
+    dateDemande : false,
+    observation : false,
+    dateSortie : false,
+    dateSortie2 : false,
+    heureSortie : false,
+    heureReteur : false,
+    motifSortie : false
+  };
   addOk = false;
   collabs = null;
+  motifSortie = null;
   typeDemande = 'absence';
   motifAbs = null;
   typeAttestationEntreprise = null;
   constructor(private collabService: CollaborateurService,
               private motifAbsService: MotifAbsenceService,
+              private motifSortieService: MotifSortieService,
               private demandeAbsenceService: DemandeAbsenceService,
               private demandeAttesService: DemandeAttestationService,
+              private demandeSortieService: DemandeAuthSortieService,
               private typeAttestationEntrepriseService: TypeAttestationEntrepriseService
               ) { }
 
   ngOnInit() {
+    this.motifSortieService.allMotifSorties().subscribe(d => this.motifSortie = d);
     this.motifAbsService.allMotifAbsences().subscribe(d => this.motifAbs = d);
     this.collabService.allCollaborateurs(null , null).subscribe(d => {
       this.collabs = d;
     });
     this.typeAttestationEntrepriseService.allTypeAttestationEntreprises().subscribe(d => this.typeAttestationEntreprise = d);
+  }
+  addDemandeSortie() {
+    let isOk = true;
+   if(this.newDemandeSortie.collaborateur === null) {
+     this.newDemandeSortieErr.collaborateur = true;
+     isOk = false;
+   } else {
+     this.newDemandeSortieErr.collaborateur = false;
+   }
+   if(this.newDemandeSortie.dateSortie === '') {
+     isOk = false;
+     this.newDemandeSortieErr.dateSortie = true;
+   } else {
+     this.newDemandeSortieErr.dateSortie = false;
+   }
+   if(new Date(this.newDemandeSortie.dateSortie).getTime() < new Date().getTime()) {
+     isOk = false;
+     this.newDemandeSortieErr.dateSortie2 = true;
+   } else {
+     this.newDemandeSortieErr.dateSortie2 = false;
+   }
+    if(this.newDemandeSortie.heureSortie === null) {
+      isOk = false;
+      this.newDemandeSortieErr.heureSortie = true;
+    } else {
+      this.newDemandeSortieErr.heureSortie = false;
+    }
+    if(this.newDemandeSortie.heureReteur === null) {
+      isOk = false;
+      this.newDemandeSortieErr.heureReteur = true;
+    } else {
+      this.newDemandeSortieErr.heureReteur = false;
+    }
+    if(this.newDemandeSortie.motifSortie === null) {
+      isOk = false;
+      this.newDemandeSortieErr.motifSortie = true;
+    } else {
+      this.newDemandeSortieErr.motifSortie = false;
+    }
+    if (isOk) {
+      let time = new Date();
+      time.setHours(+this.newDemandeSortie.heureSortie.split(':')[0]);
+      time.setMinutes(+this.newDemandeSortie.heureSortie.split(':')[1]);
+      console.log(time);
+      this.newDemandeSortie.heureSortie = time;
+      time.setHours(+this.newDemandeSortie.heureReteur.split(':')[0]);
+      time.setMinutes(+this.newDemandeSortie.heureReteur.split(':')[1]);
+      console.log(time);
+      this.newDemandeSortie.heureReteur = time;
+      this.demandeSortieService.addDemandeAuthSortie(this.newDemandeSortie).subscribe(d => {
+        this.newDemandeSortie = {
+          collaborateur : null,
+          dateDemande : new Date(),
+          observation : '',
+          dateSortie : '',
+          heureSortie : '',
+          heureReteur : '',
+          motifSortie : null
+        };
+        this.addOk = true;
+      })
+    }
   }
   addDemandeAbs() {
     let isOk = true;

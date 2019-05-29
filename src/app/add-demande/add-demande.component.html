@@ -33,6 +33,12 @@
               <div class="row">
                 <div class="form-group span8">
                   <label >Collaborateur</label>
+                  <div class="controls" *ngIf="typeDemande === 'sortie'">
+                    <select class="form-control" style="width: 100%;" [(ngModel)]="newDemandeSortie.collaborateur" [ngStyle]="{'border-color':newDemandeSortieErr.collaborateur ? 'red' : '' }">
+                      <option *ngFor="let t of collabs"  [ngValue]="t">{{t.nom + ' ' + t.prenom}}</option>
+                    </select>
+                    <span class="help-inline" style="color:red;" *ngIf="newDemandeSortieErr.collaborateur">Veuillez choisir</span>
+                  </div>
                   <div class="controls" *ngIf="typeDemande === 'absence'">
                     <select class="form-control" style="width: 100%;" [(ngModel)]="newDemandeAbs.collaborateur" [ngStyle]="{'border-color':newDemandeAbsErr.collaborateur ? 'red' : '' }">
                       <option *ngFor="let t of collabs"  [ngValue]="t">{{t.nom + ' ' + t.prenom}}</option>
@@ -68,15 +74,79 @@
                   </label>
                 </div>
               </div>
+              <div *ngIf="typeDemande === 'sortie'">
+                <div class="row">
+                  <div class="control-group span4">
+                    <label class="control-label" >Date de sortie</label>
+                    <div class="controls">
+                      <input type="date" class="span4" [(ngModel)]="newDemandeSortie.dateSortie" [ngStyle]="{'border-color':(newDemandeSortieErr.dateSortie || newDemandeSortieErr.dateSortie2 )? 'red' : '' }">
+                      <span class="help-inline" style="color:red;" *ngIf="newDemandeSortieErr.dateSortie">Date invalide</span>
+                      <span class="help-inline" style="color:red;" *ngIf="newDemandeSortieErr.dateSortie2">Date dépassée</span>
+                    </div>
+                  </div>
+                  <div class="control-group span4">
+                    <label class="control-label" >Heure de sortie</label>
+                    <div class="controls">
+                      <input type="time" class="span4" [(ngModel)]="newDemandeSortie.heureSortie" [ngStyle]="{'border-color':(newDemandeSortieErr.heureSortie)? 'red' : '' }">
+                      <span class="help-inline" style="color:red;" *ngIf="newDemandeSortieErr.heureSortie">Heur invalide</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="control-group span4">
+                    <label class="control-label" >Heure de retour</label>
+                    <div class="controls">
+                      <input type="time" class="span4" [(ngModel)]="newDemandeSortie.heureReteur" [ngStyle]="{'border-color':(newDemandeSortieErr.heureReteur)? 'red' : '' }">
+                      <span class="help-inline" style="color:red;" *ngIf="newDemandeSortieErr.heureReteur">Heur invalide</span>
+                    </div>
+                  </div>
+                  <div class="form-group span4">
+                    <label >Motif de sortie</label>
+                    <div class="controls">
+                      <select class="form-control" style="width: 100%;" [(ngModel)]="newDemandeSortie.motifSortie" [ngStyle]="{'border-color':newDemandeSortieErr.motifSortie  ? 'red' : '' }">
+                        <option *ngFor="let t of motifSortie"  [ngValue]="t">{{t.nom}}</option>
+                      </select>
+                      <span class="help-inline" style="color:red;" *ngIf="newDemandeSortieErr.motifSortie">Veuillez choisir</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="form-group span8">
+                    <label >Observation</label>
+                    <div class="controls">
+                      <textarea class="form-control span8" style="  resize: none; " [(ngModel)]="newDemandeSortie.observation" placeholder="Observation.. (facultatif)">
+                      </textarea>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="span7"></div>
+                  <div class="span1">
+                    <button class="btn btn-success" (click)="addDemandeSortie()">
+                      <i class="icon-plus"></i>
+                      Ajouter
+                    </button>
+                  </div>
+                </div>
+              </div>
               <div *ngIf="typeDemande === 'attestation'">
                 <div class="row">
                   <div class="form-group span8">
                     <label >Type d'attestation</label>
                     <div class="controls">
-                      <select class="form-control" style="width: 100%;" [(ngModel)]="newDemandeAttes.typeAttestationEntreprise" [ngStyle]="{'border-color':newDemandeAbsErr.motifAbsence ? 'red' : '' }">
+                      <select class="form-control" style="width: 100%;" [(ngModel)]="newDemandeAttes.typeAttestationEntreprise" [ngStyle]="{'border-color':newDemandeAttesErr.typeAttestationEntreprise  ? 'red' : '' }">
                         <option *ngFor="let t of typeAttestationEntreprise"  [ngValue]="t">{{t.nom}}</option>
                       </select>
                       <span class="help-inline" style="color:red;" *ngIf="newDemandeAttesErr.typeAttestationEntreprise">Veuillez choisir</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="form-group span8">
+                    <label >Observation</label>
+                    <div class="controls">
+                      <textarea class="form-control span8" style="  resize: none; " [(ngModel)]="newDemandeAttes.observation" placeholder="Observation.. (facultatif)">
+                      </textarea>
                     </div>
                   </div>
                 </div>
