@@ -93,6 +93,7 @@ import {DemandeAttestationService} from "../service/DemandeAttestationService";
 import {DemandeAuthSortieService} from "../service/DemandeAuthSortieService";
 import {DemandeAuTravService} from "../service/DemandeAuTravService";
 import { AddDemandeComponent } from './add-demande/add-demande.component';
+import {UploadPhotoCollaborateurService} from "../service/UploadPhotoCollaborateurService";
 
 
 
@@ -199,7 +200,8 @@ import { AddDemandeComponent } from './add-demande/add-demande.component';
     ReseauSocialService,
     TelephoneService,
     CategorieService,
-    NiveauScolaireContactService
+    NiveauScolaireContactService,
+    UploadPhotoCollaborateurService
  ],
   bootstrap: [AppComponent]
 })

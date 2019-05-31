@@ -37,6 +37,8 @@ import {TelephoneService} from "../../service/TelephoneService";
 import {CategorieService} from "../../service/CategorieService";
 import {NiveauScolaireContactService} from "../../service/NiveauScolaireContactService";
 import {LocalStorage} from "@ngx-pwa/local-storage";
+import {UploadPhotoCollaborateurService} from "../../service/UploadPhotoCollaborateurService";
+import {HttpEventType, HttpResponse} from "@angular/common/http";
 
 @Component({
   selector: 'app-profil-collaborateur',
@@ -191,6 +193,7 @@ export class ProfilCollaborateurComponent implements OnInit {
   niveauLangues = null;
   langues = null;
   groupes = null;
+  aux = null;
   departements = null;
   typePeriodeDepartements = null;
   statusProfessionnels = null;
@@ -201,7 +204,13 @@ export class ProfilCollaborateurComponent implements OnInit {
   isUpdateCollabInfo = false;
   categories = null;
   niveauScolaireContacts = null;
-  constructor(private collaborateurService: CollaborateurService,
+  selectedPhotos: FileList;
+  selectedPdf: FileList;
+  currentFileUpload: File;
+  apiUrl = 'http://localhost:8088/photocollab/files/';
+  progress: { percentage: number } = { percentage: 0 };
+  constructor(private uploadPhotoCollaborateurService: UploadPhotoCollaborateurService,
+              private collaborateurService: CollaborateurService,
               private typeTeleService: TypeTelephoneService,
               private niveauScolaireContactService: NiveauScolaireContactService,
               private typeDocumentService: TypeDocumentService,
@@ -246,7 +255,7 @@ export class ProfilCollaborateurComponent implements OnInit {
       console.log(this.collabId);
       this.collaborateurService.getCollaborateurById(this.collabId).subscribe(data => {
         this.collabInfo = data;
-        console.log(this.collabInfo);
+        console.log(this.collabInfo.photo);
       });
     });
     this.localStorage.getItem('colonAdresse').subscribe(r => {
@@ -298,6 +307,9 @@ export class ProfilCollaborateurComponent implements OnInit {
     this.isUpdateCollabInfo = true;
   }
   editCollabInfo() {
+    if(this.selectedPhotos) {
+      this.uploadPhoto();
+    }
     console.log(this.newCollabInfo);
     this.collaborateurService.updateCollaborateur(this.newCollabInfo).subscribe(d => {
       this.isUpdateCollabInfo = false;
@@ -557,4 +569,36 @@ export class ProfilCollaborateurComponent implements OnInit {
       this.typeEmails = data;
     });
   }
+
+  selectPhoto(event) {
+    this.selectedPhotos = event.target.files;
+  }
+  selectPdfContrat(event) {
+    this.selectedPdf = event.target.files;
+  }
+
+  uploadPdf() {
+
+  }
+
+  uploadPhoto() {
+    this.progress.percentage = 0;
+
+    this.currentFileUpload = this.selectedPhotos.item(0)
+    this.uploadPhotoCollaborateurService.pushFileToStorage(this.currentFileUpload, this.collabId.toString()).subscribe(event => {
+      if (event.hasOwnProperty('partialText')) {
+        this.aux = event;
+        console.log(this.aux.partialText);
+        this.collabInfo.photo = this.aux.partialText;
+      }
+      if (event.type === HttpEventType.UploadProgress) {
+        this.progress.percentage = Math.round(100 * event.loaded / event.total);
+      } else if (event instanceof HttpResponse) {
+        console.log('File is completely uploaded!');
+      }
+    })
+
+    this.selectedPhotos = undefined
+  }
+
 }

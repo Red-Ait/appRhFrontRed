@@ -33,6 +33,12 @@
               <div class="row">
                 <div class="form-group span8">
                   <label >Collaborateur</label>
+                  <div class="controls" *ngIf="typeDemande === 'travail'">
+                    <select class="form-control" style="width: 100%;" [(ngModel)]="newDemandeTravail.collaborateur" [ngStyle]="{'border-color':newDemandeTravailErr.collaborateur ? 'red' : '' }">
+                      <option *ngFor="let t of collabs"  [ngValue]="t">{{t.nom + ' ' + t.prenom}}</option>
+                    </select>
+                    <span class="help-inline" style="color:red;" *ngIf="newDemandeTravailErr.collaborateur">Veuillez choisir</span>
+                  </div>
                   <div class="controls" *ngIf="typeDemande === 'sortie'">
                     <select class="form-control" style="width: 100%;" [(ngModel)]="newDemandeSortie.collaborateur" [ngStyle]="{'border-color':newDemandeSortieErr.collaborateur ? 'red' : '' }">
                       <option *ngFor="let t of collabs"  [ngValue]="t">{{t.nom + ' ' + t.prenom}}</option>
@@ -72,6 +78,68 @@
                     <input type="radio" value="travail" name="type" [(ngModel)]="typeDemande">
                     Travail
                   </label>
+                </div>
+              </div>
+              <div *ngIf="typeDemande === 'travail'">
+                <div class="row">
+                  <div class="control-group span8">
+                    <label class="control-label" >Date de travail</label>
+                    <div class="controls">
+                      <input type="date" class="span8" [(ngModel)]="newDemandeTravail.dateTravail" [ngStyle]="{'border-color':(newDemandeTravailErr.dateTravail || newDemandeTravailErr.dateTravail2 )? 'red' : '' }">
+                      <span class="help-inline" style="color:red;" *ngIf="newDemandeTravailErr.dateTravail">Date invalide</span>
+                      <span class="help-inline" style="color:red;" *ngIf="newDemandeTravailErr.dateTravail2">Date dépassée</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="control-group span4">
+                    <label class="control-label" >Type</label>
+                    <div class="controls">
+                      <input type="number" min="0" step="1" class="span4" [(ngModel)]="newDemandeTravail.type" [ngStyle]="{'border-color':(newDemandeTravailErr.type)? 'red' : '' }">
+                      <span class="help-inline" style="color:red;" *ngIf="newDemandeTravailErr.type">Type invalide</span>
+                    </div>
+                  </div>
+                  <div class="control-group span4">
+                    <label class="control-label" >Nombre des heurs</label>
+                    <div class="controls">
+                      <input type="number" min="0" step="0.01" class="span4" [(ngModel)]="newDemandeTravail.nombreHeures" [ngStyle]="{'border-color':(newDemandeTravailErr.nombreHeures)? 'red' : '' }">
+                      <span class="help-inline" style="color:red;" *ngIf="newDemandeTravailErr.nombreHeures">Nombre invalide</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="control-group span4">
+                    <label class="control-label" >Heure de début</label>
+                    <div class="controls">
+                      <input type="time" class="span4" [(ngModel)]="newDemandeTravail.heureDebut" [ngStyle]="{'border-color':(newDemandeTravailErr.heureDebut)? 'red' : '' }">
+                      <span class="help-inline" style="color:red;" *ngIf="newDemandeTravailErr.heureDebut">Heure invalide</span>
+                    </div>
+                  </div>
+                  <div class="control-group span4">
+                    <label class="control-label" >Heure de fin</label>
+                    <div class="controls">
+                      <input type="time" class="span4" [(ngModel)]="newDemandeTravail.heureFin" [ngStyle]="{'border-color':(newDemandeTravailErr.heureFin)? 'red' : '' }">
+                      <span class="help-inline" style="color:red;" *ngIf="newDemandeTravailErr.heureFin">Heure invalide</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="form-group span8">
+                    <label >Observation</label>
+                    <div class="controls">
+                      <textarea class="form-control span8" style="  resize: none; " [(ngModel)]="newDemandeTravail.observation" placeholder="Observation.. (facultatif)">
+                      </textarea>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="span7"></div>
+                  <div class="span1">
+                    <button class="btn btn-success" (click)="addDemandeTravail()">
+                      <i class="icon-plus"></i>
+                      Ajouter
+                    </button>
+                  </div>
                 </div>
               </div>
               <div *ngIf="typeDemande === 'sortie'">

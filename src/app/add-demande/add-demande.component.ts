@@ -7,6 +7,7 @@ import {TypeAttestationEntrepriseService} from "../../service/TypeAttestationEnt
 import {DemandeAttestationService} from "../../service/DemandeAttestationService";
 import {MotifSortieService} from "../../service/MotifSortieService";
 import {DemandeAuthSortieService} from "../../service/DemandeAuthSortieService";
+import {DemandeAuTravService} from "../../service/DemandeAuTravService";
 
 @Component({
   selector: 'app-add-demande',
@@ -72,6 +73,27 @@ export class AddDemandeComponent implements OnInit {
     heureReteur : false,
     motifSortie : false
   };
+  newDemandeTravail = {
+    collaborateur : null,
+    dateDemande : new Date(),
+    observation : '',
+    dateTravail : '',
+    type : 0,
+    nombreHeures : 0,
+    heureDebut : null,
+    heureFin : null
+  };
+  newDemandeTravailErr = {
+    collaborateur : false,
+    dateDemande : false,
+    observation : false,
+    dateTravail : false,
+    dateTravail2 : false,
+    type : false,
+    nombreHeures : false,
+    heureDebut : false,
+    heureFin : false
+  };
   addOk = false;
   collabs = null;
   motifSortie = null;
@@ -83,6 +105,7 @@ export class AddDemandeComponent implements OnInit {
               private motifSortieService: MotifSortieService,
               private demandeAbsenceService: DemandeAbsenceService,
               private demandeAttesService: DemandeAttestationService,
+              private demandeTravailService: DemandeAuTravService,
               private demandeSortieService: DemandeAuthSortieService,
               private typeAttestationEntrepriseService: TypeAttestationEntrepriseService
               ) { }
@@ -255,6 +278,74 @@ export class AddDemandeComponent implements OnInit {
           observation : '',
           typeAttestationEntreprise : null
         };
+      });
+    }
+  }
+  addDemandeTravail() {
+    let isOk = true;
+    if (this.newDemandeTravail.collaborateur === null) {
+      this.newDemandeTravailErr.collaborateur = true;
+      isOk = false;
+    } else {
+      this.newDemandeTravailErr.collaborateur = false;
+    }
+    if (this.newDemandeTravail.dateTravail === '') {
+      this.newDemandeTravailErr.dateTravail = true;
+      isOk = false;
+    } else {
+      this.newDemandeTravailErr.dateTravail = false;
+    }
+    if(new Date(this.newDemandeTravail.dateTravail).getTime() < new Date().getTime()) {
+      this.newDemandeTravailErr.dateTravail2 = true;
+      isOk = false;
+    } else {
+      this.newDemandeTravailErr.dateTravail2 = false;
+    }
+    if (this.newDemandeTravail.heureDebut === null) {
+      this.newDemandeTravailErr.heureDebut = true;
+      isOk = false;
+    } else {
+      this.newDemandeTravailErr.heureDebut = false;
+    }
+    if (this.newDemandeTravail.heureFin === null) {
+      this.newDemandeTravailErr.heureFin = true;
+      isOk = false;
+    } else {
+      this.newDemandeTravailErr.heureFin = false;
+    }
+    if (this.newDemandeTravail.nombreHeures < 0) {
+      this.newDemandeTravailErr.nombreHeures = true;
+      isOk = false;
+    } else {
+      this.newDemandeTravailErr.nombreHeures = false;
+    }
+    if (this.newDemandeTravail.type < 0) {
+      this.newDemandeTravailErr.type = true;
+      isOk = false;
+    } else {
+      this.newDemandeTravailErr.type = false;
+    }
+    if(isOk) {
+      let time = new Date();
+      time.setHours(+this.newDemandeTravail.heureDebut.split(':')[0]);
+      time.setMinutes(+this.newDemandeTravail.heureDebut.split(':')[1]);
+      this.newDemandeTravail.heureDebut = time;
+      time = new Date();
+      time.setHours(+this.newDemandeTravail.heureFin.split(':')[0]);
+      time.setMinutes(+this.newDemandeTravail.heureFin.split(':')[1]);
+      this.newDemandeTravail.heureFin = time;
+      this.demandeTravailService.addDemandeAuTrav(this.newDemandeTravail).subscribe(d => {
+        this. newDemandeTravail = {
+          collaborateur : null,
+          dateDemande : new Date(),
+          observation : '',
+          dateTravail : '',
+          type : 0,
+          nombreHeures : 0,
+          heureDebut : null,
+          heureFin : null
+        };
+        this.addOk = true;
       });
     }
   }
