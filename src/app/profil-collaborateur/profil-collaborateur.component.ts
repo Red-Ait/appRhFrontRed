@@ -39,6 +39,8 @@ import {NiveauScolaireContactService} from "../../service/NiveauScolaireContactS
 import {LocalStorage} from "@ngx-pwa/local-storage";
 import {UploadPhotoCollaborateurService} from "../../service/UploadPhotoCollaborateurService";
 import {HttpEventType, HttpResponse} from "@angular/common/http";
+import {UploadPdfAttestationFromationService} from "../../service/UploadPdfAttestationFromationService";
+import {UploadPdfContratService} from "../../service/UploadPdfContratService";
 
 @Component({
   selector: 'app-profil-collaborateur',
@@ -205,11 +207,15 @@ export class ProfilCollaborateurComponent implements OnInit {
   categories = null;
   niveauScolaireContacts = null;
   selectedPhotos: FileList;
-  selectedPdf: FileList;
+  selectedFormation: FileList;
+  selectedContrat: FileList;
   currentFileUpload: File;
   apiUrl = 'http://localhost:8088/photocollab/files/';
   progress: { percentage: number } = { percentage: 0 };
-  constructor(private uploadPhotoCollaborateurService: UploadPhotoCollaborateurService,
+  constructor(
+    private uploadAttesForm: UploadPdfAttestationFromationService,
+    private uploadContratService: UploadPdfContratService,
+    private uploadPhotoCollaborateurService: UploadPhotoCollaborateurService,
               private collaborateurService: CollaborateurService,
               private typeTeleService: TypeTelephoneService,
               private niveauScolaireContactService: NiveauScolaireContactService,
@@ -336,6 +342,10 @@ export class ProfilCollaborateurComponent implements OnInit {
   }
   addAttestation() {
     this.attestationFormationService.addAttestationFormation(this.newAttestation, this.collabInfo.id).subscribe(data => {
+      this.aux = data;
+      if(this.selectedFormation) {
+        this.uploadFormation(+ this.aux.id);
+      }
       console.log(data);
       this.addAttesOk = true;
       this.newAttestation = {
@@ -354,6 +364,10 @@ export class ProfilCollaborateurComponent implements OnInit {
   }
   addContrat() {
     this.contratService.addContrat(this.newContrat, this.collabInfo.id).subscribe(data => {
+      this.aux = data;
+      if(this.selectedContrat) {
+        this.uploadContrat(+ this.aux.id);
+      }
       console.log(data);
       this.newContrat = {
         ancieneteAjoute: '',
@@ -573,12 +587,38 @@ export class ProfilCollaborateurComponent implements OnInit {
   selectPhoto(event) {
     this.selectedPhotos = event.target.files;
   }
-  selectPdfContrat(event) {
-    this.selectedPdf = event.target.files;
+  selectContrat(event) {
+    this.selectedContrat = event.target.files;
+  }
+  selectFormation(event) {
+    this.selectedFormation = event.target.files;
   }
 
-  uploadPdf() {
+  uploadFormation(id: number) {
+    this.currentFileUpload = this.selectedFormation.item(0);
+    console.log('okk');
+    this.uploadAttesForm.pushFileToStorage(this.currentFileUpload, id.toString()).subscribe(event => {
+      if (event.type === HttpEventType.UploadProgress) {
+        this.progress.percentage = Math.round(100 * event.loaded / event.total);
+      } else if (event instanceof HttpResponse) {
+        console.log('File is completely uploaded!');
+      }
+    })
 
+    this.selectedFormation = undefined
+  }
+  uploadContrat(id: number) {
+    this.currentFileUpload = this.selectedContrat.item(0);
+    console.log('okk');
+    this.uploadContratService.pushFileToStorage(this.currentFileUpload, id.toString()).subscribe(event => {
+      if (event.type === HttpEventType.UploadProgress) {
+        this.progress.percentage = Math.round(100 * event.loaded / event.total);
+      } else if (event instanceof HttpResponse) {
+        console.log('File is completely uploaded!');
+      }
+    })
+
+    this.selectedContrat = undefined
   }
 
   uploadPhoto() {

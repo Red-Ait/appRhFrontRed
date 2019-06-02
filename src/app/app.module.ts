@@ -94,6 +94,8 @@ import {DemandeAuthSortieService} from "../service/DemandeAuthSortieService";
 import {DemandeAuTravService} from "../service/DemandeAuTravService";
 import { AddDemandeComponent } from './add-demande/add-demande.component';
 import {UploadPhotoCollaborateurService} from "../service/UploadPhotoCollaborateurService";
+import {UploadPdfAttestationFromationService} from "../service/UploadPdfAttestationFromationService";
+import {UploadPdfContratService} from "../service/UploadPdfContratService";
 
 
 
@@ -201,7 +203,9 @@ import {UploadPhotoCollaborateurService} from "../service/UploadPhotoCollaborate
     TelephoneService,
     CategorieService,
     NiveauScolaireContactService,
-    UploadPhotoCollaborateurService
+    UploadPhotoCollaborateurService,
+    UploadPdfAttestationFromationService,
+    UploadPdfContratService
  ],
   bootstrap: [AppComponent]
 })
