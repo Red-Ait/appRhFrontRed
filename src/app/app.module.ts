@@ -96,6 +96,7 @@ import { AddDemandeComponent } from './add-demande/add-demande.component';
 import {UploadPhotoCollaborateurService} from "../service/UploadPhotoCollaborateurService";
 import {UploadPdfAttestationFromationService} from "../service/UploadPdfAttestationFromationService";
 import {UploadPdfContratService} from "../service/UploadPdfContratService";
+import { LoginComponent } from './login/login.component';
 
 
 
@@ -139,6 +140,7 @@ import {UploadPdfContratService} from "../service/UploadPdfContratService";
     TypeAttestationEntrepriseComponent,
     DemandeComponent,
     AddDemandeComponent,
+    LoginComponent,
   ],
   imports: [
 
