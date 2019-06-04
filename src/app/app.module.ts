@@ -97,6 +97,8 @@ import {UploadPhotoCollaborateurService} from "../service/UploadPhotoCollaborate
 import {UploadPdfAttestationFromationService} from "../service/UploadPdfAttestationFromationService";
 import {UploadPdfContratService} from "../service/UploadPdfContratService";
 import { LoginComponent } from './login/login.component';
+import {AuthService} from "../service/AuthService";
+import {NgxLocalStorageModule} from "ngx-localstorage";
 
 
 
@@ -144,6 +146,7 @@ import { LoginComponent } from './login/login.component';
   ],
   imports: [
 
+    NgxLocalStorageModule.forRoot(),
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -207,7 +210,8 @@ import { LoginComponent } from './login/login.component';
     NiveauScolaireContactService,
     UploadPhotoCollaborateurService,
     UploadPdfAttestationFromationService,
-    UploadPdfContratService
+    UploadPdfContratService,
+    AuthService
  ],
   bootstrap: [AppComponent]
 })
