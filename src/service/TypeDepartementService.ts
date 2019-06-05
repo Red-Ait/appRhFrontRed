@@ -9,11 +9,11 @@ export class TypeDepartementService {
   }
 
   allTypeDepartements() {
-    return this.http.get(this.apiUrl + '/typeDepartement/allTypeDepartements')
+    return this.http.get(this.apiUrl + '/parametres/typeDepartement/allTypeDepartements')
       .pipe(map(resp => resp));
   }
   addTypeDepartement(typeDepartement: any) {
-    return this.http.post(this.apiUrl + '/typeDepartement/addTypeDepartement', typeDepartement)
+    return this.http.post(this.apiUrl + '/parametres/typeDepartement/addTypeDepartement', typeDepartement)
       .pipe(map(resp => resp));
   }
 

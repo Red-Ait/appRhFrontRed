@@ -9,11 +9,11 @@ export class MotifTravailService {
   }
 
   allMotifTravails() {
-    return this.http.get(this.apiUrl + '/motifTravail/allMotifTravails')
+    return this.http.get(this.apiUrl + '/parametres/motifTravail/allMotifTravails')
       .pipe(map(resp => resp));
   }
   addMotifTravail(motifTravail: any) {
-    return this.http.post(this.apiUrl + '/motifTravail/addMotifTravail', motifTravail)
+    return this.http.post(this.apiUrl + '/parametres/motifTravail/addMotifTravail', motifTravail)
       .pipe(map(resp => resp));
   }
 

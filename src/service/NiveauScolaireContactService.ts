@@ -9,11 +9,11 @@ export class NiveauScolaireContactService {
   }
 
   allNiveauScolaireContacts() {
-    return this.http.get(this.apiUrl + '/niveauScolaireContact/allNiveauScolaireContacts')
+    return this.http.get(this.apiUrl + '/parametres/niveauScolaireContact/allNiveauScolaireContacts')
       .pipe(map(resp => resp));
   }
   addNiveauScolaireContact(niveauScolaireContact: any) {
-    return this.http.post(this.apiUrl + '/niveauScolaireContact/addNiveauScolaireContact', niveauScolaireContact)
+    return this.http.post(this.apiUrl + '/parametres/niveauScolaireContact/addNiveauScolaireContact', niveauScolaireContact)
       .pipe(map(resp => resp));
   }
 

@@ -9,11 +9,11 @@ export class MotifSortieService {
   }
 
   allMotifSorties() {
-    return this.http.get(this.apiUrl + '/motifSortie/allMotifSorties')
+    return this.http.get(this.apiUrl + '/parametres/motifSortie/allMotifSorties')
       .pipe(map(resp => resp));
   }
   addMotifSortie(motifSortie: any) {
-    return this.http.post(this.apiUrl + '/motifSortie/addMotifSortie', motifSortie)
+    return this.http.post(this.apiUrl + '/parametres/motifSortie/addMotifSortie', motifSortie)
       .pipe(map(resp => resp));
   }
 

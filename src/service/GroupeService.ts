@@ -9,11 +9,11 @@ export class GroupeService {
   }
 
   allGroupes() {
-    return this.http.get(this.apiUrl + '/groupe/allGroupes')
+    return this.http.get(this.apiUrl + '/parametres/groupe/allGroupes')
       .pipe(map(resp => resp));
   }
   addGroupe(groupe: any) {
-    return this.http.post(this.apiUrl + '/groupe/addGroupe', groupe)
+    return this.http.post(this.apiUrl + '/parametres/groupe/addGroupe', groupe)
       .pipe(map(resp => resp));
   }
 

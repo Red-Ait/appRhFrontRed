@@ -9,11 +9,11 @@ export class MotifDepartService {
   }
 
   allMotifDeparts() {
-    return this.http.get(this.apiUrl + '/motifDepart/allMotifDeparts')
+    return this.http.get(this.apiUrl + '/parametres/motifDepart/allMotifDeparts')
       .pipe(map(resp => resp));
   }
   addMotifDepart(motifDepart: any) {
-    return this.http.post(this.apiUrl + '/motifDepart/addMotifDepart', motifDepart)
+    return this.http.post(this.apiUrl + '/parametres/motifDepart/addMotifDepart', motifDepart)
       .pipe(map(resp => resp));
   }
 

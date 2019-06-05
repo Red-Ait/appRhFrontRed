@@ -9,11 +9,11 @@
     }
 
     allTypeEmails() {
-      return this.http.get(this.apiUrl + '/typeEmail/allTypeEmails')
+      return this.http.get(this.apiUrl + '/parametres/typeEmail/allTypeEmails')
         .pipe(map(resp => resp));
     }
     addTypeEmail(typeEmail: any) {
-      return this.http.post(this.apiUrl + '/typeEmail/addTypeEmail', typeEmail)
+      return this.http.post(this.apiUrl + '/parametres/typeEmail/addTypeEmail', typeEmail)
         .pipe(map(resp => resp));
     }
 

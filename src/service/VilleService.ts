@@ -9,11 +9,11 @@ export class VilleService {
   }
 
   allVilles() {
-    return this.http.get(this.apiUrl + '/ville/allVilles')
+    return this.http.get(this.apiUrl + '/parametres/ville/allVilles')
       .pipe(map(resp => resp));
   }
   addVille(ville: any) {
-    return this.http.post(this.apiUrl + '/ville/addVille', ville)
+    return this.http.post(this.apiUrl + '/parametres/ville/addVille', ville)
       .pipe(map(resp => resp));
   }
 

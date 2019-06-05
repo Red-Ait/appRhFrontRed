@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {AuthService} from "../../service/AuthService";
 import {LocalStorage} from "@ngx-pwa/local-storage";
 import {Router} from "@angular/router";
+import {TokenStorageService} from "../../service/TokenStorageService";
 
 @Component({
   selector: 'app-login',
@@ -16,18 +17,24 @@ export class LoginComponent implements OnInit {
   aux : any;
   constructor(private authService: AuthService,
               private router: Router,
-              private localStorage: LocalStorage) { }
+              private tokenStorageService: TokenStorageService,
+              ) { }
 
   ngOnInit() {
-
+    if (this.tokenStorageService.getToken()) {
+      this.router.navigate(['/home']);
+    }
   }
 
   login() {
     this.authService.login(this.username, this.password).subscribe(d => {
       console.log(d);
       this.aux = d;
+      this.tokenStorageService.saveToken(this.aux.accessToken);
+      this.tokenStorageService.saveUsername(this.aux.username);
+      this.tokenStorageService.saveAuthorities(this.aux.authorities);
+
       this.router.navigate(['/home']);
-      this.localStorage.setItem('token',this.aux.accessToken).subscribe();
     }, error1 => {
       this.errForm = true;
     });

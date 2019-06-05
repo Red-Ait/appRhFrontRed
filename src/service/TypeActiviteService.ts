@@ -9,11 +9,11 @@ export class TypeActiviteService {
   }
 
   allTypeActivites() {
-    return this.http.get(this.apiUrl + '/typeActivite/allTypeActivites')
+    return this.http.get(this.apiUrl + '/parametres/typeActivite/allTypeActivites')
       .pipe(map(resp => resp));
   }
   addTypeActivite(typeActivite: any) {
-    return this.http.post(this.apiUrl + '/typeActivite/addTypeActivite', typeActivite)
+    return this.http.post(this.apiUrl + '/parametres/typeActivite/addTypeActivite', typeActivite)
       .pipe(map(resp => resp));
   }
 

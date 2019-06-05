@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {TokenStorageService} from "../../service/TokenStorageService";
 
 @Component({
   selector: 'app-sidebar',
@@ -7,9 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SidebarComponent implements OnInit {
 
-  constructor() { }
+  isAdministrateur = false;
+  constructor(private tokenStorageService: TokenStorageService,
+  ) { }
 
   ngOnInit() {
+    this.tokenStorageService.getAuthorities().forEach(role => {
+      if(role === 'ROLE_ADMINISTRATEUR') {
+        this.isAdministrateur = true;
+      }
+    });
+
   }
 
 }

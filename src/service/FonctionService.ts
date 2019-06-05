@@ -9,11 +9,11 @@ export class FonctionService {
   }
 
   allFonctions() {
-    return this.http.get(this.apiUrl + '/fonction/allFonctions')
+    return this.http.get(this.apiUrl + '/parametres/fonction/allFonctions')
       .pipe(map(resp => resp));
   }
   addFonction(fonction: any) {
-    return this.http.post(this.apiUrl + '/fonction/addFonction', fonction)
+    return this.http.post(this.apiUrl + '/parametres/fonction/addFonction', fonction)
       .pipe(map(resp => resp));
   }
 

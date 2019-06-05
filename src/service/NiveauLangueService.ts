@@ -9,11 +9,11 @@ export class NiveauLangueService {
   }
 
   allNiveauLangues() {
-    return this.http.get(this.apiUrl + '/niveauLangue/allNiveauLangues')
+    return this.http.get(this.apiUrl + '/parametres/niveauLangue/allNiveauLangues')
       .pipe(map(resp => resp));
   }
   addNiveauLangue(niveauLangue: any) {
-    return this.http.post(this.apiUrl + '/niveauLangue/addNiveauLangue', niveauLangue)
+    return this.http.post(this.apiUrl + '/parametres/niveauLangue/addNiveauLangue', niveauLangue)
       .pipe(map(resp => resp));
   }
 

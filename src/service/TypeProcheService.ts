@@ -9,11 +9,11 @@ export class TypeProcheService {
   }
 
   allTypeProches() {
-    return this.http.get(this.apiUrl + '/typeProche/allTypeProches')
+    return this.http.get(this.apiUrl + '/parametres/typeProche/allTypeProches')
       .pipe(map(resp => resp));
   }
   addTypeProche(typeProche: any) {
-    return this.http.post(this.apiUrl + '/typeProche/addTypeProche', typeProche)
+    return this.http.post(this.apiUrl + '/parametres/typeProche/addTypeProche', typeProche)
       .pipe(map(resp => resp));
   }
 

@@ -9,11 +9,11 @@ export class TypeSalaireService {
   }
 
   allTypeSalaires() {
-    return this.http.get(this.apiUrl + '/typeSalaire/allTypeSalaires')
+    return this.http.get(this.apiUrl + '/parametres/typeSalaire/allTypeSalaires')
       .pipe(map(resp => resp));
   }
   addTypeSalaire(typeSalaire: any) {
-    return this.http.post(this.apiUrl + '/typeSalaire/addTypeSalaire', typeSalaire)
+    return this.http.post(this.apiUrl + '/parametres/typeSalaire/addTypeSalaire', typeSalaire)
       .pipe(map(resp => resp));
   }
 

@@ -9,11 +9,11 @@ export class TypeAttestationEntrepriseService {
   }
 
   allTypeAttestationEntreprises() {
-    return this.http.get(this.apiUrl + '/typeAttestationEntreprise/allTypeAttestationEntreprises')
+    return this.http.get(this.apiUrl + '/parametres/typeAttestationEntreprise/allTypeAttestationEntreprises')
       .pipe(map(resp => resp));
   }
   addTypeAttestationEntreprise(typeAttestationEntreprise: any) {
-    return this.http.post(this.apiUrl + '/typeAttestationEntreprise/addTypeAttestationEntreprise', typeAttestationEntreprise)
+    return this.http.post(this.apiUrl + '/parametres/typeAttestationEntreprise/addTypeAttestationEntreprise', typeAttestationEntreprise)
       .pipe(map(resp => resp));
   }
 

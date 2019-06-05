@@ -9,11 +9,11 @@ export class DelivreParService {
   }
 
   allDelivrePars() {
-    return this.http.get(this.apiUrl + '/delivrePar/allDelivrePars')
+    return this.http.get(this.apiUrl + '/parametres/delivrePar/allDelivrePars')
       .pipe(map(resp => resp));
   }
   addDelivrePar(delivrePar: any) {
-    return this.http.post(this.apiUrl + '/delivrePar/addDelivrePar', delivrePar)
+    return this.http.post(this.apiUrl + '/parametres/delivrePar/addDelivrePar', delivrePar)
       .pipe(map(resp => resp));
   }
 

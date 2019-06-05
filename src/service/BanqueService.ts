@@ -9,11 +9,11 @@ export class BanqueService {
   }
 
   allBanques() {
-    return this.http.get(this.apiUrl + '/banque/allBanques')
+    return this.http.get(this.apiUrl + '/parametres/banque/allBanques')
       .pipe(map(resp => resp));
   }
   addBanque(banque: any) {
-    return this.http.post(this.apiUrl + '/banque/addBanque', banque)
+    return this.http.post(this.apiUrl + '/parametres/banque/addBanque', banque)
       .pipe(map(resp => resp));
   }
 

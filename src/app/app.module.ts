@@ -99,6 +99,10 @@ import {UploadPdfContratService} from "../service/UploadPdfContratService";
 import { LoginComponent } from './login/login.component';
 import {AuthService} from "../service/AuthService";
 import {NgxLocalStorageModule} from "ngx-localstorage";
+import {TokenStorageService} from "../service/TokenStorageService";
+import { AdministrateurRoleTestComponent } from './administrateur-role-test/administrateur-role-test.component';
+import { RoleErreurComponent } from './role-erreur/role-erreur.component';
+import {httpInterceptorProviders} from "../service/AuthInterceptor";
 
 
 
@@ -143,6 +147,8 @@ import {NgxLocalStorageModule} from "ngx-localstorage";
     DemandeComponent,
     AddDemandeComponent,
     LoginComponent,
+    AdministrateurRoleTestComponent,
+    RoleErreurComponent,
   ],
   imports: [
 
@@ -211,7 +217,9 @@ import {NgxLocalStorageModule} from "ngx-localstorage";
     UploadPhotoCollaborateurService,
     UploadPdfAttestationFromationService,
     UploadPdfContratService,
-    AuthService
+    AuthService,
+    TokenStorageService,
+    httpInterceptorProviders
  ],
   bootstrap: [AppComponent]
 })

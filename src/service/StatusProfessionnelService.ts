@@ -9,11 +9,11 @@ export class StatusProfessionnelService {
   }
 
   allStatusProfessionnels() {
-    return this.http.get(this.apiUrl + '/statusProfessionnel/allStatusProfessionnels')
+    return this.http.get(this.apiUrl + '/parametres/statusProfessionnel/allStatusProfessionnels')
       .pipe(map(resp => resp));
   }
   addStatusProfessionnel(statusProfessionnel: any) {
-    return this.http.post(this.apiUrl + '/statusProfessionnel/addStatusProfessionnel', statusProfessionnel)
+    return this.http.post(this.apiUrl + '/parametres/statusProfessionnel/addStatusProfessionnel', statusProfessionnel)
       .pipe(map(resp => resp));
   }
 

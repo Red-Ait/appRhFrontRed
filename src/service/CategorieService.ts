@@ -9,11 +9,11 @@ export class CategorieService {
   }
 
   allCategories() {
-    return this.http.get(this.apiUrl + '/categorie/allCategories')
+    return this.http.get(this.apiUrl + '/parametres/categorie/allCategories')
       .pipe(map(resp => resp));
   }
   addCategorie(categorie: any) {
-    return this.http.post(this.apiUrl + '/categorie/addCategorie', categorie)
+    return this.http.post(this.apiUrl + '/parametres/categorie/addCategorie', categorie)
       .pipe(map(resp => resp));
   }
 

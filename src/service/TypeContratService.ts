@@ -9,11 +9,11 @@ export class TypeContratService {
   }
 
   allTypeContrats() {
-    return this.http.get(this.apiUrl + '/typeContrat/allTypeContrats')
+    return this.http.get(this.apiUrl + '/parametres/typeContrat/allTypeContrats')
       .pipe(map(resp => resp));
   }
   addTypeContrat(typeContrat: any) {
-    return this.http.post(this.apiUrl + '/typeContrat/addTypeContrat', typeContrat)
+    return this.http.post(this.apiUrl + '/parametres/typeContrat/addTypeContrat', typeContrat)
       .pipe(map(resp => resp));
   }
 

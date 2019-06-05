@@ -9,11 +9,11 @@ export class TypeAdresseService {
   }
 
   allTypeAdresses() {
-    return this.http.get(this.apiUrl + '/typeAdresse/allTypeAdresses')
+    return this.http.get(this.apiUrl + '/parametres/typeAdresse/allTypeAdresses')
       .pipe(map(resp => resp));
   }
   addTypeAdresse(typeAdresse: any) {
-    return this.http.post(this.apiUrl + '/typeAdresse/addTypeAdresse', typeAdresse)
+    return this.http.post(this.apiUrl + '/parametres/typeAdresse/addTypeAdresse', typeAdresse)
       .pipe(map(resp => resp));
   }
 

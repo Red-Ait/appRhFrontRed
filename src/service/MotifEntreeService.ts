@@ -9,11 +9,11 @@ export class MotifEntreeService {
   }
 
   allMotifEntrees() {
-    return this.http.get(this.apiUrl + '/motifEntree/allMotifEntrees')
+    return this.http.get(this.apiUrl + '/parametres/motifEntree/allMotifEntrees')
       .pipe(map(resp => resp));
   }
   addMotifEntree(motifEntree: any) {
-    return this.http.post(this.apiUrl + '/motifEntree/addMotifEntree', motifEntree)
+    return this.http.post(this.apiUrl + '/parametres/motifEntree/addMotifEntree', motifEntree)
       .pipe(map(resp => resp));
   }
 

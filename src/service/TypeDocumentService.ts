@@ -9,11 +9,11 @@ export class TypeDocumentService {
   }
 
   allTypeDocuments() {
-    return this.http.get(this.apiUrl + '/typeDocument/allTypeDocuments')
+    return this.http.get(this.apiUrl + '/parametres/typeDocument/allTypeDocuments')
       .pipe(map(resp => resp));
   }
   addTypeDocument(typeDocument: any) {
-    return this.http.post(this.apiUrl + '/typeDocument/addTypeDocument', typeDocument)
+    return this.http.post(this.apiUrl + '/parametres/typeDocument/addTypeDocument', typeDocument)
       .pipe(map(resp => resp));
   }
 

@@ -37,45 +37,55 @@ import {TypeAttestationEntrepriseComponent} from "./type-attestation-entreprise/
 import {DemandeComponent} from "./demande/demande.component";
 import {AddDemandeComponent} from "./add-demande/add-demande.component";
 import {LoginComponent} from "./login/login.component";
+import {RoleErreurComponent} from "./role-erreur/role-erreur.component";
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   {path: 'home', component: HomeComponent},
-  {path: 'type-activite', component: TypeActiviteComponent},
-  {path: 'type-adresse', component: TypeAdresseComponent},
-  {path: 'type-attestation', component: TypeAttestationComponent},
-  {path: 'type-contrat', component: TypeContratComponent},
-  {path: 'type-departement', component: TypeDepartementComponent},
-  {path: 'type-document', component: TypeDocumentComponent},
-  {path: 'type-email', component: TypeEmailComponent},
-  {path: 'type-periode-departement', component: TypePeriodeDepartementComponent},
-  {path: 'type-proche', component: TypeProcheComponent},
-  {path: 'type-reseau-social', component: TypeReseauSocialComponent},
-  {path: 'type-salaire', component: TypeSalaireComponent},
-  {path: 'type-telephone', component: TypeTelephoneComponent},
+
+
+  {path: 'parametres/type-activite', component: TypeActiviteComponent},
+  {path: 'parametres/type-adresse', component: TypeAdresseComponent},
+  {path: 'parametres/type-attestation', component: TypeAttestationComponent},
+  {path: 'parametres/type-contrat', component: TypeContratComponent},
+  {path: 'parametres/type-departement', component: TypeDepartementComponent},
+  {path: 'parametres/type-document', component: TypeDocumentComponent},
+  {path: 'parametres/type-email', component: TypeEmailComponent},
+  {path: 'parametres/type-periode-departement', component: TypePeriodeDepartementComponent},
+  {path: 'parametres/type-proche', component: TypeProcheComponent},
+  {path: 'parametres/type-reseau-social', component: TypeReseauSocialComponent},
+  {path: 'parametres/type-salaire', component: TypeSalaireComponent},
+  {path: 'parametres/type-telephone', component: TypeTelephoneComponent},
+  {path: 'parametres/categorie', component: CategorieComponent},
+  {path: 'parametres/niveauScolaireContact', component: NiveauScolaireContactComponent},
+  {path: 'parametres/langue', component: LangueComponent},
+  {path: 'parametres/niveauLangue', component: NiveauLangueComponent},
+  {path: 'parametres/delivrePar', component: DelivreParComponent},
+  {path: 'parametres/ville', component: VilleComponent},
+  {path: 'parametres/fonction', component: FonctionComponent},
+  {path: 'parametres/motifDepart', component: MotifDepartComponent},
+  {path: 'parametres/motifEntree', component: MotifEntreeComponent},
+  {path: 'parametres/motifSortie', component: MotifSortieComponent},
+  {path: 'parametres/motifTravail', component: MotifTravailComponent},
+  {path: 'parametres/TypeAttestationEntreprise', component: TypeAttestationEntrepriseComponent},
+  {path: 'parametres/motifAbsence', component: MotifAbsenceComponent},
+  {path: 'parametres/statusProfessionnel', component: StatusProfessionnelComponent},
+  {path: 'parametres/banque', component: BanqueComponent},
+  {path: 'parametres/groupe', component: GroupeComponent},
+
   {path: 'collaborateur', component: CollaborateurComponent},
   {path: 'add-collaborateur', component: AddCollaborateurComponent},
   {path: 'profil-collaborateur/:id', component: ProfilCollaborateurComponent},
-  {path: 'categorie', component: CategorieComponent},
-  {path: 'niveauScolaireContact', component: NiveauScolaireContactComponent},
-  {path: 'langue', component: LangueComponent},
-  {path: 'niveauLangue', component: NiveauLangueComponent},
-  {path: 'delivrePar', component: DelivreParComponent},
-  {path: 'ville', component: VilleComponent},
-  {path: 'fonction', component: FonctionComponent},
-  {path: 'motifDepart', component: MotifDepartComponent},
-  {path: 'motifEntree', component: MotifEntreeComponent},
-  {path: 'motifSortie', component: MotifSortieComponent},
-  {path: 'motifTravail', component: MotifTravailComponent},
-  {path: 'TypeAttestationEntreprise', component: TypeAttestationEntrepriseComponent},
-  {path: 'motifAbsence', component: MotifAbsenceComponent},
-  {path: 'statusProfessionnel', component: StatusProfessionnelComponent},
+
+
   {path: 'demande', component: DemandeComponent},
-  {path: 'banque', component: BanqueComponent},
+
+
   {path: 'profil2', component: Profil2Component},
   {path: 'add-demande', component: AddDemandeComponent},
   {path: 'login', component: LoginComponent},
-  {path: 'groupe', component: GroupeComponent}
+  {path: 'role-erreur', component: RoleErreurComponent}
+
 
 ];
 

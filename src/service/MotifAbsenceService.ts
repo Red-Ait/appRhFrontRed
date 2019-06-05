@@ -9,11 +9,11 @@ export class MotifAbsenceService {
   }
 
   allMotifAbsences() {
-    return this.http.get(this.apiUrl + '/motifAbsence/allMotifAbsences')
+    return this.http.get(this.apiUrl + '/parametres/motifAbsence/allMotifAbsences')
       .pipe(map(resp => resp));
   }
   addMotifAbsence(motifAbsence: any) {
-    return this.http.post(this.apiUrl + '/motifAbsence/addMotifAbsence', motifAbsence)
+    return this.http.post(this.apiUrl + '/parametres/motifAbsence/addMotifAbsence', motifAbsence)
       .pipe(map(resp => resp));
   }
 

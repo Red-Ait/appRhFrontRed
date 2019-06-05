@@ -9,11 +9,11 @@ export class TypeReseauSocialService {
   }
 
   allTypeReseauSocials() {
-    return this.http.get(this.apiUrl + '/typeReseauSocial/allTypeReseauSocials')
+    return this.http.get(this.apiUrl + '/parametres/typeReseauSocial/allTypeReseauSocials')
       .pipe(map(resp => resp));
   }
   addTypeReseauSocial(typeReseauSocial: any) {
-    return this.http.post(this.apiUrl + '/typeReseauSocial/addTypeReseauSocial', typeReseauSocial)
+    return this.http.post(this.apiUrl + '/parametres/typeReseauSocial/addTypeReseauSocial', typeReseauSocial)
       .pipe(map(resp => resp));
   }
 

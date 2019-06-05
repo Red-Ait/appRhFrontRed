@@ -9,11 +9,11 @@ export class TypePeriodeDepartementService {
   }
 
   allTypePeriodeDepartements() {
-    return this.http.get(this.apiUrl + '/typePeriodeDepartement/allTypePeriodeDepartements')
+    return this.http.get(this.apiUrl + '/parametres/typePeriodeDepartement/allTypePeriodeDepartements')
       .pipe(map(resp => resp));
   }
   addTypePeriodeDepartement(typePerDep: any) {
-    return this.http.post(this.apiUrl + '/typePeriodeDepartement/addTypePeriodeDepartement', typePerDep)
+    return this.http.post(this.apiUrl + '/parametres/typePeriodeDepartement/addTypePeriodeDepartement', typePerDep)
       .pipe(map(resp => resp));
   }
 
