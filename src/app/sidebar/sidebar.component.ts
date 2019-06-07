@@ -9,6 +9,8 @@ import {TokenStorageService} from "../../service/TokenStorageService";
 export class SidebarComponent implements OnInit {
 
   isAdministrateur = false;
+  isRh = false;
+  isChefService = false;
   constructor(private tokenStorageService: TokenStorageService,
   ) { }
 
@@ -16,6 +18,12 @@ export class SidebarComponent implements OnInit {
     this.tokenStorageService.getAuthorities().forEach(role => {
       if(role === 'ROLE_ADMINISTRATEUR') {
         this.isAdministrateur = true;
+      }
+      if(role === 'ROLE_RH') {
+        this.isRh = true;
+      }
+      if(role === 'ROLE_CHEF_SERVICE') {
+        this.isChefService = true;
       }
     });
 

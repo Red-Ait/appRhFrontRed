@@ -21,6 +21,6 @@ export class UploadPdfAttestationFromationService{
   }
 
   getFiles(){
-    return this.http.get('/pdfattestationformation/getallfiles');
+    return this.http.get(this.apiUrl + '/pdfattestationformation/getallfiles');
   }
 }

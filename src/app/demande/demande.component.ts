@@ -13,6 +13,7 @@ import {DemandeAuthSortieService} from "../../service/DemandeAuthSortieService";
 })
 export class DemandeComponent implements OnInit {
 
+  demandeDetails = null;
   colonAbs = {
     id : true,
     collaborateur : true,
@@ -46,8 +47,10 @@ export class DemandeComponent implements OnInit {
   demandeTravail = null;
   collabs = null;
   typeDemande = 'absence';
+  motifRefus = '';
   constructor(
     private collabService: CollaborateurService,
+    private demandeService: DemandeService,
     private demandeAbsenceService: DemandeAbsenceService,
     private demandeAttestService: DemandeAttestationService,
     private demandeTrvService: DemandeAuTravService,
@@ -68,7 +71,54 @@ export class DemandeComponent implements OnInit {
       this.demandeTravail = d;
     });
     }
+    demandeDetailInit(d: any) {
+      this.demandeDetails = d;
+      console.log(this.demandeDetails);
+    }
   choseColonAbsence() {}
   choseColonSortie() {}
-
+  refuser() {
+    this.demandeDetails.isErr = false;
+    if(!this.demandeDetails.refuse)
+    {
+    this.demandeDetails.refuse = true;
+  } else {
+      if (this.motifRefus === '' || this.motifRefus === null) {
+        this.demandeDetails.isErr = true;
+      } else {
+        this.demandeDetails.motifRefus = this.motifRefus;
+        switch (this.typeDemande) {
+          case 'absence':
+            this.demandeAbsenceService.updateDemandeAbsence(this.demandeDetails).subscribe(d => {
+              console.log(d);
+              this.demandeDetails.refuse = false;
+            });
+            break;
+          case 'attestation':
+            this.demandeAttestService.updateDemandeAttestation(this.demandeDetails).subscribe(d => {
+              console.log(d);
+              this.demandeDetails.refuse = false;
+            });
+            break;
+          case 'sortie':
+            let time = new Date();
+            time.setHours(+this.demandeDetails.heureSortie.split(':')[0]);
+            time.setMinutes(+this.demandeDetails.heureSortie.split(':')[1]);
+            console.log(time);
+            this.demandeDetails.heureSortie = time;
+            time.setHours(+this.demandeDetails.heureReteur.split(':')[0]);
+            time.setMinutes(+this.demandeDetails.heureReteur.split(':')[1]);
+            console.log(time);
+            this.demandeDetails.heureReteur = time;
+            this.demandeSortService.updateDemandeAuthSortie(this.demandeDetails).subscribe(d => {
+              console.log(d);
+//              this.demandeDetails.heureReteur = this.demandeDetails.heureReteur.split(' ')[4];
+  //            this.demandeDetails.heureSortie = this.demandeDetails.heureSortie.split(' ')[4];
+              this.demandeDetails.refuse = false;
+            });
+            break;
+        }
+      }
+    }
+}
 }

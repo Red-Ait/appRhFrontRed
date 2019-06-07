@@ -38,7 +38,7 @@ import {CategorieService} from "../../service/CategorieService";
 import {NiveauScolaireContactService} from "../../service/NiveauScolaireContactService";
 import {LocalStorage} from "@ngx-pwa/local-storage";
 import {UploadPhotoCollaborateurService} from "../../service/UploadPhotoCollaborateurService";
-import {HttpEventType, HttpResponse} from "@angular/common/http";
+import {HttpClient, HttpEventType, HttpResponse} from "@angular/common/http";
 import {UploadPdfAttestationFromationService} from "../../service/UploadPdfAttestationFromationService";
 import {UploadPdfContratService} from "../../service/UploadPdfContratService";
 
@@ -210,8 +210,9 @@ export class ProfilCollaborateurComponent implements OnInit {
   selectedFormation: FileList;
   selectedContrat: FileList;
   currentFileUpload: File;
-  apiUrl = 'http://localhost:8088/photocollab/files/';
+  apiUrl = 'http://localhost:8088/file/photocollab/files/';
   progress: { percentage: number } = { percentage: 0 };
+  photoProfil = null;
   constructor(
     private uploadAttesForm: UploadPdfAttestationFromationService,
     private uploadContratService: UploadPdfContratService,
@@ -253,6 +254,7 @@ export class ProfilCollaborateurComponent implements OnInit {
               private  typePeriodDepService: TypePeriodeDepartementService,
               private periodeDepartementService: PeriodeDepartementService,
               public localStorage: LocalStorage,
+              private uploadServ: UploadPhotoCollaborateurService,
               private route: ActivatedRoute) { }
 
   ngOnInit() {
@@ -261,6 +263,10 @@ export class ProfilCollaborateurComponent implements OnInit {
       console.log(this.collabId);
       this.collaborateurService.getCollaborateurById(this.collabId).subscribe(data => {
         this.collabInfo = data;
+        this.uploadServ.getByName(this.collabInfo.photo).subscribe(d => {
+          this.photoProfil = d;
+          console.log(d);
+        });
         console.log(this.collabInfo.photo);
       });
     });

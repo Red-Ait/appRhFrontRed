@@ -16,5 +16,9 @@ export class DemandeAbsenceService {
     return this.http.post(this.apiUrl + '/demandeAbsence/addDemandeAbsence', demandeAbsence)
       .pipe(map(resp => resp));
   }
+  updateDemandeAbsence(demandeAbsence: any) {
+    return this.http.post(this.apiUrl + '/demandeAbsence/updateDemandeAbsence', demandeAbsence)
+      .pipe(map(resp => resp));
+  }
 
 }

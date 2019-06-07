@@ -16,5 +16,9 @@ export class DemandeAttestationService {
     return this.http.post(this.apiUrl + '/demandeAttestation/addDemandeAttestation', demandeAttestation)
       .pipe(map(resp => resp));
   }
+  updateDemandeAttestation(demandeAttestation: any) {
+    return this.http.post(this.apiUrl + '/demandeAttestation/updateDemandeAttestation', demandeAttestation)
+      .pipe(map(resp => resp));
+  }
 
 }

@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpRequest} from '@angular/common/http';
+import {Observable} from "rxjs";
 
 
 @Injectable()
@@ -13,15 +14,19 @@ export class UploadPhotoCollaborateurService{
 
     formdata.append('file', file);
     formdata.append('id' , id);
-    const req = new HttpRequest('POST', this.apiUrl + '/photocollab/post', formdata, {
+    const req = new HttpRequest('POST', this.apiUrl + '/file/photocollab/post', formdata, {
       reportProgress: true,
       responseType: 'text'
     });
 
     return this.http.request(req);
   }
+  getByName(name: string){
+    return this.http.get(this.apiUrl + '/file/photocollab/files/' + name);
+
+  }
 
   getFiles(){
-    return this.http.get('/photocollab/getallfiles');
+    return this.http.get(this.apiUrl + '/file/photocollab/getallfiles');
   }
 }

@@ -16,5 +16,10 @@ export class DemandeService {
     return this.http.post(this.apiUrl + '/demande/addDemande', demande)
       .pipe(map(resp => resp));
   }
+  updateDemande(demande: any) {
+    return this.http.post(this.apiUrl + '/demande/updateDemande', demande)
+      .pipe(map(resp => resp));
+  }
+
 
 }

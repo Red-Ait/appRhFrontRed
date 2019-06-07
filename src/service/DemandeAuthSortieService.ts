@@ -16,5 +16,9 @@ export class DemandeAuthSortieService {
     return this.http.post(this.apiUrl + '/demandeAuthSortie/addDemandeAuthSortie', demandeAuthSortie)
       .pipe(map(resp => resp));
   }
+  updateDemandeAuthSortie(demandeAuthSortie: any) {
+    return this.http.post(this.apiUrl + '/demandeAuthSortie/updateDemandeAuthSortie', demandeAuthSortie)
+      .pipe(map(resp => resp));
+  }
 
 }

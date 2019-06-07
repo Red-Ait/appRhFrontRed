@@ -1,3 +1,4 @@
+<app-rh-role-test></app-rh-role-test>
 <app-navbar></app-navbar>
 
 <div class="modal fade" id="myModal" role="dialog">
@@ -523,8 +524,8 @@
                 </div>
               </div>
               <div class="span2" *ngIf="!isUpdateCollabInfo && collabInfo !== null">
-                  <img *ngIf="collabInfo.photo !== null" src="{{apiUrl + collabInfo.photo}}" style="border-radius: 50%; border: 1px solid black; width: 100%; margin: 5px" alt="">
-                  <img *ngIf="collabInfo.photo === null " src="../../assets/user.png" style="border-radius: 50%; border: 1px solid black; margin: 5px" alt="">
+                  <img *ngIf="photoProfil !== null" [src]="photoProfil" style="border-radius: 50%; border: 1px solid black; width: 100%; margin: 5px" alt="">
+                  <img *ngIf="photoProfil === null " src="../../assets/user.png" style="border-radius: 50%; border: 1px solid black; margin: 5px" alt="">
               </div>
 
             </div>

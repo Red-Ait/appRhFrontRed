@@ -1,5 +1,225 @@
-<app-administrateur-role-test></app-administrateur-role-test>
+<app-chef-service-role-test></app-chef-service-role-test>
 <app-navbar></app-navbar>
+<div class="modal fade" id="myModal" role="dialog">
+
+
+
+  <div class="modal-dialog" >
+    <div class="modal-content" >
+      <div class="modal-header" >
+        Détails de demande
+        <span *ngIf="demandeDetails !== null && demandeDetails.motifRefus !== '' &&  demandeDetails.motifRefus !== null" style ="color: red;">(Refusé !)</span>
+      </div>
+      <div class="modal-body" *ngIf="demandeDetails !== null">
+        <dl class="dl-horizontal" *ngIf="typeDemande === 'sortie'">
+          <dt>
+            Collaborateur
+          </dt>
+          <dd>
+            {{demandeDetails.collaborateur.nom + ' ' + demandeDetails.collaborateur.prenom }}
+          </dd>
+          <dt>
+            Date de demande
+          </dt>
+          <dd>
+            {{demandeDetails.dateDemande | date : 'dd-MM-yyyy'}}
+          </dd>
+          <dt>
+            Status
+          </dt>
+          <dd>
+            {{demandeDetails.status}}
+          </dd>
+          <dt>
+            Date de sortie
+          </dt>
+          <dd>
+            {{demandeDetails.dateSortie | date : 'dd-MM-yyyy' }}
+          </dd>
+          <dt>
+            Heure de sortie
+          </dt>
+          <dd>
+            {{demandeDetails.heureSortie }}
+          </dd>
+          <dt>
+            Heure de retour
+          </dt>
+          <dd>
+            {{demandeDetails.heureReteur }}
+          </dd>
+          <dt>
+            Motif de sortoie
+          </dt>
+          <dd>
+            {{demandeDetails.motifSortie.nom}}
+          </dd>
+          <dt>
+            Observation
+          </dt>
+          <dd>
+            {{demandeDetails.observation}}
+          </dd>
+          <dt *ngIf="demandeDetails.motifRefus !== '' &&  demandeDetails.motifRefus !== null">
+            Motif de refus
+          </dt>
+          <dd *ngIf="demandeDetails.motifRefus !== '' &&  demandeDetails.motifRefus !== null">
+            {{demandeDetails.motifRefus}}
+          </dd>
+          <dd>&nbsp;</dd><dt>&nbsp;</dt>
+          <dt *ngIf="demandeDetails.refuse">
+            Motif de refu
+          </dt>
+          <dd *ngIf="demandeDetails.refuse">
+            <div class="controls">
+              <textarea class="form-control" placeholder="Motif de refus" [ngStyle]="{'border-color':(demandeDetails.isErr )? 'red' : '' }" cols="30" rows="3" style="resize: none" [(ngModel)]="motifRefus"></textarea>
+              <br>
+              <span class="help-inline" style=" color:red;" *ngIf="demandeDetails.isErr ">Veuillez montrer votre motif de refus</span>
+            </div>
+          </dd>
+        </dl>
+        <dl class="dl-horizontal" *ngIf="typeDemande === 'attestation'">
+          <dt>
+            Collaborateur
+          </dt>
+          <dd>
+            {{demandeDetails.collaborateur.nom + ' ' + demandeDetails.collaborateur.prenom }}
+          </dd>
+          <dt>
+            Date de demande
+          </dt>
+          <dd>
+            {{demandeDetails.dateDemande | date : 'dd-MM-yyyy'}}
+          </dd>
+          <dt>
+            Status
+          </dt>
+          <dd>
+            {{demandeDetails.status}}
+          </dd>
+          <dt>
+            Type d'attestation
+          </dt>
+          <dd>
+            {{demandeDetails.typeAttestationEntreprise.nom}}
+          </dd>
+          <dt>
+            Observation
+          </dt>
+          <dd>
+            {{demandeDetails.observation}}
+          </dd>
+          <dt *ngIf="demandeDetails.motifRefus !== '' &&  demandeDetails.motifRefus !== null">
+            Motif de refus
+          </dt>
+          <dd *ngIf="demandeDetails.motifRefus !== '' &&  demandeDetails.motifRefus !== null">
+            {{demandeDetails.motifRefus}}
+          </dd>
+          <dd>&nbsp;</dd><dt>&nbsp;</dt>
+          <dt *ngIf="demandeDetails.refuse">
+            Motif de refu
+          </dt>
+          <dd *ngIf="demandeDetails.refuse">
+            <div class="controls">
+              <textarea class="form-control" placeholder="Motif de refus" [ngStyle]="{'border-color':(demandeDetails.isErr )? 'red' : '' }" cols="30" rows="3" style="resize: none" [(ngModel)]="motifRefus"></textarea>
+              <br>
+              <span class="help-inline" style=" color:red;" *ngIf="demandeDetails.isErr ">Veuillez montrer votre motif de refus</span>
+            </div>
+          </dd>
+        </dl>
+        <dl class="dl-horizontal" *ngIf="typeDemande === 'absence'">
+          <dt>
+            Collaborateur
+          </dt>
+          <dd>
+            {{demandeDetails.collaborateur.nom + ' ' + demandeDetails.collaborateur.prenom }}
+          </dd>
+          <dt>
+            Date de demande
+          </dt>
+          <dd>
+            {{demandeDetails.dateDemande | date : 'dd-MM-yyyy'}}
+          </dd>
+          <dt>
+            Status
+          </dt>
+          <dd>
+            {{demandeDetails.status}}
+          </dd>
+          <dt>
+            Date de début
+          </dt>
+          <dd>
+            {{demandeDetails.dateDebut | date : 'dd-MM-yyyy'}}
+          </dd>
+          <dt>
+            Date de fin
+          </dt>
+          <dd>
+            {{demandeDetails.dateFin | date : 'dd-MM-yyyy'}}
+          </dd>
+          <dt>
+            Exercice
+          </dt>
+          <dd>
+            {{demandeDetails.exercice}}
+          </dd>
+          <dt>
+            Jour Ouvrable
+          </dt>
+          <dd>
+            {{demandeDetails.jourOuvrable}}
+          </dd>
+          <dt>
+            Repos
+          </dt>
+          <dd>
+            {{demandeDetails.repos}}
+          </dd>
+          <dt>
+            Ferier
+          </dt>
+          <dd>
+            {{demandeDetails.feries}}
+          </dd>
+          <dt>
+            Observation
+          </dt>
+          <dd>
+            {{demandeDetails.observation}}
+          </dd>
+          <dt *ngIf="demandeDetails.motifRefus !== '' &&  demandeDetails.motifRefus !== null">
+            Motif de refus
+          </dt>
+          <dd *ngIf="demandeDetails.motifRefus !== '' &&  demandeDetails.motifRefus !== null">
+            {{demandeDetails.motifRefus}}
+          </dd>
+          <dd>&nbsp;</dd><dt>&nbsp;</dt>
+          <dt *ngIf="demandeDetails.refuse">
+            Motif de refu
+          </dt>
+          <dd *ngIf="demandeDetails.refuse">
+            <div class="controls">
+            <textarea class="form-control" placeholder="Motif de refus" [ngStyle]="{'border-color':(demandeDetails.isErr )? 'red' : '' }" cols="30" rows="3" style="resize: none" [(ngModel)]="motifRefus"></textarea>
+              <br>
+              <span class="help-inline" style=" color:red;" *ngIf="demandeDetails.isErr ">Veuillez montrer votre motif de refus</span>
+            </div>
+          </dd>
+
+        </dl>
+      </div>
+      <div class="modal-footer" *ngIf="demandeDetails !== null && (demandeDetails.motifRefus === '' || demandeDetails.motifRefus === null)">
+        <button class="btn btn-success" *ngIf="!demandeDetails.refuse "style="margin: 5px;">Accepter</button>
+        <button class="btn btn-success" *ngIf="demandeDetails.refuse  && demandeDetails.motifRefus === '' || demandeDetails.motifRefus === null" (click)="refuser()" style="margin: 5px;">Valider</button>
+        <button class="btn btn-danger" style="margin: 5px;" *ngIf="!demandeDetails.refuse  " (click)="refuser()">Refuser</button>
+        <button class="btn " style="margin: 5px;" data-dismiss="modal" >Annuler</button>
+      </div>
+      <div class="modal-footer" *ngIf="demandeDetails !== null && (demandeDetails.motifRefus !== '' &&  demandeDetails.motifRefus !== null)">
+        <button class="btn " style="margin: 5px;" data-dismiss="modal" >Fermer</button>
+      </div>
+      </div>
+  </div>
+</div>
 <div class="wrapper" >
   <div class="container" >
     <div class="row">
@@ -185,7 +405,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr *ngFor="let d of demandeAbsence">
+                <tr *ngFor="let d of demandeAbsence" data-toggle="modal" data-target="#myModal" (click)="demandeDetailInit(d)" style="cursor: pointer">
                   <td *ngIf="colonAbs.id">{{d.id}}</td>
                   <td *ngIf="colonAbs.collaborateur">{{d.collaborateur.nom + ' ' + d.collaborateur.prenom }}</td>
                   <td *ngIf="colonAbs.dateDemande">{{d.dateDemande | date : 'dd-MM-yyyy'}}</td>
@@ -217,7 +437,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr *ngFor="let d of demandeAttestation">
+                <tr *ngFor="let d of demandeAttestation" data-toggle="modal" data-target="#myModal" (click)="demandeDetailInit(d)" style="cursor: pointer">
                   <td>{{d.id}}</td>
                   <td>{{d.collaborateur.id}}</td>
                   <td>{{d.dateDemande | date : 'dd-MM-yyyy'}}</td>
@@ -247,7 +467,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr *ngFor="let d of demandeSortie">
+                <tr *ngFor="let d of demandeSortie"  data-toggle="modal" data-target="#myModal" (click)="demandeDetailInit(d)" style="cursor: pointer">
                   <td *ngIf="colonSortie.id">{{d.id}}</td>
                   <td *ngIf="colonSortie.collaborateur">{{d.collaborateur.id}}</td>
                   <td *ngIf="colonSortie.dateDemande">{{d.dateDemande | date : 'dd-MM-yyyy'}}</td>

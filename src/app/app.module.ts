@@ -103,6 +103,8 @@ import {TokenStorageService} from "../service/TokenStorageService";
 import { AdministrateurRoleTestComponent } from './administrateur-role-test/administrateur-role-test.component';
 import { RoleErreurComponent } from './role-erreur/role-erreur.component';
 import {httpInterceptorProviders} from "../service/AuthInterceptor";
+import { RhRoleTestComponent } from './rh-role-test/rh-role-test.component';
+import { ChefServiceRoleTestComponent } from './chef-service-role-test/chef-service-role-test.component';
 
 
 
@@ -149,6 +151,8 @@ import {httpInterceptorProviders} from "../service/AuthInterceptor";
     LoginComponent,
     AdministrateurRoleTestComponent,
     RoleErreurComponent,
+    RhRoleTestComponent,
+    ChefServiceRoleTestComponent,
   ],
   imports: [
 

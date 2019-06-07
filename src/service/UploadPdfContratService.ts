@@ -12,7 +12,7 @@ export class UploadPdfContratService{
     console.log('pdf');
     formdata.append('file', file);
     formdata.append('id' , id);
-    const req = new HttpRequest('POST', this.apiUrl + '/pdfcontrat/post', formdata, {
+    const req = new HttpRequest('POST', this.apiUrl + '/file/pdfcontrat/post', formdata, {
       reportProgress: true,
       responseType: 'text'
     });
@@ -21,6 +21,6 @@ export class UploadPdfContratService{
   }
 
   getFiles(){
-    return this.http.get('/pdfcontrat/getallfiles');
+    return this.http.get(this.apiUrl + '/file/pdfcontrat/getallfiles');
   }
 }
