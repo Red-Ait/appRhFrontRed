@@ -3,6 +3,7 @@ import {LocalStorage} from "@ngx-pwa/local-storage";
 import {CollaborateurService} from "../../service/CollaborateurService";
 import {CategorieService} from "../../service/CategorieService";
 import {NiveauScolaireContactService} from "../../service/NiveauScolaireContactService";
+import {UtilisateurService} from "../../service/UserService";
 
 @Component({
   selector: 'app-add-collaborateur',
@@ -29,8 +30,10 @@ export class AddCollaborateurComponent implements OnInit {
     categorie : true,
     motDePass : true
   };
+  isUsernameExist = false;
   showMdp = false;
   newCollab = {
+    username : '',
     nom : '',
     prenom : '',
     sexe : '',
@@ -53,6 +56,7 @@ export class AddCollaborateurComponent implements OnInit {
   categories = null;
   niveauScolaires = null;
   constructor(
+    private userService: UtilisateurService,
     public localStorage: LocalStorage,
     private categorieService : CategorieService,
     private nivSeervice : NiveauScolaireContactService,
@@ -79,6 +83,7 @@ export class AddCollaborateurComponent implements OnInit {
           nom : '',
           prenom : '',
           sexe : '',
+          username : '',
           civilite : '',
           dateNaissance : null,
           cin : '',
@@ -205,40 +210,57 @@ export class AddCollaborateurComponent implements OnInit {
           this.addCollabOk.niveauScolaire1 = true;
         }
         if (c) {
+          this.newCollab.username = this.newCollab.nom + '.' + this.newCollab.prenom;
           this.localStorage.setItem('newCollab', JSON.stringify(this.newCollab)).subscribe();
           this.localStorage.setItem('step', '3').subscribe();
           this.step = 3;
         }
-        console.log(this.newCollab.permisConduire);
         break;
       case 3 :
         console.log('oo');
-        this.collabService.addCollaborateur(this.newCollab).subscribe(c => {
-          this.step = 4;
-          this.newId = c;
-          this.localStorage.removeItem('step').subscribe();
-          this.localStorage.removeItem('newCollab').subscribe();
-          this.newCollab = {
-            nom : '',
-            prenom : '',
-            sexe : '',
-            civilite : '',
-            dateNaissance : null,
-            cin : '',
-            situationFamiliale : '',
-            matricule : '',
-            numCNSS : '',
-            numCIMR : '',
-            numMutuelle : '',
-            permisConduire : '',
-            compteActive : '',
-            motDePass : '',
-            niveauScolaire1: null,
-            categorie : null
+        this.userService.getUser(this.newCollab.username).subscribe(d => {
+          if(d === null) {
+            this.collabService.addCollaborateur(this.newCollab).subscribe(c => {
+              this.newId = c;
+              this.userService.addUtilisateur({
+                "name": this.newCollab.nom,
+                "role": [
+                  "employe"
+                ],
+                "idContact" : +this.newId.id,
+                "email" : this.newCollab.username + '@apprh.com',
+                "username": this.newCollab.username,
+                "password": this.newCollab.motDePass
+              }).subscribe(d => console.log(d));
+              this.step = 4;
+              this.localStorage.removeItem('step').subscribe();
+              this.localStorage.removeItem('newCollab').subscribe();
+              this.newCollab = {
+                username : '',
+                nom : '',
+                prenom : '',
+                sexe : '',
+                civilite : '',
+                dateNaissance : null,
+                cin : '',
+                situationFamiliale : '',
+                matricule : '',
+                numCNSS : '',
+                numCIMR : '',
+                numMutuelle : '',
+                permisConduire : '',
+                compteActive : '',
+                motDePass : '',
+                niveauScolaire1: null,
+                categorie : null
 
-          };
+              };
+            });
+          } else {
+            this.isUsernameExist = true;
+          }
         });
-        break;
+    break;
     }
 }
 }

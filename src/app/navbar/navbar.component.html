@@ -5,15 +5,14 @@
               <i class="icon-reorder shaded"></i></a><a class="brand" href="index.html">RH </a>
           <div class="nav-collapse collapse navbar-inverse-collapse">
               <ul class="nav pull-right">
-                  <li><a href="#">Support </a></li>
+                  <li><a routerLink="/profil" *ngIf="user !== null">{{user.contact.nom + ' ' + user.contact.prenom + ' (' + user.username + ')'}}</a></li>
                   <li class="nav-user dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">
                       <b class="caret"></b></a>
                       <ul class="dropdown-menu">
-                          <li><a href="#">Your Profile</a></li>
-                          <li><a href="#">Edit Profile</a></li>
-                          <li><a href="#">Account Settings</a></li>
+                          <li><a routerLink="/profil">Mon profile</a></li>
+                          <li><a href="#">Changer mon mot de passe</a></li>
                           <li class="divider"></li>
-                          <li><a style="cursor: pointer" (click)="logOut()">Logout</a></li>
+                          <li><a style="cursor: pointer" (click)="logOut()">Fermer la session</a></li>
                       </ul>
                   </li>
               </ul>

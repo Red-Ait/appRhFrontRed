@@ -32,4 +32,8 @@ export class CollaborateurService {
     return this.http.post(this.apiUrl + '/collaborateur/updateCollaborateur', collaborateur)
       .pipe(map(resp => resp));
   }
+  switchCompteActive(id: number) {
+    return this.http.post(this.apiUrl + '/collaborateur/switchCompteActive', id)
+      .pipe(map(resp => resp));
+  }
 }

@@ -100,6 +100,18 @@
                     </dl>
                   </div>
                 </div>
+
+                <div class="row">
+                  <div class="span2">
+                  </div>
+                  <div class="control-group span4">
+                    <label class="control-label" >Définir un nom d'accès</label>
+                    <div class="controls">
+                      <input type="text"  placeholder="Username" class="span4" [(ngModel)]="newCollab.username" required>
+                      <span class="help-inline" style="color:red;" *ngIf="isUsernameExist">Nom d'acces déja exist !</span>
+                    </div>
+                  </div>
+                </div>
                 <div class="row">
                   <div class="span1"></div>
                   <div class="span1">

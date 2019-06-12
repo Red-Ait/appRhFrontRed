@@ -12,4 +12,9 @@ export class AuthService{
     return this.http.post(this.apiUrl + '/auth/signin', {username: username , password: password})
       .pipe(map(resp => resp));
   }
+  getCurrentUser() {
+    return this.http.get(this.apiUrl + '/auth/user')
+      .pipe(map(resp => resp));
+  }
+
 }

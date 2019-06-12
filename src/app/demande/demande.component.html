@@ -210,7 +210,7 @@
       </div>
       <div class="modal-footer" *ngIf="demandeDetails !== null && (demandeDetails.motifRefus === '' || demandeDetails.motifRefus === null)">
         <button class="btn btn-success" *ngIf="!demandeDetails.refuse "style="margin: 5px;">Accepter</button>
-        <button class="btn btn-success" *ngIf="demandeDetails.refuse  && demandeDetails.motifRefus === '' || demandeDetails.motifRefus === null" (click)="refuser()" style="margin: 5px;">Valider</button>
+        <button class="btn btn-success" *ngIf="demandeDetails.refuse " (click)="refuser()" style="margin: 5px;">Valider</button>
         <button class="btn btn-danger" style="margin: 5px;" *ngIf="!demandeDetails.refuse  " (click)="refuser()">Refuser</button>
         <button class="btn " style="margin: 5px;" data-dismiss="modal" >Annuler</button>
       </div>

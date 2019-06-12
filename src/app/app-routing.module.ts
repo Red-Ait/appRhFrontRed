@@ -84,7 +84,8 @@ const routes: Routes = [
   {path: 'profil2', component: Profil2Component},
   {path: 'add-demande', component: AddDemandeComponent},
   {path: 'login', component: LoginComponent},
-  {path: 'role-erreur', component: RoleErreurComponent}
+  {path: 'role-erreur', component: RoleErreurComponent},
+  {path: 'profil', component: ProfilCollaborateurComponent}
 
 
 ];

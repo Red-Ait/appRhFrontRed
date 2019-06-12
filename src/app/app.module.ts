@@ -105,6 +105,7 @@ import { RoleErreurComponent } from './role-erreur/role-erreur.component';
 import {httpInterceptorProviders} from "../service/AuthInterceptor";
 import { RhRoleTestComponent } from './rh-role-test/rh-role-test.component';
 import { ChefServiceRoleTestComponent } from './chef-service-role-test/chef-service-role-test.component';
+import {UtilisateurService} from "../service/UserService";
 
 
 
@@ -167,6 +168,7 @@ import { ChefServiceRoleTestComponent } from './chef-service-role-test/chef-serv
 
   ],
   providers: [
+    UtilisateurService,
     TypeActiviteService,
     TypeAdresseService,
     TypeAttestationService,

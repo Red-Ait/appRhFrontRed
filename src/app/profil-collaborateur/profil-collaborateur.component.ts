@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {CollaborateurService} from "../../service/CollaborateurService";
 import {TypeAdresseService} from "../../service/TypeAdresseService";
 import {AdresseService} from "../../service/AdresseService";
@@ -41,6 +41,8 @@ import {UploadPhotoCollaborateurService} from "../../service/UploadPhotoCollabor
 import {HttpClient, HttpEventType, HttpResponse} from "@angular/common/http";
 import {UploadPdfAttestationFromationService} from "../../service/UploadPdfAttestationFromationService";
 import {UploadPdfContratService} from "../../service/UploadPdfContratService";
+import {AuthService} from "../../service/AuthService";
+import {TokenStorageService} from "../../service/TokenStorageService";
 
 @Component({
   selector: 'app-profil-collaborateur',
@@ -97,8 +99,8 @@ export class ProfilCollaborateurComponent implements OnInit {
     niveauScolaire: true,
     nomEtablissement: true,
     specialite: true,
-    typeAttestation: true,
-    ville: true
+    typeAttestation: false,
+    ville: false
   };
   newCoordonnesBancaires = {
     agence: '',
@@ -140,15 +142,15 @@ export class ProfilCollaborateurComponent implements OnInit {
     dateDebut: true,
     dateDepart: true,
     dateFin: true,
-    fonction: true,
-    motifDepart: true,
-    motifEntree: true,
-    periodeEssai1: true,
-    periodeEssai2: true,
-    qualification: true,
-    rumeniration: true,
-    statusProfessionnel: true,
-    typeActivite: true,
+    fonction: false,
+    motifDepart: false,
+    motifEntree: false,
+    periodeEssai1: false,
+    periodeEssai2: false,
+    qualification: false,
+    rumeniration: false,
+    statusProfessionnel: false,
+    typeActivite: false,
     typeContrat: true
   };
   newligneGroupes = {
@@ -210,6 +212,7 @@ export class ProfilCollaborateurComponent implements OnInit {
   selectedFormation: FileList;
   selectedContrat: FileList;
   currentFileUpload: File;
+  isRh = false;
   apiUrl = 'http://localhost:8088/file/photocollab/files/';
   progress: { percentage: number } = { percentage: 0 };
   photoProfil = null;
@@ -255,21 +258,42 @@ export class ProfilCollaborateurComponent implements OnInit {
               private periodeDepartementService: PeriodeDepartementService,
               public localStorage: LocalStorage,
               private uploadServ: UploadPhotoCollaborateurService,
-              private route: ActivatedRoute) { }
+              private auth: AuthService,
+              private tokenStorageService: TokenStorageService,
+              private route: ActivatedRoute,
+              private router: Router) { }
 
   ngOnInit() {
+    this.tokenStorageService.getAuthorities().forEach(role => {
+      if(role === 'ROLE_RH') {
+        this.isRh = true;
+      }
+    });
+
     this.sub = this.route.params.subscribe(params => {
       this.collabId = +params['id'];
+
       console.log(this.collabId);
-      this.collaborateurService.getCollaborateurById(this.collabId).subscribe(data => {
-        this.collabInfo = data;
-        this.uploadServ.getByName(this.collabInfo.photo).subscribe(d => {
-          this.photoProfil = d;
-          console.log(d);
+      if(!isNaN(this.collabId ) ) {
+        if(!this.isRh) {
+          this.router.navigate(['/role-erreur']);
+        }
+        this.collaborateurService.getCollaborateurById(this.collabId).subscribe(data => {
+          this.collabInfo = data;
+          console.log(data);
+          this.uploadServ.getByName(this.collabInfo.photo).subscribe(d => {
+            this.photoProfil = d;
+            console.log(d);
+          });
+          console.log(this.collabInfo.photo);
         });
-        console.log(this.collabInfo.photo);
-      });
-    });
+      } else {
+        this.auth.getCurrentUser().subscribe(data => {
+          this.collabInfo = data;
+          this.collabInfo = this.collabInfo.contact;
+        })
+      }
+    }, error1 => console.log('oooooooo'));
     this.localStorage.getItem('colonAdresse').subscribe(r => {
       if (r !== null) {
         this.colonAdresse = JSON.parse(r);
@@ -308,15 +332,17 @@ export class ProfilCollaborateurComponent implements OnInit {
     this.localStorage.setItem('colonAdresse', JSON.stringify(this.colonAdresse)).subscribe();
   }
   initEditCollabInfo() {
-    this.categorieService.allCategories().subscribe(d => {
-      this.categories = d;
-    });
-    this.niveauScolaireContactService.allNiveauScolaireContacts().subscribe(d => {
-      this.niveauScolaireContacts = d;
-    });
-    this.newCollabInfo = this.collabInfo;
-    this.newCollabInfo.dateNaissance = this.formatDate(this.newCollabInfo.dateNaissance);
-    this.isUpdateCollabInfo = true;
+    if (this.isRh) {
+      this.categorieService.allCategories().subscribe(d => {
+        this.categories = d;
+      });
+      this.niveauScolaireContactService.allNiveauScolaireContacts().subscribe(d => {
+        this.niveauScolaireContacts = d;
+      });
+      this.newCollabInfo = this.collabInfo;
+      this.newCollabInfo.dateNaissance = this.formatDate(this.newCollabInfo.dateNaissance);
+      this.isUpdateCollabInfo = true;
+    }
   }
   editCollabInfo() {
     if(this.selectedPhotos) {
@@ -488,106 +514,138 @@ export class ProfilCollaborateurComponent implements OnInit {
     })
   }
   initAddTele() {
-    this.popup = 'tele';
-    this.typeTeleService.allTypeTelephones().subscribe(s => {
-      this.typeTeles = s;
-    });
+    if (this.isRh) {
+
+      this.popup = 'tele';
+      this.typeTeleService.allTypeTelephones().subscribe(s => {
+        this.typeTeles = s;
+      });
+    }
   }
   initAddResSoc() {
-    this.popup = 'ResSoc';
-    this.typeReseauSocialService.allTypeReseauSocials().subscribe(d => {
-      this.typeReseauSocials = d;
-    });
+    if (this.isRh) {
+
+      this.popup = 'ResSoc';
+      this.typeReseauSocialService.allTypeReseauSocials().subscribe(d => {
+        this.typeReseauSocials = d;
+      });
+    }
   }
   initAddPeriodeDep() {
-    this.popup = 'periodeDep';
-    this.typePeriodDepService.allTypePeriodeDepartements().subscribe(data => {
-      this.typePeriodeDepartements = data;
-    });
-    this.departementService.allDepartements().subscribe(d => {
-      this.departements = d;
-      console.log(d);
-    });
+    if (this.isRh) {
+      this.popup = 'periodeDep';
+      this.typePeriodDepService.allTypePeriodeDepartements().subscribe(data => {
+        this.typePeriodeDepartements = data;
+      });
+      this.departementService.allDepartements().subscribe(d => {
+        this.departements = d;
+        console.log(d);
+      });
+    }
 
   }
   initAddGroupe() {
-    this.popup = 'groupe';
-    this.groupeService.allGroupes().subscribe(data => {
-      this.groupes = data;
-    })
+    if (this.isRh) {
+
+      this.popup = 'groupe';
+      this.groupeService.allGroupes().subscribe(data => {
+        this.groupes = data;
+      })
+    }
   }
   initAddAdress() {
-    this.popup = 'Adresse';
-    this.typeAdrsseService.allTypeAdresses().subscribe(data => {
-      this.typesAdresse = data;
-    });
+    if (this.isRh) {
+
+      this.popup = 'Adresse';
+      this.typeAdrsseService.allTypeAdresses().subscribe(data => {
+        this.typesAdresse = data;
+      });
+    }
   }
   initAddLangue() {
-    this.popup = 'langue';
-    this.langueService.allLangues().subscribe(data => {
-      this.langues = data;
-    });
-    this.niveauLangueService.allNiveauLangues().subscribe(data => {
-      this.niveauLangues = data;
-    });
+    if (this.isRh) {
+
+      this.popup = 'langue';
+      this.langueService.allLangues().subscribe(data => {
+        this.langues = data;
+      });
+      this.niveauLangueService.allNiveauLangues().subscribe(data => {
+        this.niveauLangues = data;
+      });
+    }
   }
   initAddAttest() {
-    this.popup = 'Attestation';
-    this.domaineService.allDomaines().subscribe(data => {
-      this.domaines = data;
-      console.log(this.domaines);
-    });
-    this.niveauScolaireAttestationService.allNiveauScolaireAttestations().subscribe(data => {
-      this.niveauScolaireAttestations = data;
-    });
-    this.delivreParService.allDelivrePars().subscribe(data => {
-      this.delivrePar = data;
-    });
-    this.typesAttestaionService.allTypeAttestations().subscribe(data => {
-      this.typesAttestation = data;
-    });
-    this.villeService.allVilles().subscribe(data => {
-      this.villes = data;
-    });
+    if (this.isRh) {
+
+      this.popup = 'Attestation';
+      this.domaineService.allDomaines().subscribe(data => {
+        this.domaines = data;
+        console.log(this.domaines);
+      });
+      this.niveauScolaireAttestationService.allNiveauScolaireAttestations().subscribe(data => {
+        this.niveauScolaireAttestations = data;
+      });
+      this.delivreParService.allDelivrePars().subscribe(data => {
+        this.delivrePar = data;
+      });
+      this.typesAttestaionService.allTypeAttestations().subscribe(data => {
+        this.typesAttestation = data;
+      });
+      this.villeService.allVilles().subscribe(data => {
+        this.villes = data;
+      });
+    }
   }
   initAddContrat() {
-    this.popup = 'contrat';
-    this.fonctionService.allFonctions().subscribe(data => {
-      this.fonctions = data;
-    });
-    this.motifDepartService.allMotifDeparts().subscribe(data => {
-      this.motifDeparts = data;
-    });
-    this.motifEntreeService.allMotifEntrees().subscribe(data => {
-      this.motifEntrees = data;
-    });
-    this.typeActiviteService.allTypeActivites().subscribe(data => {
-      this.typeActivites = data;
-    });
-    this.typeContratService.allTypeContrats().subscribe(data => {
-      this.typeContrats = data;
-    });
-    this.statusProfessionnelService.allStatusProfessionnels().subscribe(data => {
-      this.statusProfessionnels = data;
-    });
+    if (this.isRh) {
+
+      this.popup = 'contrat';
+      this.fonctionService.allFonctions().subscribe(data => {
+        this.fonctions = data;
+      });
+      this.motifDepartService.allMotifDeparts().subscribe(data => {
+        this.motifDeparts = data;
+      });
+      this.motifEntreeService.allMotifEntrees().subscribe(data => {
+        this.motifEntrees = data;
+      });
+      this.typeActiviteService.allTypeActivites().subscribe(data => {
+        this.typeActivites = data;
+      });
+      this.typeContratService.allTypeContrats().subscribe(data => {
+        this.typeContrats = data;
+      });
+      this.statusProfessionnelService.allStatusProfessionnels().subscribe(data => {
+        this.statusProfessionnels = data;
+      });
+    }
   }
   initAddCoord() {
-    this.popup = 'CoordoneeBancaire';
-    this.banqueService.allBanques().subscribe(data => {
-      this.banques = data;
-    });
+    if (this.isRh) {
+
+      this.popup = 'CoordoneeBancaire';
+      this.banqueService.allBanques().subscribe(data => {
+        this.banques = data;
+      });
+    }
   }
   initAddDoc() {
+    if (this.isRh) {
+
       this.popup = 'document';
       this.typeDocumentService.allTypeDocuments().subscribe(data => {
         this.typesDocument = data;
       });
+    }
   }
   initAddEmail() {
-    this.popup = 'email';
-    this.typeEmailService.allTypeEmails().subscribe(data => {
-      this.typeEmails = data;
-    });
+    if (this.isRh) {
+
+      this.popup = 'email';
+      this.typeEmailService.allTypeEmails().subscribe(data => {
+        this.typeEmails = data;
+      });
+    }
   }
 
   selectPhoto(event) {
@@ -601,50 +659,64 @@ export class ProfilCollaborateurComponent implements OnInit {
   }
 
   uploadFormation(id: number) {
-    this.currentFileUpload = this.selectedFormation.item(0);
-    console.log('okk');
-    this.uploadAttesForm.pushFileToStorage(this.currentFileUpload, id.toString()).subscribe(event => {
-      if (event.type === HttpEventType.UploadProgress) {
-        this.progress.percentage = Math.round(100 * event.loaded / event.total);
-      } else if (event instanceof HttpResponse) {
-        console.log('File is completely uploaded!');
-      }
-    })
+    if (this.isRh) {
 
-    this.selectedFormation = undefined
+      this.currentFileUpload = this.selectedFormation.item(0);
+      console.log('okk');
+      this.uploadAttesForm.pushFileToStorage(this.currentFileUpload, id.toString()).subscribe(event => {
+        if (event.type === HttpEventType.UploadProgress) {
+          this.progress.percentage = Math.round(100 * event.loaded / event.total);
+        } else if (event instanceof HttpResponse) {
+          console.log('File is completely uploaded!');
+        }
+      })
+
+      this.selectedFormation = undefined
+    }
   }
   uploadContrat(id: number) {
-    this.currentFileUpload = this.selectedContrat.item(0);
-    console.log('okk');
-    this.uploadContratService.pushFileToStorage(this.currentFileUpload, id.toString()).subscribe(event => {
-      if (event.type === HttpEventType.UploadProgress) {
-        this.progress.percentage = Math.round(100 * event.loaded / event.total);
-      } else if (event instanceof HttpResponse) {
-        console.log('File is completely uploaded!');
-      }
-    })
+    if (this.isRh) {
 
-    this.selectedContrat = undefined
+      this.currentFileUpload = this.selectedContrat.item(0);
+      console.log('okk');
+      this.uploadContratService.pushFileToStorage(this.currentFileUpload, id.toString()).subscribe(event => {
+        if (event.type === HttpEventType.UploadProgress) {
+          this.progress.percentage = Math.round(100 * event.loaded / event.total);
+        } else if (event instanceof HttpResponse) {
+          console.log('File is completely uploaded!');
+        }
+      })
+
+      this.selectedContrat = undefined
+    }
   }
 
   uploadPhoto() {
-    this.progress.percentage = 0;
+    if (this.isRh) {
 
-    this.currentFileUpload = this.selectedPhotos.item(0)
-    this.uploadPhotoCollaborateurService.pushFileToStorage(this.currentFileUpload, this.collabId.toString()).subscribe(event => {
-      if (event.hasOwnProperty('partialText')) {
-        this.aux = event;
-        console.log(this.aux.partialText);
-        this.collabInfo.photo = this.aux.partialText;
-      }
-      if (event.type === HttpEventType.UploadProgress) {
-        this.progress.percentage = Math.round(100 * event.loaded / event.total);
-      } else if (event instanceof HttpResponse) {
-        console.log('File is completely uploaded!');
-      }
-    })
+      this.progress.percentage = 0;
 
-    this.selectedPhotos = undefined
+      this.currentFileUpload = this.selectedPhotos.item(0)
+      this.uploadPhotoCollaborateurService.pushFileToStorage(this.currentFileUpload, this.collabId.toString()).subscribe(event => {
+        if (event.hasOwnProperty('partialText')) {
+          this.aux = event;
+          console.log(this.aux.partialText);
+          this.collabInfo.photo = this.aux.partialText;
+        }
+        if (event.type === HttpEventType.UploadProgress) {
+          this.progress.percentage = Math.round(100 * event.loaded / event.total);
+        } else if (event instanceof HttpResponse) {
+          console.log('File is completely uploaded!');
+        }
+      })
+
+      this.selectedPhotos = undefined
+    }
   }
-
+  desactiver() {
+    this.collaborateurService.switchCompteActive(this.collabId).subscribe(d => {
+      console.log(d);
+      this.collabInfo.compteActive = ! this.collabInfo.compteActive;
+    });
+  }
 }

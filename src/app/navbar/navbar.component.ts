@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {TokenStorageService} from "../../service/TokenStorageService";
 import {Router} from "@angular/router";
+import {AuthService} from "../../service/AuthService";
 
 @Component({
   selector: 'app-navbar',
@@ -9,16 +10,21 @@ import {Router} from "@angular/router";
 })
 export class NavbarComponent implements OnInit {
 
+  user = null;
   constructor(private tokenStorageService: TokenStorageService,
               private router: Router,
+              private auth: AuthService
   ) { }
 
   ngOnInit() {
-    console.log(this.tokenStorageService.getAuthorities());
     if (this.tokenStorageService.getToken() === null) {
       this.router.navigate(['/login']);
+    } else {
+      this.auth.getCurrentUser().subscribe(d => {
+        this.user = d;
+      });
     }
-
+    console.log(this.tokenStorageService.getAuthorities());
   }
   logOut() {
     this.tokenStorageService.signOut();
