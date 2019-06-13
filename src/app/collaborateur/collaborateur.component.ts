@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {CollaborateurService} from "../../service/CollaborateurService";
 import {LocalStorage} from "@ngx-pwa/local-storage";
+import {TokenStorageService} from "../../service/TokenStorageService";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-collaborateur',
@@ -36,11 +38,27 @@ export class CollaborateurComponent implements OnInit {
   page = 0;
   nbPageTotal = 0;
   collaborateur: any = null;
+  isRh = false;
+  isRoot = false;
   constructor(private collaborateurService: CollaborateurService,
               public http: HttpClient,
+              private tokenStorageService: TokenStorageService,
+              private router: Router,
               public localStorage: LocalStorage) { }
 
   ngOnInit() {
+    this.tokenStorageService.getAuthorities().forEach(role => {
+      if (role === 'ROLE_RH') {
+        this.isRh = true;
+      }
+      if (role === 'ROLE_ROOT') {
+        this.isRoot = true;
+      }
+    });
+
+    if(! (this.isRh || this.isRoot)) {
+      this.router.navigate(['/profil']);
+    }
 
     this.search();
 

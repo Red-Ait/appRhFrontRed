@@ -22,6 +22,7 @@ export class NavbarComponent implements OnInit {
     } else {
       this.auth.getCurrentUser().subscribe(d => {
         this.user = d;
+        console.log(d);
       });
     }
     console.log(this.tokenStorageService.getAuthorities());

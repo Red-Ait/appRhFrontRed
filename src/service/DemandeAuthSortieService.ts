@@ -12,6 +12,10 @@ export class DemandeAuthSortieService {
     return this.http.get(this.apiUrl + '/demandeAuthSortie/allDemandeAuthSorties')
       .pipe(map(resp => resp));
   }
+  allDemandeAuthSortiesEmpl(username: string) {
+    return this.http.post(this.apiUrl + '/demandeAuthSortie/employe/allDemandeAuthSorties', username)
+      .pipe(map(resp => resp));
+  }
   addDemandeAuthSortie(demandeAuthSortie: any) {
     return this.http.post(this.apiUrl + '/demandeAuthSortie/addDemandeAuthSortie', demandeAuthSortie)
       .pipe(map(resp => resp));

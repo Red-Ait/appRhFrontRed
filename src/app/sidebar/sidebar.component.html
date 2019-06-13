@@ -1,8 +1,8 @@
           <div class="span3" >
             <div class="sidebar">
               <ul class="widget widget-menu unstyled">
-                <li *ngIf="isRh"><a routerLink="/collaborateur"><i class="menu-icon icon-tasks"></i>Collaborateurs <b class="label orange pull-right">
-                  19</b> </a></li>
+                <li *ngIf="isRh || isRoot"><a routerLink="/collaborateur"><i class="menu-icon icon-tasks"></i>Collaborateurs </a></li>
+                <li *ngIf="isEmploye"><a routerLink="/demande"><i class="menu-icon icon-pencil"></i>Mes demandes </a></li>
                 <li *ngIf="isChefService"><a routerLink="/demande"><i class="menu-icon icon-pencil"></i>Demande </a></li>
               </ul>
               <!--/.widget-nav-->

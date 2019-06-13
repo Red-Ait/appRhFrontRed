@@ -117,6 +117,7 @@ export class ProfilCollaborateurComponent implements OnInit {
     emailType: null,
     observation: '',
   };
+  newRole = '';
   newLangue = {
     langue: null,
     niveauLangue: null
@@ -184,6 +185,7 @@ export class ProfilCollaborateurComponent implements OnInit {
   collabInfo = null;
   addLangueOk = false;
   addResSocOk = false;
+  addRoolOk = false;
   addContratOk = false;
   addAdressOk = false;
   addAttesOk = false;
@@ -211,11 +213,14 @@ export class ProfilCollaborateurComponent implements OnInit {
   selectedPhotos: FileList;
   selectedFormation: FileList;
   selectedContrat: FileList;
+  isRoot = false;
   currentFileUpload: File;
   isRh = false;
   apiUrl = 'http://localhost:8088/file/photocollab/files/';
   progress: { percentage: number } = { percentage: 0 };
   photoProfil = null;
+  roles = null;
+  rolesPage = null;
   constructor(
     private uploadAttesForm: UploadPdfAttestationFromationService,
     private uploadContratService: UploadPdfContratService,
@@ -268,6 +273,10 @@ export class ProfilCollaborateurComponent implements OnInit {
       if(role === 'ROLE_RH') {
         this.isRh = true;
       }
+      if(role === 'ROLE_ROOT') {
+        this.isRoot= true;
+        this.roles = this.tokenStorageService.getAuthorities();
+      }
     });
 
     this.sub = this.route.params.subscribe(params => {
@@ -275,7 +284,7 @@ export class ProfilCollaborateurComponent implements OnInit {
 
       console.log(this.collabId);
       if(!isNaN(this.collabId ) ) {
-        if(!this.isRh) {
+        if(!(this.isRh || this.isRoot)) {
           this.router.navigate(['/role-erreur']);
         }
         this.collaborateurService.getCollaborateurById(this.collabId).subscribe(data => {
@@ -393,6 +402,9 @@ export class ProfilCollaborateurComponent implements OnInit {
       };
 
     });
+  }
+  addRole() {
+    this.roles.push(this.newRole);
   }
   addContrat() {
     this.contratService.addContrat(this.newContrat, this.collabInfo.id).subscribe(data => {
@@ -551,6 +563,17 @@ export class ProfilCollaborateurComponent implements OnInit {
       this.groupeService.allGroupes().subscribe(data => {
         this.groupes = data;
       })
+    }
+  }
+  initAddRole() {
+    if (this.isRoot) {
+
+      this.popup = 'role';
+      this.rolesPage = new Array();
+      this.rolesPage.push('Administrateur');
+      this.rolesPage.push('Employe');
+      this.rolesPage.push('Chef de service');
+      this.rolesPage.push('Responsable RH');
     }
   }
   initAddAdress() {

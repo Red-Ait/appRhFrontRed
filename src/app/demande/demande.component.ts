@@ -5,6 +5,7 @@ import {DemandeAbsenceService} from "../../service/DemandeAbsenceService";
 import {DemandeAttestationService} from "../../service/DemandeAttestationService";
 import {DemandeAuTravService} from "../../service/DemandeAuTravService";
 import {DemandeAuthSortieService} from "../../service/DemandeAuthSortieService";
+import {TokenStorageService} from "../../service/TokenStorageService";
 
 @Component({
   selector: 'app-demande',
@@ -48,28 +49,52 @@ export class DemandeComponent implements OnInit {
   collabs = null;
   typeDemande = 'absence';
   motifRefus = '';
+  isRh = false;
   constructor(
     private collabService: CollaborateurService,
     private demandeService: DemandeService,
     private demandeAbsenceService: DemandeAbsenceService,
+    private tokenStorageService: TokenStorageService,
     private demandeAttestService: DemandeAttestationService,
     private demandeTrvService: DemandeAuTravService,
     private demandeSortService: DemandeAuthSortieService) { }
 
   ngOnInit() {
-    this.demandeAbsenceService.allDemandeAbsences().subscribe(data => {
-      this.demandeAbsence = data;
-      console.log(data);
-    });
-    this.demandeAttestService.allDemandeAttestations().subscribe(data => {
-      this.demandeAttestation = data;
-    });
-    this.demandeSortService.allDemandeAuthSorties().subscribe(dat => {
-      this.demandeSortie = dat;
-    });
-    this.demandeTrvService.allDemandeAuTravs().subscribe(d => {
-      this.demandeTravail = d;
-    });
+        this.tokenStorageService.getAuthorities().forEach(role => {
+          if (role === 'ROLE_RH') {
+            this.isRh = true;
+          }
+        });
+        if ( this.isRh) {
+          this.demandeAbsenceService.allDemandeAbsences().subscribe(data => {
+            this.demandeAbsence = data;
+            console.log(data);
+          });
+          this.demandeAttestService.allDemandeAttestations().subscribe(data => {
+            this.demandeAttestation = data;
+          });
+          this.demandeSortService.allDemandeAuthSorties().subscribe(dat => {
+            this.demandeSortie = dat;
+          });
+          this.demandeTrvService.allDemandeAuTravs().subscribe(d => {
+            this.demandeTravail = d;
+          });
+        } else {
+
+          this.demandeAbsenceService.allDemandeAbsencesEmpl(this.tokenStorageService.getUsername()).subscribe(data => {
+            this.demandeAbsence = data;
+            console.log(data);
+          });
+          this.demandeAttestService.allDemandeAttestationsEmpl(this.tokenStorageService.getUsername()).subscribe(data => {
+            this.demandeAttestation = data;
+          });
+          this.demandeSortService.allDemandeAuthSortiesEmpl(this.tokenStorageService.getUsername()).subscribe(dat => {
+            this.demandeSortie = dat;
+          });
+          this.demandeTrvService.allDemandeAuTravsEmpl(this.tokenStorageService.getUsername()).subscribe(d => {
+            this.demandeTravail = d;
+          });
+        }
     }
     demandeDetailInit(d: any) {
       this.demandeDetails = d;

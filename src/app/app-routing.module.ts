@@ -38,6 +38,7 @@ import {DemandeComponent} from "./demande/demande.component";
 import {AddDemandeComponent} from "./add-demande/add-demande.component";
 import {LoginComponent} from "./login/login.component";
 import {RoleErreurComponent} from "./role-erreur/role-erreur.component";
+import {UpdateMdpComponent} from "./update-mdp/update-mdp.component";
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -85,6 +86,7 @@ const routes: Routes = [
   {path: 'add-demande', component: AddDemandeComponent},
   {path: 'login', component: LoginComponent},
   {path: 'role-erreur', component: RoleErreurComponent},
+  {path: 'update-mdp', component: UpdateMdpComponent},
   {path: 'profil', component: ProfilCollaborateurComponent}
 
 

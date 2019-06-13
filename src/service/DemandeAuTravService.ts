@@ -12,6 +12,10 @@ export class DemandeAuTravService {
     return this.http.get(this.apiUrl + '/demandeAuTrav/allDemandeAuTravs')
       .pipe(map(resp => resp));
   }
+  allDemandeAuTravsEmpl(username: string) {
+    return this.http.post(this.apiUrl + '/demandeAuTrav/employe/allDemandeAuTravs', username)
+      .pipe(map(resp => resp));
+  }
   addDemandeAuTrav(demandeAuTrav: any) {
     return this.http.post(this.apiUrl + '/demandeAuTrav/addDemandeAuTrav', demandeAuTrav)
       .pipe(map(resp => resp));

@@ -8,6 +8,8 @@ import {DemandeAttestationService} from "../../service/DemandeAttestationService
 import {MotifSortieService} from "../../service/MotifSortieService";
 import {DemandeAuthSortieService} from "../../service/DemandeAuthSortieService";
 import {DemandeAuTravService} from "../../service/DemandeAuTravService";
+import {TokenStorageService} from "../../service/TokenStorageService";
+import {AuthService} from "../../service/AuthService";
 
 @Component({
   selector: 'app-add-demande',
@@ -100,6 +102,8 @@ export class AddDemandeComponent implements OnInit {
   typeDemande = 'absence';
   motifAbs = null;
   typeAttestationEntreprise = null;
+  isRh = false;
+  aux : any;
   constructor(private collabService: CollaborateurService,
               private motifAbsService: MotifAbsenceService,
               private motifSortieService: MotifSortieService,
@@ -107,19 +111,32 @@ export class AddDemandeComponent implements OnInit {
               private demandeAttesService: DemandeAttestationService,
               private demandeTravailService: DemandeAuTravService,
               private demandeSortieService: DemandeAuthSortieService,
+              private tokenStorageService: TokenStorageService,
+              private auth: AuthService,
               private typeAttestationEntrepriseService: TypeAttestationEntrepriseService
               ) { }
 
   ngOnInit() {
+    this.tokenStorageService.getAuthorities().forEach(role => {
+      if (role === 'ROLE_RH') {
+        this.isRh = true;
+        this.collabService.allCollaborateurs(null , null).subscribe(d => {
+          this.collabs = d;
+        });
+      }
+    });
     this.motifSortieService.allMotifSorties().subscribe(d => this.motifSortie = d);
     this.motifAbsService.allMotifAbsences().subscribe(d => this.motifAbs = d);
-    this.collabService.allCollaborateurs(null , null).subscribe(d => {
-      this.collabs = d;
-    });
     this.typeAttestationEntrepriseService.allTypeAttestationEntreprises().subscribe(d => this.typeAttestationEntreprise = d);
   }
   addDemandeSortie() {
     let isOk = true;
+    if (!this.isRh && this.newDemandeSortie.collaborateur === null) {
+      this.auth.getCurrentUser().subscribe(d => {
+        this.aux = d;
+        this.newDemandeSortie.collaborateur = this.aux.contact;
+      });
+    }
    if(this.newDemandeSortie.collaborateur === null) {
      this.newDemandeSortieErr.collaborateur = true;
      isOk = false;
@@ -182,6 +199,12 @@ export class AddDemandeComponent implements OnInit {
   }
   addDemandeAbs() {
     let isOk = true;
+    if (!this.isRh && this.newDemandeAbs.collaborateur === null) {
+      this.auth.getCurrentUser().subscribe(d => {
+        this.aux = d;
+        this.newDemandeAbs.collaborateur = this.aux.contact;
+      });
+    }
     if (this.newDemandeAbs.collaborateur === null) {
       this.newDemandeAbsErr.collaborateur = true;
       isOk = false;
@@ -257,6 +280,12 @@ export class AddDemandeComponent implements OnInit {
   }
   addDemandeAttes () {
     let isOk = true;
+    if (!this.isRh && this.newDemandeAttes.collaborateur === null) {
+      this.auth.getCurrentUser().subscribe(d => {
+        this.aux = d;
+        this.newDemandeAttes.collaborateur = this.aux.contact;
+      });
+    }
     if (this.newDemandeAttes.collaborateur === null) {
       this.newDemandeAttesErr.collaborateur = true;
       isOk = false;
@@ -283,6 +312,12 @@ export class AddDemandeComponent implements OnInit {
   }
   addDemandeTravail() {
     let isOk = true;
+    if (!this.isRh && this.newDemandeTravail.collaborateur === null) {
+      this.auth.getCurrentUser().subscribe(d => {
+        this.aux = d;
+        this.newDemandeTravail.collaborateur = this.aux.contact;
+      });
+    }
     if (this.newDemandeTravail.collaborateur === null) {
       this.newDemandeTravailErr.collaborateur = true;
       isOk = false;

@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     if (this.tokenStorageService.getToken()) {
-      this.router.navigate(['/home']);
+      this.router.navigate(['/profil']);
     }
   }
 
@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
       this.tokenStorageService.saveUsername(this.aux.username);
       this.tokenStorageService.saveAuthorities(this.aux.authorities);
 
-      this.router.navigate(['/home']);
+      this.router.navigate(['/profil']);
     }, error1 => {
       this.errForm = true;
     });

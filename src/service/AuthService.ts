@@ -16,5 +16,8 @@ export class AuthService{
     return this.http.get(this.apiUrl + '/auth/user')
       .pipe(map(resp => resp));
   }
-
+  updateMdp (username: string, password: string) {
+    return this.http.post(this.apiUrl + '/utilisateur/updateMdp', {username: username , password: password})
+      .pipe(map(resp => resp));
+  }
 }

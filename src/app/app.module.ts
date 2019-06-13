@@ -106,6 +106,7 @@ import {httpInterceptorProviders} from "../service/AuthInterceptor";
 import { RhRoleTestComponent } from './rh-role-test/rh-role-test.component';
 import { ChefServiceRoleTestComponent } from './chef-service-role-test/chef-service-role-test.component';
 import {UtilisateurService} from "../service/UserService";
+import { UpdateMdpComponent } from './update-mdp/update-mdp.component';
 
 
 
@@ -154,6 +155,7 @@ import {UtilisateurService} from "../service/UserService";
     RoleErreurComponent,
     RhRoleTestComponent,
     ChefServiceRoleTestComponent,
+    UpdateMdpComponent,
   ],
   imports: [
 

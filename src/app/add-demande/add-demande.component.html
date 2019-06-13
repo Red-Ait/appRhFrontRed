@@ -1,4 +1,4 @@
-<app-chef-service-role-test></app-chef-service-role-test>
+
 <app-navbar></app-navbar>
 <div class="wrapper" >
   <div class="container" >
@@ -32,7 +32,7 @@
             </div>
             <div class="module-body" *ngIf="!addOk">
               <div class="row">
-                <div class="form-group span8">
+                <div class="form-group span8" *ngIf="isRh">
                   <label >Collaborateur</label>
                   <div class="controls" *ngIf="typeDemande === 'travail'">
                     <select class="form-control" style="width: 100%;" [(ngModel)]="newDemandeTravail.collaborateur" [ngStyle]="{'border-color':newDemandeTravailErr.collaborateur ? 'red' : '' }">

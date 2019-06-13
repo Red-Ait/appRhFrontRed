@@ -12,6 +12,10 @@ export class DemandeAbsenceService {
     return this.http.get(this.apiUrl + '/demandeAbsence/allDemandeAbsences')
       .pipe(map(resp => resp));
   }
+  allDemandeAbsencesEmpl(username: string) {
+    return this.http.post(this.apiUrl + '/demandeAbsence/employe/allDemandeAbsences', username)
+      .pipe(map(resp => resp));
+  }
   addDemandeAbsence(demandeAbsence: any) {
     return this.http.post(this.apiUrl + '/demandeAbsence/addDemandeAbsence', demandeAbsence)
       .pipe(map(resp => resp));

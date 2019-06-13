@@ -11,11 +11,16 @@ export class SidebarComponent implements OnInit {
   isAdministrateur = false;
   isRh = false;
   isChefService = false;
+  isEmploye = false;
+  isRoot = false;
   constructor(private tokenStorageService: TokenStorageService,
   ) { }
 
   ngOnInit() {
     this.tokenStorageService.getAuthorities().forEach(role => {
+      if(role === 'ROLE_ROOT') {
+        this.isRoot= true;
+      }
       if(role === 'ROLE_ADMINISTRATEUR') {
         this.isAdministrateur = true;
       }
@@ -24,6 +29,9 @@ export class SidebarComponent implements OnInit {
       }
       if(role === 'ROLE_CHEF_SERVICE') {
         this.isChefService = true;
+      }
+      if(role === 'ROLE_EMPLOYE') {
+        this.isEmploye = true;
       }
     });
 

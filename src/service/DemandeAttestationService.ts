@@ -12,6 +12,10 @@ export class DemandeAttestationService {
     return this.http.get(this.apiUrl + '/demandeAttestation/allDemandeAttestations')
       .pipe(map(resp => resp));
   }
+  allDemandeAttestationsEmpl(username: string) {
+    return this.http.post(this.apiUrl + '/demandeAttestation/employe/allDemandeAttestations', username)
+      .pipe(map(resp => resp));
+  }
   addDemandeAttestation(demandeAttestation: any) {
     return this.http.post(this.apiUrl + '/demandeAttestation/addDemandeAttestation', demandeAttestation)
       .pipe(map(resp => resp));
