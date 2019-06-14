@@ -49,7 +49,7 @@ export class DemandeComponent implements OnInit {
   collabs = null;
   typeDemande = 'absence';
   motifRefus = '';
-  isRh = false;
+  isChef = false;
   constructor(
     private collabService: CollaborateurService,
     private demandeService: DemandeService,
@@ -61,11 +61,11 @@ export class DemandeComponent implements OnInit {
 
   ngOnInit() {
         this.tokenStorageService.getAuthorities().forEach(role => {
-          if (role === 'ROLE_RH') {
-            this.isRh = true;
+          if (role === 'ROLE_CHEF_SERVICE') {
+            this.isChef = true;
           }
         });
-        if ( this.isRh) {
+        if ( this.isChef) {
           this.demandeAbsenceService.allDemandeAbsences().subscribe(data => {
             this.demandeAbsence = data;
             console.log(data);

@@ -137,29 +137,6 @@
       </div>
     </div>
   </div>
-  <div class="modal-dialog" *ngIf="popup === 'role'">
-    <div class="modal-content" >
-      <div class="modal-header" >
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Ajouter un role</h4>
-      </div>
-      <div class="modal-body" *ngIf="addRoleOk ">
-        <h3>Role bien ajouté !</h3>
-      </div>
-      <div class="modal-body" *ngIf="!addRoleOk ">
-        <div class="form-group span3">
-          <label > Role</label>
-          <select class="form-control" style="width: 90%;" [(ngModel)]="newRole">
-            <option *ngFor="let t of rolesPage"  [ngValue]="t">{{t}}</option>
-          </select>
-        </div>
-      </div>
-      <div class="modal-footer" >
-        <button type="button" *ngIf="!addRoleOk " class="btn btn-success"  (click)="addRole()" style="margin-right: 15px">Valider</button>
-        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="addRoleOk = false">Close</button>
-      </div>
-    </div>
-  </div>
   <div class="modal-dialog" *ngIf="popup === 'langue'">
     <div class="modal-content" >
       <div class="modal-header" >
@@ -534,13 +511,6 @@
                 </div>
                 <div class="span4">
                   <br><br><br>
-                  <div *ngIf="currentFileUpload" class="progress">
-                    <div class="progress-bar progress-bar-info progress-bar-striped"
-                         role="progressbar" attr.aria-valuenow="{{progress.percentage}}"
-                         aria-valuemin="0" aria-valuemax="100"
-                         [ngStyle]="{width:progress.percentage+'%'}">
-                      {{progress.percentage}}%</div>
-                  </div>
 
                   <label class="btn btn-default">
                     <input type="file" (change)="selectPhoto($event)" accept="image/*">
@@ -548,8 +518,8 @@
                 </div>
               </div>
               <div class="span2" *ngIf="!isUpdateCollabInfo && collabInfo !== null">
-                  <img *ngIf="photoProfil !== null" [src]="photoProfil" style="border-radius: 50%; border: 1px solid black; width: 100%; margin: 5px" alt="">
-                  <img *ngIf="photoProfil === null " src="../../assets/user.png" style="border-radius: 50%; border: 1px solid black; margin: 5px" alt="">
+                <img *ngIf="collabInfo.photo !== null" src="{{apiUrl + collabInfo.photo}}" style="border-radius: 50%; border: 1px solid black; width: 100%; margin: 5px" alt="">
+                <img *ngIf="collabInfo.photo === null " src="../../assets/user.png" style="border-radius: 50%; border: 1px solid black; margin: 5px" alt="">
               </div>
 
             </div>
@@ -1258,16 +1228,22 @@
                       <i class="icon-chevron-down pull-right"></i><i class="icon-chevron-up pull-right">
                     </i>Groupes</a>
                       <ul id="toggleAct2" class="collapse unstyled" >
-                        <li *ngFor="let g of collabInfo.ligneGroupes"><a href="#"><i class="icon-inbox"></i>{{g.groupe.nom}}</a></li>
-                        <li ><a  data-toggle="modal" data-target="#myModal" (click)="initAddGroupe()"  *ngIf="isRh"><i class="icon-plus"></i>Ajouter</a></li>
+                        <li *ngFor="let g of collabInfo.ligneGroupes"><a ><i class="icon-inbox"></i>{{g.groupe.nom}}</a></li>
+                        <li *ngIf="isRh "><a  data-toggle="modal" data-target="#myModal" (click)="initAddGroupe()"  *ngIf="isRh"><i class="icon-plus"></i>Ajouter</a></li>
                       </ul>
                     </li>
                     <li *ngIf="isRoot"><a class="collapsed" data-toggle="collapse" href="#toggleAct">
                       <i class="icon-chevron-down pull-right"></i><i class="icon-chevron-up pull-right">
                     </i>Roles</a>
                       <ul id="toggleAct" class="collapse unstyled" >
-                        <li *ngFor="let r of roles"><a href="#">{{r}}</a></li>
-                        <li ><a  data-toggle="modal" data-target="#myModal" (click)="initAddRole()"  ><i class="icon-plus"></i>Ajouter</a></li>
+                        <li *ngFor="let r of roles"><a >{{r}}</a></li>
+                        <li *ngIf="isAddRole">
+                            <select class="form-control" style="width: 90%;" [(ngModel)]="newRole">
+                              <option *ngFor="let t of rolesPage"  [ngValue]="t">{{t}}</option>
+                            </select>
+                        </li>
+                        <li *ngIf="isRoot && !isAddRole"><a  data-toggle="modal" data-target="#myModal" (click)="initAddRole()" ><i class="icon-plus"></i>Ajouter</a></li>
+                        <li *ngIf="isRoot && isAddRole"><a  data-toggle="modal" data-target="#myModal" (click)="addRole()" ><i class="icon-plus"></i>Valider</a></li>
                       </ul>
                     </li>
                   </ul>

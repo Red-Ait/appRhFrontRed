@@ -20,5 +20,12 @@ export class UtilisateurService {
     return this.http.post(this.apiUrl + '/utilisateur/getUtilisateur', username)
       .pipe(map(resp => resp));
   }
-
+  getUserByCollabId(id : number) {
+    return this.http.post(this.apiUrl + '/utilisateur/getUserByCollabId', id)
+      .pipe(map(resp => resp));
+  }
+  addRole(id : number, role: string) {
+    return this.http.post(this.apiUrl + '/utilisateur/'+ id +'/addRole', role)
+      .pipe(map(resp => resp));
+  }
 }

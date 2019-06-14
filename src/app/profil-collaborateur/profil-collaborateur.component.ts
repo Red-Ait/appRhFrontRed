@@ -43,6 +43,7 @@ import {UploadPdfAttestationFromationService} from "../../service/UploadPdfAttes
 import {UploadPdfContratService} from "../../service/UploadPdfContratService";
 import {AuthService} from "../../service/AuthService";
 import {TokenStorageService} from "../../service/TokenStorageService";
+import {UtilisateurService} from "../../service/UserService";
 
 @Component({
   selector: 'app-profil-collaborateur',
@@ -220,6 +221,7 @@ export class ProfilCollaborateurComponent implements OnInit {
   progress: { percentage: number } = { percentage: 0 };
   photoProfil = null;
   roles = null;
+  isAddRole = false;
   rolesPage = null;
   constructor(
     private uploadAttesForm: UploadPdfAttestationFromationService,
@@ -264,6 +266,7 @@ export class ProfilCollaborateurComponent implements OnInit {
               public localStorage: LocalStorage,
               private uploadServ: UploadPhotoCollaborateurService,
               private auth: AuthService,
+              private userService: UtilisateurService,
               private tokenStorageService: TokenStorageService,
               private route: ActivatedRoute,
               private router: Router) { }
@@ -275,7 +278,6 @@ export class ProfilCollaborateurComponent implements OnInit {
       }
       if(role === 'ROLE_ROOT') {
         this.isRoot= true;
-        this.roles = this.tokenStorageService.getAuthorities();
       }
     });
 
@@ -289,10 +291,12 @@ export class ProfilCollaborateurComponent implements OnInit {
         }
         this.collaborateurService.getCollaborateurById(this.collabId).subscribe(data => {
           this.collabInfo = data;
-          console.log(data);
-          this.uploadServ.getByName(this.collabInfo.photo).subscribe(d => {
-            this.photoProfil = d;
-            console.log(d);
+          this.userService.getUserByCollabId(this.collabId).subscribe(d => {
+            this.aux = d;
+            this.roles = new Array();
+            this.aux.roles.forEach(r => {
+              this.roles.push(r.name);
+            });
           });
           console.log(this.collabInfo.photo);
         });
@@ -300,6 +304,7 @@ export class ProfilCollaborateurComponent implements OnInit {
         this.auth.getCurrentUser().subscribe(data => {
           this.collabInfo = data;
           this.collabInfo = this.collabInfo.contact;
+          this.roles = this.tokenStorageService.getAuthorities();
         })
       }
     }, error1 => console.log('oooooooo'));
@@ -404,7 +409,10 @@ export class ProfilCollaborateurComponent implements OnInit {
     });
   }
   addRole() {
-    this.roles.push(this.newRole);
+    this.userService.addRole(this.collabId, this.newRole).subscribe(d => {
+      this.isAddRole = false;
+      this.roles.push(this.newRole);
+    });
   }
   addContrat() {
     this.contratService.addContrat(this.newContrat, this.collabInfo.id).subscribe(data => {
@@ -567,11 +575,11 @@ export class ProfilCollaborateurComponent implements OnInit {
   }
   initAddRole() {
     if (this.isRoot) {
-
+      this.isAddRole = true;
       this.popup = 'role';
       this.rolesPage = new Array();
       this.rolesPage.push('Administrateur');
-      this.rolesPage.push('Employe');
+      this.rolesPage.push('Collaborateur');
       this.rolesPage.push('Chef de service');
       this.rolesPage.push('Responsable RH');
     }
